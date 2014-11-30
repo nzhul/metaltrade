@@ -19,7 +19,10 @@ namespace Application.Web
         private static void RegisterStyleBundles(BundleCollection bundles)
         {
             bundles.Add(new StyleBundle("~/Content/css").Include(
-          "~/Content/bootstrap.css",
+          "~/Content/spice-shopee/css/bootstrap.min.css",
+          "~/Content/spice-shopee/font-awesome/css/font-awesome.min.css",
+          "~/Content/spice-shopee/css/style.css",
+          "~/Content/spice-shopee/css/responsive.css",
           "~/Content/site.css"));
         }
 
@@ -37,6 +40,21 @@ namespace Application.Web
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/spice-shopee").Include(
+                      "~/Content/spice-shopee/js/jquery-1.11.1.min.js",
+                      "~/Content/spice-shopee/js/jquery-migrate-1.2.1.min.js",
+                      "~/Content/spice-shopee/js/bootstrap.min.js",
+                      "~/Content/spice-shopee/js/bootstrap-hover-dropdown.min.js",
+                      "~/Content/spice-shopee/js/jquery.magnific-popup.min.js",
+                      "~/Content/spice-shopee/js/custom.js"));
+
+            //<script src="Content/spice-shopee/js/jquery-1.11.1.min.js"></script>
+            //<script src="Content/spice-shopee/js/jquery-migrate-1.2.1.min.js"></script>
+            //<script src="Content/spice-shopee/js/bootstrap.min.js"></script>
+            //<script src="Content/spice-shopee/js/bootstrap-hover-dropdown.min.js"></script>
+            //<script src="Content/spice-shopee/js/jquery.magnific-popup.min.js"></script>
+            //<script src="Content/spice-shopee/js/custom.js"></script>
         }
     }
 }

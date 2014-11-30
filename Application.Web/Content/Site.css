@@ -1,6 +1,4 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -19,4 +17,19 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+
+/* Index styles */
+
+.product-col .caption{
+	padding: 0 0;
+}
+
+.product-col img {
+    width: 100%;
+}
+.product-col .description {
+    margin-top: -10px;
+    text-align:left;
 }

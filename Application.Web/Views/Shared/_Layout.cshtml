@@ -1,55 +1,300 @@
-﻿<!DOCTYPE html>
-<html>
+﻿<!doctype html>
+<html lang="en">
+
 <head>
-    <meta charset="utf-8" />
+
+    <meta charset="utf-8">
+    <!--[if IE]>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Метал Трейд</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+
+
+
+    <!-- Google Web Fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400italic,700italic,400,300,700" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- CSS Files -->
+
+
+    <!--[if lt IE 9]>
+        <script src="js/ie8-responsive-file-warning.js"></script>
+    <![endif]-->
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="Content/spice-shopee/images/fav-144.html">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="Content/spice-shopee/images/fav-114.html">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="Content/spice-shopee/images/fav-72.html">
+    <link rel="apple-touch-icon-precomposed" href="Content/spice-shopee/images/fav-57.html">
+    <link rel="shortcut icon" href="Content/spice-shopee/images/fav.html">
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Метал Трейд", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Продукти <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li class="divider"></li>
-                            <li class="dropdown-header">Dropdown header</li>
-                            <li><a href="#">Separated link</a></li>
-                            <li><a href="#">One more separated link</a></li>
-                        </ul>
-                    </li>
-                    <li>@Html.ActionLink("За Нас", "About", "Home")</li>
-                    <li>@Html.ActionLink("Контакти", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
+    <!-- Header Section Starts -->
+    <header id="header-area">
+        <!-- Header Top Starts -->
+        <div class="header-top">
+            <div class="container">
+                <!-- Header Links Starts -->
+                <div class="col-md-12">
+                    <div class="header-links">
+                        @using Microsoft.AspNet.Identity
+                        @if (Request.IsAuthenticated)
+                        {
+                            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li><a href="#" class="fa fa-facebook-square"> Facebook</a></li>
+                                    <li><a href="#" class="fa fa-twitter-square"> Twitter</a></li>
+                                    <li><a href="#" class="fa fa-google-plus-square"> Goolge+</a></li>
+                                    <li>
+                                        @Html.ActionLink("Здравей " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                                    </li>
+                                    <li><a href="javascript:document.getElementById('logoutForm').submit()">Излез</a></li>
+                                </ul>
+                            }
+                        }
+                        else
+                        {
+                            <ul class="nav navbar-nav pull-right">
+                                <li><a href="#" class="fa fa-facebook-square"> Facebook</a></li>
+                                <li><a href="#" class="fa fa-twitter-square"> Twitter</a></li>
+                                <li><a href="#" class="fa fa-google-plus-square"> Goolge+</a></li>
+                                <li>
+                                    @Html.ActionLink(" Регистрация", "Register", "Account", new { area = "" }, new { @class = "fa fa-unlock" })
+                                </li>
+                                <li>
+                                    @Html.ActionLink(" Влез", "Login", "Account", new { area = "" }, new { @class = "fa fa-lock" })
+                                </li>
+                            </ul>
+                        }
+
+                    </div>
+                </div>
+                <!-- Header Links Ends -->
             </div>
         </div>
+        <!-- Header Top Ends -->
+        <!-- Starts -->
+        <div class="container">
+            <!-- Main Header Starts -->
+            <div class="main-header">
+                <div class="row">
+                    <!-- Logo Starts -->
+                    <div class="col-md-9">
+                        <div id="logo">
+                            <a href="/"><img src="~../../../../Content/images/logo.jpg" title="Spice Shoppe" alt="Spice Shoppe" class="img-responsive" /></a>
+                        </div>
+                    </div>
+                    <!-- Logo Starts -->
+                    <!-- Search Starts -->
+                    <div class="col-md-3">
+                        <div id="search">
+                            <div class="input-group">
+                                <input type="text" class="form-control input-lg" placeholder="Search">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-lg" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Search Ends -->
+                </div>
+            </div>
+            <!-- Main Header Ends -->
+            <!-- Main Menu Starts -->
+            <nav id="main-menu" class="navbar" role="navigation">
+                <!-- Nav Header Starts -->
+                <div class="navbar-header">
+                    <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-cat-collapse">
+                        <span class="sr-only">Toggle Navigation</span>
+                        <i class="fa fa-bars"></i>
+                    </button>
+                </div>
+                <!-- Nav Header Ends -->
+                <!-- Navbar Cat collapse Starts -->
+                <div class="collapse navbar-collapse navbar-cat-collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Начало", "Index", "Home")</li>
+                        <li class="dropdown">
+                            <a href="category-list.html" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="10">
+                                Услуги
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a tabindex="-1" href="#">Red Chilly</a></li>
+                                <li><a tabindex="-1" href="#">Green Chilly</a></li>
+                                <li><a tabindex="-1" href="#">Italian Chilly</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="category-list.html" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="10">Продукти</a>
+                            <div class="dropdown-menu">
+                                <div class="dropdown-inner">
+                                    <ul class="list-unstyled">
+                                        <li class="dropdown-header">Sub Category</li>
+                                        <li><a tabindex="-1" href="#">item 1</a></li>
+                                        <li><a tabindex="-1" href="#">item 2</a></li>
+                                        <li><a tabindex="-1" href="#">item 3</a></li>
+                                    </ul>
+                                    <ul class="list-unstyled">
+                                        <li class="dropdown-header">Sub Category</li>
+                                        <li><a tabindex="-1" href="#">item 1</a></li>
+                                        <li><a tabindex="-1" href="#">item 2</a></li>
+                                        <li><a tabindex="-1" href="#">item 3</a></li>
+                                    </ul>
+                                    <ul class="list-unstyled">
+                                        <li class="dropdown-header">Sub Category</li>
+                                        <li><a tabindex="-1" href="#">item 1</a></li>
+                                        <li><a tabindex="-1" href="#">item 2</a></li>
+                                        <li><a tabindex="-1" href="#">item 3</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li>@Html.ActionLink("За Нас", "About", "Home")</li>
+                        <li>
+                            @Html.ActionLink(" Контакти", "Contact", "Home")
+                        </li>
+                    </ul>
+                </div>
+                <!-- Navbar Cat collapse Ends -->
+            </nav>
+            <!-- Main Menu Ends -->
+        </div>
+        <!-- Ends -->
+    </header>
+    <!-- Header Section Ends -->
+    <div id="main-container" class="container">
+        <div class="row">
+            @RenderBody()
+        </div>
     </div>
-    <div class="container-fluid body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+            <!-- Footer Section Starts -->
+            <footer id="footer-area">
+                <!-- Footer Links Starts -->
+                <div class="footer-links">
+                    <!-- Container Starts -->
+                    <div class="container">
+                        <!-- Information Links Starts -->
+                        <div class="col-md-2 col-sm-6">
+                            <h5>Information</h5>
+                            <ul>
+                                <li><a href="about.html">About Us</a></li>
+                                <li><a href="#">Delivery Information</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">Terms &amp; Conditions</a></li>
+                            </ul>
+                        </div>
+                        <!-- Information Links Ends -->
+                        <!-- My Account Links Starts -->
+                        <div class="col-md-2 col-sm-6">
+                            <h5>My Account</h5>
+                            <ul>
+                                <li><a href="#">My orders</a></li>
+                                <li><a href="#">My merchandise returns</a></li>
+                                <li><a href="#">My credit slips</a></li>
+                                <li><a href="#">My addresses</a></li>
+                                <li><a href="#">My personal info</a></li>
+                            </ul>
+                        </div>
+                        <!-- My Account Links Ends -->
+                        <!-- Customer Service Links Starts -->
+                        <div class="col-md-2 col-sm-6">
+                            <h5>Service</h5>
+                            <ul>
+                                <li><a href="contact.html">Contact Us</a></li>
+                                <li><a href="#">Returns</a></li>
+                                <li><a href="#">Site Map</a></li>
+                                <li><a href="#">Affiliates</a></li>
+                                <li><a href="#">Specials</a></li>
+                            </ul>
+                        </div>
+                        <!-- Customer Service Links Ends -->
+                        <!-- Follow Us Links Starts -->
+                        <div class="col-md-2 col-sm-6">
+                            <h5>Follow Us</h5>
+                            <ul>
+                                <li><a href="#">Facebook</a></li>
+                                <li><a href="#">Twitter</a></li>
+                                <li><a href="#">RSS</a></li>
+                                <li><a href="#">YouTube</a></li>
+                            </ul>
+                        </div>
+                        <!-- Follow Us Links Ends -->
+                        <!-- Contact Us Starts -->
+                        <div class="col-md-4 col-sm-12 last">
+                            <h5>Contact Us</h5>
+                            <ul>
+                                <li>My Company</li>
+                                <li>
+                                    1247 LB Nagar Road, Hyderabad, Telangana - 35
+                                </li>
+                                <li>
+                                    Email: <a href="#">info@demolink.com</a>
+                                </li>
+                            </ul>
+                            <h4 class="lead">
+                                Tel: <span>1(234) 567-9842</span>
+                            </h4>
+                        </div>
+                        <!-- Contact Us Ends -->
+                    </div>
+                    <!-- Container Ends -->
+                </div>
+                <!-- Footer Links Ends -->
+                <!-- Copyright Area Starts -->
+                <div class="copyright">
+                    <!-- Container Starts -->
+                    <div class="container">
+                        <!-- Starts -->
+                        <p class="pull-left">
+                            &nbsp; 2014 Spice Shoppe Stores. Bootstrap Layout All Rights Reserved. Designed By <a href="http://sainathchillapuram.com/">Sainath Chillapuram</a>
+                        </p>
+                        <!-- Ends -->
+                        <!-- Payment Gateway Links Starts -->
+                        <ul class="pull-right list-inline">
+                            <li>
+                                <img src="Content/spice-shopee/images/payment-icon/cirrus.png" alt="PaymentGateway" />
+                            </li>
+                            <li>
+                                <img src="Content/spice-shopee/images/payment-icon/paypal.png" alt="PaymentGateway" />
+                            </li>
+                            <li>
+                                <img src="Content/spice-shopee/images/payment-icon/visa.png" alt="PaymentGateway" />
+                            </li>
+                            <li>
+                                <img src="Content/spice-shopee/images/payment-icon/mastercard.png" alt="PaymentGateway" />
+                            </li>
+                            <li>
+                                <img src="Content/spice-shopee/images/payment-icon/americanexpress.png" alt="PaymentGateway" />
+                            </li>
+                        </ul>
+                        <!-- Payment Gateway Links Ends -->
+                    </div>
+                    <!-- Container Ends -->
+                </div>
+                <!-- Copyright Area Ends -->
+            </footer>
+            <!-- Footer Section Ends -->
+            <!-- JavaScript Files -->
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+
+            @Scripts.Render("~/bundles/spice-shopee")
+            @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -2,161 +2,240 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>Slider</h1>
+<div class="col-md-12">
+    <ol class="breadcrumb">
+        <li><a href="/">Начало</a></li>
+        <li class="active">About Us</li>
+    </ol>
 </div>
 <div class="row">
-    <div class="col-md-12">
-        <hr />
-        <ul class="breadcrumb">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Library</a></li>
-            <li class="active">Data</li>
-        </ul>
-        <hr />
-    </div>
+    @*@Html.Partial("Home/_Slider")*@
 </div>
-<div class="row">
-    <div class="col-md-2">
-        <h2>Categories</h2>
-        <div class="list-group">
-            <a href="#" class="list-group-item">
-                Category 1
-            </a>
-            <a href="#" class="list-group-item">
-                Category 2
-            </a>
-            <a href="#" class="list-group-item">
-                Category 3
-            </a>
-        </div>
-    </div>
-    <div class="col-md-10">
-        <h2>Featured Products</h2>
-        <div class="row">
-            <div class="col-md-3">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Panel primary</h3>
-                    </div>
-                    <div class="panel-body">
-                        Panel content
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Panel primary</h3>
-                    </div>
-                    <div class="panel-body">
-                        Panel content
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Panel primary</h3>
-                    </div>
-                    <div class="panel-body">
-                        Panel content
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Panel primary</h3>
-                    </div>
-                    <div class="panel-body">
-                        Panel content
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <h3 class="side-heading">Категории:</h3>
 
-        <div class="row">
-            <div class="col-md-3">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Panel primary</h3>
+            <div id="menu">
+                <div class="list-group">
+                    <a class="list-group-item" data-toggle="collapse" data-target="#sm" data-parent="#menu">Стоманени въжета <span class="glyphicon glyphicon-th-large pull-right"></span></a>
+                    <div id="sm" class="sublinks collapse">
+                        <a class="list-group-item small"><span class="glyphicon glyphicon-chevron-right"></span> С общо предназначение</a>
+                        <a class="list-group-item small"><span class="glyphicon glyphicon-chevron-right"></span> За пренапрегнати конструкции</a>
                     </div>
-                    <div class="panel-body">
-                        Panel content
+                    <a  class="list-group-item" data-toggle="collapse" data-target="#sl" data-parent="#menu">Сапани <span class="glyphicon glyphicon-th-large pull-right"></span></a>
+                    <div id="sl" class="sublinks collapse">
+                        <a class="list-group-item small"><span class="glyphicon glyphicon-chevron-right"></span> Сапани от стоманени въжета</a>
+                        <a class="list-group-item small"><span class="glyphicon glyphicon-chevron-right"></span> Сапани от полиестерна тъкан</a>
+                        <a class="list-group-item small"><span class="glyphicon glyphicon-chevron-right"></span> Верижни сапани</a>
                     </div>
+                    <a  class="list-group-item">ANOTHER LINK ...</a>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Panel primary</h3>
-                    </div>
-                    <div class="panel-body">
-                        Panel content
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Panel primary</h3>
-                    </div>
-                    <div class="panel-body">
-                        Panel content
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Panel primary</h3>
-                    </div>
-                    <div class="panel-body">
-                        Panel content
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-3">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Panel primary</h3>
+            @*<div id="menu">
+                <div class="list-group">
+                    <a class="list-group-item" data-toggle="collapse" data-target="#sm" data-parent="#menu">MESSAGES <span class="label label-info">5</span> <span class="glyphicon glyphicon-envelope pull-right"></span></a>
+                    <div id="sm" class="sublinks collapse">
+                        <a class="list-group-item small"><span class="glyphicon glyphicon-chevron-right"></span> inbox</a>
+                        <a class="list-group-item small"><span class="glyphicon glyphicon-chevron-right"></span> sent</a>
                     </div>
-                    <div class="panel-body">
-                        Panel content
+                    <a class="list-group-item" data-toggle="collapse" data-target="#sl" data-parent="#menu">TASKS <span class="glyphicon glyphicon-tag pull-right"></span></a>
+                    <div id="sl" class="sublinks collapse">
+                        <a class="list-group-item small"><span class="glyphicon glyphicon-chevron-right"></span> saved tasks</a>
+                        <a class="list-group-item small"><span class="glyphicon glyphicon-chevron-right"></span> add new task</a>
+                    </div>
+                    <a class="list-group-item">ANOTHER LINK ...<span class="glyphicon glyphicon-stats pull-right"></span></a>
+                </div>
+            </div>*@
+        </div>
+        <div class="col-md-9">
+            <h3 class="side-heading">Най-популярни продукти:</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="product-col">
+                        <img src="Content/images/product-thumbnail-placeholder.jpg" class="image" alt="Alternate Text" />
+                        <div class="caption">
+                            <h4><a href="product.html"> Лентови полиестерни сапани</a></h4>
+                            <div class="description">
+                                Видове: Еднораменен сапан; Двураменен сапан; Тритаменен сапан; Четирираменен сапан;
+                            </div>
+                            <div class="cart-button button-group">
+                                <button type="button" title="" class="btn btn-wishlist" data-original-title="Кагегория: Сапани">
+                                    <i class="glyphicon glyphicon-th-large"></i>
+                                </button>
+                                <button type="button" class="btn btn-cart">
+                                    Детайли
+                                    <i class="fa fa-arrow-circle-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="product-col">
+                        <img src="Content/images/product-thumbnail-placeholder.jpg" class="image" alt="Alternate Text" />
+                        <div class="caption">
+                            <h4><a href="product.html"> Лентови полиестерни сапани</a></h4>
+                            <div class="description">
+                                Видове: Еднораменен сапан; Двураменен сапан; Тритаменен сапан; Четирираменен сапан;
+                            </div>
+                            <div class="cart-button button-group">
+                                <button type="button" title="" class="btn btn-wishlist" data-original-title="Кагегория: Сапани">
+                                    <i class="glyphicon glyphicon-th-large"></i>
+                                </button>
+                                <button type="button" class="btn btn-cart">
+                                    Детайли
+                                    <i class="fa fa-arrow-circle-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="product-col">
+                        <img src="Content/images/product-thumbnail-placeholder.jpg" class="image" alt="Alternate Text" />
+                        <div class="caption">
+                            <h4><a href="product.html"> Лентови полиестерни сапани</a></h4>
+                            <div class="description">
+                                Видове: Еднораменен сапан; Двураменен сапан; Тритаменен сапан; Четирираменен сапан;
+                            </div>
+                            <div class="cart-button button-group">
+                                <button type="button" title="" class="btn btn-wishlist" data-original-title="Кагегория: Сапани">
+                                    <i class="glyphicon glyphicon-th-large"></i>
+                                </button>
+                                <button type="button" class="btn btn-cart">
+                                    Детайли
+                                    <i class="fa fa-arrow-circle-right"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Panel primary</h3>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="product-col">
+                        <img src="Content/images/product-thumbnail-placeholder.jpg" class="image" alt="Alternate Text" />
+                        <div class="caption">
+                            <h4><a href="product.html"> Лентови полиестерни сапани</a></h4>
+                            <div class="description">
+                                Видове: Еднораменен сапан; Двураменен сапан; Тритаменен сапан; Четирираменен сапан;
+                            </div>
+                            <div class="cart-button button-group">
+                                <button type="button" title="" class="btn btn-wishlist" data-original-title="Кагегория: Сапани">
+                                    <i class="glyphicon glyphicon-th-large"></i>
+                                </button>
+                                <button type="button" class="btn btn-cart">
+                                    Детайли
+                                    <i class="fa fa-arrow-circle-right"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="panel-body">
-                        Panel content
+                </div>
+                <div class="col-md-4">
+                    <div class="product-col">
+                        <img src="Content/images/product-thumbnail-placeholder.jpg" class="image" alt="Alternate Text" />
+                        <div class="caption">
+                            <h4><a href="product.html"> Лентови полиестерни сапани</a></h4>
+                            <div class="description">
+                                Видове: Еднораменен сапан; Двураменен сапан; Тритаменен сапан; Четирираменен сапан;
+                            </div>
+                            <div class="cart-button button-group">
+                                <button type="button" title="" class="btn btn-wishlist" data-original-title="Кагегория: Сапани">
+                                    <i class="glyphicon glyphicon-th-large"></i>
+                                </button>
+                                <button type="button" class="btn btn-cart">
+                                    Детайли
+                                    <i class="fa fa-arrow-circle-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="product-col">
+                        <img src="Content/images/product-thumbnail-placeholder.jpg" class="image" alt="Alternate Text" />
+                        <div class="caption">
+                            <h4><a href="product.html"> Лентови полиестерни сапани</a></h4>
+                            <div class="description">
+                                Видове: Еднораменен сапан; Двураменен сапан; Тритаменен сапан; Четирираменен сапан;
+                            </div>
+                            <div class="cart-button button-group">
+                                <button type="button" title="" class="btn btn-wishlist" data-original-title="Кагегория: Сапани">
+                                    <i class="glyphicon glyphicon-th-large"></i>
+                                </button>
+                                <button type="button" class="btn btn-cart">
+                                    Детайли
+                                    <i class="fa fa-arrow-circle-right"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Panel primary</h3>
-                    </div>
-                    <div class="panel-body">
-                        Panel content
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="product-col">
+                        <img src="Content/images/product-thumbnail-placeholder.jpg" class="image" alt="Alternate Text" />
+                        <div class="caption">
+                            <h4><a href="product.html"> Лентови полиестерни сапани</a></h4>
+                            <div class="description">
+                                Видове: Еднораменен сапан; Двураменен сапан; Тритаменен сапан; Четирираменен сапан;
+                            </div>
+                            <div class="cart-button button-group">
+                                <button type="button" title="" class="btn btn-wishlist" data-original-title="Кагегория: Сапани">
+                                    <i class="glyphicon glyphicon-th-large"></i>
+                                </button>
+                                <button type="button" class="btn btn-cart">
+                                    Детайли
+                                    <i class="fa fa-arrow-circle-right"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Panel primary</h3>
+                <div class="col-md-4">
+                    <div class="product-col">
+                        <img src="Content/images/product-thumbnail-placeholder.jpg" class="image" alt="Alternate Text" />
+                        <div class="caption">
+                            <h4><a href="product.html"> Лентови полиестерни сапани</a></h4>
+                            <div class="description">
+                                Видове: Еднораменен сапан; Двураменен сапан; Тритаменен сапан; Четирираменен сапан;
+                            </div>
+                            <div class="cart-button button-group">
+                                <button type="button" title="" class="btn btn-wishlist" data-original-title="Кагегория: Сапани">
+                                    <i class="glyphicon glyphicon-th-large"></i>
+                                </button>
+                                <button type="button" class="btn btn-cart">
+                                    Детайли
+                                    <i class="fa fa-arrow-circle-right"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="panel-body">
-                        Panel content
+                </div>
+                <div class="col-md-4">
+                    <div class="product-col">
+                        <img src="Content/images/product-thumbnail-placeholder.jpg" class="image" alt="Alternate Text" />
+                        <div class="caption">
+                            <h4><a href="product.html"> Лентови полиестерни сапани</a></h4>
+                            <div class="description">
+                                Видове: Еднораменен сапан; Двураменен сапан; Тритаменен сапан; Четирираменен сапан;
+                            </div>
+                            <div class="cart-button button-group">
+                                <button type="button" title="" class="btn btn-wishlist" data-original-title="Кагегория: Сапани">
+                                    <i class="glyphicon glyphicon-th-large"></i>
+                                </button>
+                                <button type="button" class="btn btn-cart">
+                                    Детайли
+                                    <i class="fa fa-arrow-circle-right"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
