@@ -33,3 +33,9 @@ textarea {
     margin-top: -10px;
     text-align:left;
 }
+
+.edit-btn{
+    font-size:18px;
+    color:gray;
+    margin-right: 5px;
+}

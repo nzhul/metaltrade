@@ -1,0 +1,103 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container">
+    <div class="navbar navbar-inverse">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/Administration/Home" class="glyphicon glyphicon-cog" style="font-size:20px;color:white;padding: 15px 15px 0 15px;"></a>
+        </div>
+        <div class="navbar-collapse collapse navbar-inverse-collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Продукти <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Стоманени Въжета</li>
+                        <li><a href="#">С Общо предназначение</a></li>
+                        <li><a href="#">За асансьорни уредби</a></li>
+                        <li><a href="#">Невъртящи стоманени въжета</a></li>
+                        <li><a href="#">Други</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Сапани</li>
+                        <li><a href="#">Сапани от стоманени въжета</a></li>
+                        <li><a href="#">Съпани от полиестърна тъкън</a></li>
+                        <li><a href="#">Верижни сапани</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Стоманени телове</li>
+                        <li><a href="#">Сапани от стоманени въжета</a></li>
+                        <li><a href="#">Съпани от полиестърна тъкън</a></li>
+                        <li><a href="#">Верижни сапани</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Категории</a></li>
+                <li><a href="#">Страници</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="panel panel-info" style="border: 1px solid #222222;">
+        <div class="panel-heading" style="background: #222222;color: #777;border-bottom:none;">Стоманени въжета > Асансьорни въжета</div>
+        <div class="panel-body">
+
+            <table class="table table-striped table-hover ">
+                <thead>
+                    <tr>
+                        <th><span class="glyphicon glyphicon-picture"></span></th>
+                        <th>Име</th>
+                        <th>Описание</th>
+                        <th>Категория</th>
+                        <th>Подкатегория</th>
+                        <th><span class="glyphicon glyphicon-bookmark" title="Промоционален"></span></th>
+                        <th><span class="glyphicon glyphicon-calendar"></span> Дата</th>
+                        <th><span class="glyphicon glyphicon-cog"></span> Редакция </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Column content</td>
+                        <td>Column content</td>
+                        <td>Column content</td>
+                        <td>Column content</td>
+                        <td><span class="glyphicon glyphicon-check"></span></td>
+                        <td><span class="label label-default">25/11/2014</span></td>
+                        <td>
+                            <a href="#" title="Preview" class="glyphicon glyphicon-file edit-btn"></a>
+                            <a href="#" title="Edit" class="glyphicon glyphicon-edit edit-btn"></a>
+                            <a href="#" title="Delete" class="glyphicon glyphicon-ban-circle edit-btn"></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Column content</td>
+                        <td>Column content</td>
+                        <td>Column content</td>
+                        <td>Column content</td>
+                        <td><span class="glyphicon glyphicon-unchecked"></span></td>
+                        <td><span class="label label-default">25/11/2014</span></td>
+                        <td>
+                            <a href="#" title="Preview" class="glyphicon glyphicon-file edit-btn"></a>
+                            <a href="#" title="Edit" class="glyphicon glyphicon-edit edit-btn"></a>
+                            <a href="#" title="Delete" class="glyphicon glyphicon-ban-circle edit-btn"></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul class="pagination pull-right">
+                <li class="disabled"><a href="#">«</a></li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">»</a></li>
+            </ul>
+            <a href="#" class="btn btn-primary">Добави Продукт</a>
+        </div>
+    </div>
+</div>

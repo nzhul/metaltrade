@@ -61,6 +61,9 @@
                                     <li><a href="#" class="fa fa-twitter-square"> Twitter</a></li>
                                     <li><a href="#" class="fa fa-google-plus-square"> Goolge+</a></li>
                                     <li>
+                                        @Html.ActionLink(" Администрация", "Index", "Home", new { area = "Administration" }, new { @class = "fa fa-cog" })
+                                    </li>
+                                    <li>
                                         @Html.ActionLink("Здравей " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
                                     </li>
                                     <li><a href="javascript:document.getElementById('logoutForm').submit()">Излез</a></li>
@@ -166,9 +169,11 @@
                                 </div>
                             </div>
                         </li>
-                        <li>@Html.ActionLink("За Нас", "About", "Home")</li>
+                        <li>@Html.ActionLink("Полезни съвети", "About", "Home", new { area = string.Empty }, null)</li>
+                        <li>@Html.ActionLink("Други", "About", "Home", new { area = string.Empty }, null)</li>
+                        <li>@Html.ActionLink("За Нас", "About", "Home", new { area = string.Empty }, null)</li>
                         <li>
-                            @Html.ActionLink(" Контакти", "Contact", "Home")
+                            @Html.ActionLink("Контакти", "Contact", "Home", new { area = string.Empty }, null)
                         </li>
                     </ul>
                 </div>
@@ -263,28 +268,9 @@
                     <div class="container">
                         <!-- Starts -->
                         <p class="pull-left">
-                            &nbsp; 2014 Spice Shoppe Stores. Bootstrap Layout All Rights Reserved. Designed By <a href="http://sainathchillapuram.com/">Sainath Chillapuram</a>
+                            &nbsp; @DateTime.Now.Year Метал Трейд. Всички права запазени. Разработено от <a href="https://www.facebook.com/nzhul">nzhul</a>
                         </p>
                         <!-- Ends -->
-                        <!-- Payment Gateway Links Starts -->
-                        <ul class="pull-right list-inline">
-                            <li>
-                                <img src="Content/spice-shopee/images/payment-icon/cirrus.png" alt="PaymentGateway" />
-                            </li>
-                            <li>
-                                <img src="Content/spice-shopee/images/payment-icon/paypal.png" alt="PaymentGateway" />
-                            </li>
-                            <li>
-                                <img src="Content/spice-shopee/images/payment-icon/visa.png" alt="PaymentGateway" />
-                            </li>
-                            <li>
-                                <img src="Content/spice-shopee/images/payment-icon/mastercard.png" alt="PaymentGateway" />
-                            </li>
-                            <li>
-                                <img src="Content/spice-shopee/images/payment-icon/americanexpress.png" alt="PaymentGateway" />
-                            </li>
-                        </ul>
-                        <!-- Payment Gateway Links Ends -->
                     </div>
                     <!-- Container Ends -->
                 </div>
