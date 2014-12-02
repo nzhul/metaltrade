@@ -61,7 +61,7 @@
                                     <li><a href="#" class="fa fa-twitter-square"> Twitter</a></li>
                                     <li><a href="#" class="fa fa-google-plus-square"> Goolge+</a></li>
                                     <li>
-                                        @Html.ActionLink(" Администрация", "Index", "Home", new { area = "Administration" }, new { @class = "fa fa-cog" })
+                                        @Html.ActionLink(" Администрация", "Index", "Products", new { area = "Administration" }, new { @class = "fa fa-cog" })
                                     </li>
                                     <li>
                                         @Html.ActionLink("Здравей " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
