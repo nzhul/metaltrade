@@ -24,6 +24,8 @@ namespace Application.Models
         public string BulletsText { get; set; }
         public bool IsFeatured { get; set; }
 
+        public bool IsActive { get; set; }
+
         public string ApplicationUserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
 
