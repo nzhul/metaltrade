@@ -34,6 +34,14 @@ namespace Application.Data
         {
             get { return this.GetRepository<Product>(); }
         }
+        public IRepository<Category> Categories
+        {
+            get { return this.GetRepository<Category>(); }
+        }
+        public IRepository<SubCategory> SubCategories
+        {
+            get { return this.GetRepository<SubCategory>(); }
+        }
 
         public int SaveChanges()
         {

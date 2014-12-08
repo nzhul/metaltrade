@@ -160,8 +160,11 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
     <Compile Include="Areas\Administration\Controllers\BaseController.cs" />
+    <Compile Include="Areas\Administration\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Administration\Controllers\ProductsController.cs" />
-    <Compile Include="Areas\Administration\InputModels\CreateProductInputModel.cs" />
+    <Compile Include="Areas\Administration\Models\InputModels\CreateProductInputModel.cs" />
+    <Compile Include="Areas\Administration\Models\ViewModels\CategoryViewModel.cs" />
+    <Compile Include="Areas\Administration\Models\ViewModels\SubCategoryViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -273,6 +276,7 @@
     <Content Include="Areas\Administration\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Administration\Views\Products\Index.cshtml" />
     <Content Include="Areas\Administration\Views\Products\Create.cshtml" />
+    <Content Include="Areas\Administration\Views\Categories\Index.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />

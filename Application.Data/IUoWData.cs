@@ -12,6 +12,8 @@ namespace Application.Data
     {
         IRepository<ApplicationUser> Users { get; }
         IRepository<Product> Products { get; }
+        IRepository<Category> Categories { get; }
+        IRepository<SubCategory> SubCategories { get; }
 
         int SaveChanges();
     }

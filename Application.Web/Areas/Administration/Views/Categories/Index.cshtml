@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Application.Web.Areas.Administration.Models.ViewModels.CategoryViewModel>
+@{
+    ViewBag.Title = "Категории";
+}
+
+<div class="container" style="margin-top:-20px;">
+    <h3>@ViewBag.Title</h3>
+</div>
+
+@foreach (var category in Model)
+{
+    @category.Name <br/>
+        foreach (var subcategory in @category.SubCategories)
+        {
+            @subcategory    
+        }
+}

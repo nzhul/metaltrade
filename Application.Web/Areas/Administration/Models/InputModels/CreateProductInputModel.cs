@@ -10,7 +10,7 @@ namespace Application.Web.Areas.Administration.InputModels
     public class CreateProductInputModel
     {
         [Required]
-        [Display(Name = "Име:")]
+        [Display(Name = "Наименование на продукта:")]
         public string Title { get; set; }
 
         [Required]
@@ -36,7 +36,21 @@ namespace Application.Web.Areas.Administration.InputModels
 
         // TODO: Create custon validation for the tags
         [Required]
-        [Display(Name = "Tags")]
+        [Display(Name = "Тагове: ")]
         public string Tags { get; set; }
+
+        [Display(Name = "Категория")]
+        public int SelectedCategoryId { get; set; }
+        public IEnumerable<SelectListItem> Categories { get; set; }
+
+        [Display(Name = "Подкатегория")]
+        public int SelectedSubCategoryId { get; set; }
+        public IEnumerable<SelectListItem> SubCategories { get; set; }
+
+        [Display(Name = "На Заглавна страница: ")]
+        public bool IsFeatured { get; set; }
+
+        [Display(Name = "Пибличен: ")]
+        public bool IsActive { get; set; }
     }
 }

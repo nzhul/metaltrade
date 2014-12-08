@@ -16,117 +16,76 @@
     <hr />
     <section class="registration-area">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-8">
                 <!-- Registration Block Starts -->
                 <div class="panel panel-smart">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Общи данни за продукта</h3>
+                        <h3 class="panel-title">Задължителни данни за продукта</h3>
                     </div>
                     <div class="panel-body">
                         <!-- Registration Form Starts -->
                         <form class="form-horizontal" role="form">
                             <!-- Personal Information Starts -->
                             <div class="form-group">
-                                @Html.LabelFor(model => model.Title, new { @class = "col-sm-3 control-label" })
-                                <div class="col-sm-9">
-                                    @Html.TextBoxFor(model => model.Title, new { @class = "form-control", placeholder = "Име" })
+                                <div class="col-sm-12">
+                                    @Html.LabelFor(model => model.Title, new { @class = "control-label" })
+                                    @Html.ValidationMessageFor(model => model.Title)
+                                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", placeholder = "Име" } })
                                 </div>
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(model => model.ShortDescription, new { @class = "col-sm-3 control-label" })
-                                <div class="col-sm-9">
-                                    @Html.EditorFor(model => model.ShortDescription, new { @class = "form-control", placeholder = "Кратко описание на продукта" })
+                                <div class="col-sm-6">
+                                    @Html.LabelFor(model => model.SelectedCategoryId, new { @class = "control-label" })
+                                    @Html.DropDownListFor(model => model.SelectedCategoryId, Model.Categories, "--Избери категория--", new { @class = "form-control" })
+                                </div>
+                                <div class="col-sm-6">
+                                    @Html.LabelFor(model => model.SelectedSubCategoryId, new { @class = "control-label" })
+                                    @Html.DropDownListFor(model => model.SelectedSubCategoryId, Model.SubCategories, "--Избери подкатегория--", new { @class = "form-control" })
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputEmail" class="col-sm-3 control-label">Email :</label>
-                                <div class="col-sm-9">
-                                    <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                                <div class="col-sm-12">
+                                    @Html.LabelFor(model => model.ShortDescription, new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.ShortDescription)
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputPhone" class="col-sm-3 control-label">Phone :</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="inputPhone" placeholder="Phone">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputFax" class="col-sm-3 control-label">Fax :</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="inputFax" placeholder="Fax">
+                                <div class="col-sm-12">
+                                    @Html.LabelFor(model => model.BulletsText, new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.BulletsText)
                                 </div>
                             </div>
                             <!-- Personal Information Ends -->
                             <h3 class="panel-heading inner">
-                                Delivery Information
+                                Допълнителни данни
                             </h3>
                             <!-- Delivery Information Starts -->
                             <div class="form-group">
-                                <label for="inputCompany" class="col-sm-3 control-label">Company :</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="inputCompany" placeholder="Company">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="inputCountry" class="col-sm-3 control-label">Country :</label>
-                                <div class="col-sm-9">
-                                    <select class="form-control" id="inputCountry">
-                                        <option>- All Countries -</option>
-                                        <option>India</option>
-                                        <option>USA</option>
-                                        <option>UK</option>
-                                        <option>China</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <!-- Delivery Information Ends -->
-                            <h3 class="panel-heading inner">
-                                Password
-                            </h3>
-                            <!-- Password Area Starts -->
-                            <div class="form-group">
-                                <label for="inputPassword" class="col-sm-3 control-label">Password :</label>
-                                <div class="col-sm-9">
-                                    <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                                <div class="col-sm-12">
+                                    @Html.LabelFor(model => model.LongDescription, new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.LongDescription)
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputRePassword" class="col-sm-3 control-label">Re-Password :</label>
-                                <div class="col-sm-9">
-                                    <input type="password" class="form-control" id="inputRePassword" placeholder="Re-Password">
+                                <div class="col-sm-12">
+                                    @Html.LabelFor(model => model.Tags, new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.Tags, new { htmlAttributes = new { @class = "form-control", placeholder = "Изброени с запетайка: Сапани, куки, товари" } })
                                 </div>
                             </div>
                             <div class="form-group">
-                                <span class="col-sm-3 control-label">Newsletter :</span>
-                                <div class="col-sm-9">
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                                            Subscribe
-                                        </label>
-                                    </div>
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option1">
-                                            Unsubscribe
-                                        </label>
-                                    </div>
+                                <div class="col-sm-3">
+                                    @Html.LabelFor(model => model.IsActive, new { @class = "control-label" })
+                                    @Html.CheckBoxFor(model => model.IsActive)
+                                </div>
+                                <div class="col-sm-6">
+                                    @Html.LabelFor(model => model.IsFeatured, new { @class = "control-label" })
+                                    @Html.CheckBoxFor(model => model.IsFeatured)
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-sm-offset-3 col-sm-9">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> I'v read and agreed on Conditions
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-3 col-sm-9">
+                                <div class="col-md-12">
                                     <button type="submit" class="btn btn-warning">
-                                        Register
+                                        Добави
                                     </button>
                                 </div>
                             </div>
@@ -137,7 +96,7 @@
                 </div>
                 <!-- Registration Block Ends -->
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <!-- Guest Checkout Panel Starts -->
                 <div class="panel panel-smart">
                     <div class="panel-heading">
