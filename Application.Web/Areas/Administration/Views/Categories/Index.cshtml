@@ -5,13 +5,65 @@
 
 <div class="container" style="margin-top:-20px;">
     <h3>@ViewBag.Title</h3>
+    <div class="row">
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            var category = Model.ElementAt(i);
+            var categoryUiId = "subcategories-list-" + @category.Id;
+            <div class="col-md-3">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">@category.Name</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-group" id="@categoryUiId">
+                            @for (int j = 0; j < category.SubCategories.Count(); j++)
+                            {
+                                var subcategory = category.SubCategories.ElementAt(j);
+                                <li class="list-group-item">@subcategory.Name
+                                    <a href="#" title="Delete" class="glyphicon glyphicon-ban-circle pull-right"></a>
+                                    <a href="#" title="Delete" style="margin-right:5px;" class="glyphicon glyphicon-edit pull-right"></a> 
+                                </li>
+                            }
+                        </ul>
+                        @using (Ajax.BeginForm("PostSubCategory", 
+                            new AjaxOptions 
+                            { 
+                                HttpMethod = "Post", 
+                                InsertionMode = InsertionMode.InsertAfter,
+                                UpdateTargetId = categoryUiId, 
+                                OnFailure = "subCategoryPostFailure" 
+                            }))
+                        {
+                            @Html.Hidden("CategoryId", category.Id)
+                            @Html.AntiForgeryToken()
+                            <input type="text" name="name" id="subcategoryInput" placeholder=" Подкатегория" class="form-control"/>
+                            <input type="submit" class="btn btn-success pull-right" value="Добави" style="margin-top:10px;" />
+                        }
+                        
+                    </div>
+                </div>
+            </div>
+                            if (i > 0 && (i + 1) % 4 == 0)
+                            {
+                @:</div>
+                @:<div class="row">
+            }
+        }
+    </div>
 </div>
 
-@foreach (var category in Model)
-{
-    @category.Name <br/>
-        foreach (var subcategory in @category.SubCategories)
-        {
-            @subcategory    
+@section scripts {
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script>
+        function commentPostFailure() {
+            alert("Empty comments are not allowed");
         }
+
+        function hideVoteButton() {
+            $("#vote-button").hide();
+        }
+    </script>
 }
+
+

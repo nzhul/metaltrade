@@ -163,6 +163,7 @@
     <Compile Include="Areas\Administration\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Administration\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Administration\Models\InputModels\CreateProductInputModel.cs" />
+    <Compile Include="Areas\Administration\Models\InputModels\SubCategoryInputModel.cs" />
     <Compile Include="Areas\Administration\Models\ViewModels\CategoryViewModel.cs" />
     <Compile Include="Areas\Administration\Models\ViewModels\SubCategoryViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -277,11 +278,14 @@
     <Content Include="Areas\Administration\Views\Products\Index.cshtml" />
     <Content Include="Areas\Administration\Views\Products\Create.cshtml" />
     <Content Include="Areas\Administration\Views\Categories\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\Shared\_SubCategoryPartial.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />

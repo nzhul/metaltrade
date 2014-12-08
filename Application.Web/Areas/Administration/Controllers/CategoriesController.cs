@@ -1,4 +1,6 @@
-﻿using Application.Web.Areas.Administration.Models.ViewModels;
+﻿using Application.Models;
+using Application.Web.Areas.Administration.Models.InputModels;
+using Application.Web.Areas.Administration.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,7 @@ namespace Application.Web.Areas.Administration.Controllers
         {
             var categoriesList = this.Data.Categories.All()
                 .OrderBy(x => x.Id)
+                .AsEnumerable()
                 .Select(x => new CategoryViewModel
                 {
                     Id = x.Id,
@@ -29,6 +32,34 @@ namespace Application.Web.Areas.Administration.Controllers
                         })
                 }).ToList();
             return View(categoriesList);
+        }
+
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult PostSubCategory(SubCategoryInputModel subcategoryModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var newSubCategory = new SubCategory()
+                {
+                    CategoryId = subcategoryModel.CategoryId,
+                    Name = subcategoryModel.Name
+                };
+                this.Data.SubCategories.Add(newSubCategory);
+                this.Data.SaveChanges();
+
+                var viewModel = new SubCategoryViewModel
+                {
+                    Id = newSubCategory.Id,
+                    Name = newSubCategory.Name
+                };
+                return PartialView("_SubCategoryPartial", viewModel);
+            }
+            else
+            {
+                // HttpResponceMessage needs using: using System.Net.Http;
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest, ModelState.Values.First().ToString());
+            }
         }
     }
 }
