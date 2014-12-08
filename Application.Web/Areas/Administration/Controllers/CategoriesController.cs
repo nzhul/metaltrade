@@ -61,5 +61,12 @@ namespace Application.Web.Areas.Administration.Controllers
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest, ModelState.Values.First().ToString());
             }
         }
+
+        public ActionResult DeleteSubCategory(int id)
+        {
+            this.Data.SubCategories.Delete(id);
+            this.Data.SaveChanges();
+            return Content("success");
+        }
     }
 }
