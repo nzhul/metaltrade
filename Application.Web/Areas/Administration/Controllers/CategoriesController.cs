@@ -51,7 +51,8 @@ namespace Application.Web.Areas.Administration.Controllers
                 var viewModel = new SubCategoryViewModel
                 {
                     Id = newSubCategory.Id,
-                    Name = newSubCategory.Name
+                    Name = newSubCategory.Name,
+                    CategoryId = newSubCategory.CategoryId
                 };
                 return PartialView("_SubCategoryPartial", viewModel);
             }
@@ -66,7 +67,7 @@ namespace Application.Web.Areas.Administration.Controllers
         {
             this.Data.SubCategories.Delete(id);
             this.Data.SaveChanges();
-            return Content("success");
+            return Content("<span class='label label-success'>Изтрито успешно!</span>");
         }
     }
 }

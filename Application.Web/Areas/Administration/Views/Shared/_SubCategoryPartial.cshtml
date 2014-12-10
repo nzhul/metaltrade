@@ -1,6 +1,20 @@
 ﻿@model Application.Web.Areas.Administration.Models.ViewModels.SubCategoryViewModel
-<li class="list-group-item">
-    @Model.Name
-<a href="#" title="Delete" class="glyphicon glyphicon-ban-circle pull-right"></a>
-<a href="#" title="Delete" style="margin-right:5px;" class="glyphicon glyphicon-edit pull-right"></a>
+
+@{
+    var subcategoryUiId = "subcategory-item-" + Model.Id;
+    var loadingElementId = "loading-element-" + Model.CategoryId;
+    <li class="list-group-item" id="@subcategoryUiId">
+        @Model.Name
+    <a href="#" title="Delete" style="margin-right:5px;" class="glyphicon glyphicon-edit pull-right"></a>
+    @Ajax.ActionLink(" ", "DeleteSubCategory", new { id = Model.Id }, new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = subcategoryUiId,
+        HttpMethod = "Post",
+        LoadingElementId = loadingElementId
+    }, new { 
+        @id = subcategoryUiId + "-delete-btn", 
+        @class = "glyphicon glyphicon-ban-circle pull-right", 
+        @style = "margin-right: 5px;" })
 </li>
+}

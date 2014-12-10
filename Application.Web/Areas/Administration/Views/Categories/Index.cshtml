@@ -5,14 +5,17 @@
 
 <div class="container" style="margin-top:-20px;">
     <h3>@ViewBag.Title</h3>
-    //TODO: The delete method works but there is no visual responce for that.<br />
-    //TODO: Make some visual responce for errors when invalid subcategory is made <br />
-    //TODO: Fix the SubCategory PartialView to return proper edit buttons
+    <p class="text-danger">
+        //TODO: Loading Gif is not displayed when you try to delete newly added category.<br />
+        //TODO: Make some visual responce for errors when invalid subcategory is made <br />
+        //TODO: Use the _SubCategoryPartial for actual subcategory listing. <br />
+    </p>
     <div class="row">
         @for (int i = 0; i < Model.Count(); i++)
         {
             var category = Model.ElementAt(i);
             var categoryUiId = "subcategories-list-" + @category.Id;
+            var loadingElementId = "loading-element-" + @categoryUiId;
             <div class="col-md-3">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
@@ -24,17 +27,20 @@
                             {
                                 var subcategory = category.SubCategories.ElementAt(j);
                                 var subcategoryUiId = "subcategory-item-" + subcategory.Id;
-                                <li class="list-group-item" id="">@subcategory.Name
+                                <li class="list-group-item" id="@subcategoryUiId">@subcategory.Name
                                     <a href="#" title="Delete" style="margin-right:5px;" class="glyphicon glyphicon-edit pull-right"></a> 
                                     @Ajax.ActionLink(" ", "DeleteSubCategory", new { id = subcategory.Id }, new AjaxOptions
                                        {
                                            InsertionMode = InsertionMode.Replace,
                                            UpdateTargetId = subcategoryUiId,
                                            HttpMethod = "Post",
-                                           OnSuccess = "hideLiElement"
+                                           LoadingElementId = loadingElementId
                                        }, new { @id = subcategoryUiId + "-delete-btn", @class = "glyphicon glyphicon-ban-circle pull-right", @style="margin-right: 5px;" })
                                 </li>
                             }
+                            <li id="@loadingElementId" class="list-group-item text-center" style="display:none;" >
+                                <img src="~/Content/images/gif-load.gif" />
+                            </li>
                         </ul>
                         @using (Ajax.BeginForm("PostSubCategory", 
                             new AjaxOptions 
@@ -42,7 +48,8 @@
                                 HttpMethod = "Post",
                                 InsertionMode = InsertionMode.InsertAfter,
                                 UpdateTargetId = categoryUiId,
-                                OnFailure = "subCategoryPostFailure" 
+                                OnFailure = "subCategoryPostFailure",
+                                LoadingElementId = loadingElementId
                             }))
                         {
                             @Html.Hidden("CategoryId", category.Id)
@@ -68,10 +75,6 @@
     <script>
         function subCategoryPostFailure() {
             alert("Въведи име на категорията");
-        }
-
-        function hideLiElement() {
-            $("#vote-button").hide();
         }
     </script>
 }
