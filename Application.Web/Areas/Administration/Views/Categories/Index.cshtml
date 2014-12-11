@@ -16,7 +16,7 @@
             var category = Model.ElementAt(i);
             var categoryUiId = "subcategories-list-" + @category.Id;
             var loadingElementId = "loading-element-" + @categoryUiId;
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title">@category.Name</h3>
@@ -27,15 +27,36 @@
                             {
                                 var subcategory = category.SubCategories.ElementAt(j);
                                 var subcategoryUiId = "subcategory-item-" + subcategory.Id;
-                                <li class="list-group-item" id="@subcategoryUiId">@subcategory.Name
-                                    <a href="#" title="Delete" style="margin-right:5px;" class="glyphicon glyphicon-edit pull-right"></a> 
-                                    @Ajax.ActionLink(" ", "DeleteSubCategory", new { id = subcategory.Id }, new AjaxOptions
+                                var subcategoryEditUiId = "subcategory-edit-input-" + subcategory.Id;
+                                var subcategorySpanId = "subcategory-span-" + subcategory.Id;
+                                <li class="list-group-item" id="@subcategoryUiId"><span id="@subcategorySpanId">@subcategory.Name</span>
+                                    <a href="#" title="Редактирай" style="margin-right:5px;" class="glyphicon glyphicon-edit pull-right"></a> 
+                                    @Ajax.ActionLink(" ", "DeleteSubCategory", new { id = subcategory.Id }, 
+                                    new AjaxOptions
                                        {
                                            InsertionMode = InsertionMode.Replace,
                                            UpdateTargetId = subcategoryUiId,
                                            HttpMethod = "Post",
                                            LoadingElementId = loadingElementId
                                        }, new { @id = subcategoryUiId + "-delete-btn", @class = "glyphicon glyphicon-ban-circle pull-right", @style="margin-right: 5px;" })
+                                </li>
+                                <li class="list-group-item" style="display:none;" id="@subcategoryEditUiId">
+                                    @using (Ajax.BeginForm("EditSubCategory",
+                                        new AjaxOptions
+                                            {
+                                                HttpMethod = "Post",
+                                                InsertionMode = InsertionMode.Replace,
+                                                UpdateTargetId = subcategorySpanId,
+                                                OnFailure = "subCategoryEditFailure",
+                                                LoadingElementId = loadingElementId
+                                            }))
+                                    {
+                                        @Html.Hidden("CategoryId", category.Id)
+                                        @Html.Hidden("Id", subcategory.Id)
+                                        @Html.AntiForgeryToken()
+                                        <input type="text" name="name" id="editSubCategoryInput" class="form-control" value="@subcategory.Name" style="width:215px;float:left;" />
+                                        <input type="submit" class="btn btn-success subCatSaveBtn" value="Запази" style="margin-left:10px;" />
+                                        }
                                 </li>
                             }
                             <li id="@loadingElementId" class="list-group-item text-center" style="display:none;" >
@@ -55,13 +76,14 @@
                             @Html.Hidden("CategoryId", category.Id)
                             @Html.AntiForgeryToken()
                             <input type="text" name="name" id="subcategoryInput" placeholder=" Подкатегория" class="form-control"/>
-                            <input type="submit" class="btn btn-success pull-right" value="Добави" style="margin-top:10px;" />
+                            <textarea name="description" placeholder=" Кратко описание на категорията" class="form-control" style="margin-top:10px;"></textarea>
+                            <input type="submit" class="btn btn-success" value="Добави" style="margin-top:10px;" />
                         }
                         
                     </div>
                 </div>
             </div>
-                            if (i > 0 && (i + 1) % 4 == 0)
+                            if (i > 0 && (i + 1) % 3 == 0)
                             {
                 @:</div>
                 @:<div class="row">
@@ -73,8 +95,26 @@
 @section scripts {
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script>
+        $(document).ready(function () {
+            $('.glyphicon-edit').on('click', function (e) {
+                e.preventDefault();
+                $parent = $(this).parent();
+                $parent.hide();
+                $parent.next().show();
+            })
+
+            $('.subCatSaveBtn').on('click', function (e) {
+                $LiElement = $(this).parents('li');
+                $LiElement.hide();
+                $LiElement.prev().show();
+            })
+        })
+
         function subCategoryPostFailure() {
             alert("Въведи име на категорията");
+        }
+        function subCategoryEditFailure() {
+            alert("Името неможе да е празно");
         }
     </script>
 }

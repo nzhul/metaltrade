@@ -43,7 +43,8 @@ namespace Application.Web.Areas.Administration.Controllers
                 var newSubCategory = new SubCategory()
                 {
                     CategoryId = subcategoryModel.CategoryId,
-                    Name = subcategoryModel.Name
+                    Name = subcategoryModel.Name,
+                    Description = subcategoryModel.Description
                 };
                 this.Data.SubCategories.Add(newSubCategory);
                 this.Data.SaveChanges();
@@ -52,9 +53,32 @@ namespace Application.Web.Areas.Administration.Controllers
                 {
                     Id = newSubCategory.Id,
                     Name = newSubCategory.Name,
-                    CategoryId = newSubCategory.CategoryId
+                    CategoryId = newSubCategory.CategoryId,
+                    Description = newSubCategory.Description
                 };
                 return PartialView("_SubCategoryPartial", viewModel);
+            }
+            else
+            {
+                // HttpResponceMessage needs using: using System.Net.Http;
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest, ModelState.Values.First().ToString());
+            }
+        }
+
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditSubCategory(SubCategoryInputModel subcategoryModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var theSubCategory = this.Data.SubCategories.Find(subcategoryModel.Id);
+                theSubCategory.Name = subcategoryModel.Name;
+                theSubCategory.Description = subcategoryModel.Description;
+                this.Data.SaveChanges();
+
+                var contentToReturn = "<span id='" + "subcategory-span-" + subcategoryModel.Id + "'>" + subcategoryModel.Name+ "</span>";
+
+                return Content(contentToReturn);
             }
             else
             {
