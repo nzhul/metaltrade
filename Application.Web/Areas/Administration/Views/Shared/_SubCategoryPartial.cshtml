@@ -1,20 +1,40 @@
 ﻿@model Application.Web.Areas.Administration.Models.ViewModels.SubCategoryViewModel
 
 @{
-    var subcategoryUiId = "subcategory-item-" + Model.Id;
-    var loadingElementId = "loading-element-" + Model.CategoryId;
+    var categoryUiId = "subcategories-list-" + @Model.CategoryId;
+    var loadingElementId = "loading-element-" + @categoryUiId;
+    var subcategory = Model;
+    var subcategoryUiId = "subcategory-item-" + subcategory.Id;
+    var subcategoryEditUiId = "subcategory-edit-input-" + subcategory.Id;
+    var subcategorySpanId = "subcategory-span-" + subcategory.Id;
     <li class="list-group-item" id="@subcategoryUiId">
-        @Model.Name
-    <a href="#" title="Delete" style="margin-right:5px;" class="glyphicon glyphicon-edit pull-right"></a>
-    @Ajax.ActionLink(" ", "DeleteSubCategory", new { id = Model.Id }, new AjaxOptions
-    {
-        InsertionMode = InsertionMode.Replace,
-        UpdateTargetId = subcategoryUiId,
-        HttpMethod = "Post",
-        LoadingElementId = loadingElementId
-    }, new { 
-        @id = subcategoryUiId + "-delete-btn", 
-        @class = "glyphicon glyphicon-ban-circle pull-right", 
-        @style = "margin-right: 5px;" })
-</li>
+        <span id="@subcategorySpanId">@subcategory.Name</span>
+        <a href="#" title="Редактирай" style="margin-right:5px;" class="glyphicon glyphicon-edit pull-right"></a>
+        @Ajax.ActionLink(" ", "DeleteSubCategory", new { id = subcategory.Id },
+                                    new AjaxOptions
+                                       {
+                                           InsertionMode = InsertionMode.Replace,
+                                           UpdateTargetId = subcategoryUiId,
+                                           HttpMethod = "Post",
+                                           LoadingElementId = loadingElementId
+                                       }, new { @id = subcategoryUiId + "-delete-btn", @class = "glyphicon glyphicon-ban-circle pull-right", @style = "margin-right: 5px;" })
+    </li>
+    <li class="list-group-item" style="display:none;" id="@subcategoryEditUiId">
+        @using (Ajax.BeginForm("EditSubCategory",
+                                        new AjaxOptions
+                                            {
+                                                HttpMethod = "Post",
+                                                InsertionMode = InsertionMode.Replace,
+                                                UpdateTargetId = subcategorySpanId,
+                                                OnFailure = "subCategoryEditFailure",
+                                                LoadingElementId = loadingElementId
+                                            }))
+        {
+            @Html.Hidden("CategoryId", Model.CategoryId)
+            @Html.Hidden("Id", subcategory.Id)
+            @Html.AntiForgeryToken()
+            <input type="text" name="name" id="editSubCategoryInput" class="form-control" value="@subcategory.Name" style="width:215px;float:left;" />
+            <input type="submit" class="btn btn-success subCatSaveBtn" value="Запази" style="margin-left:10px;" />
+        }
+    </li>
 }
