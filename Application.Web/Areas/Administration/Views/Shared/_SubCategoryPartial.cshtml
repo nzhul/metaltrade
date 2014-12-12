@@ -4,20 +4,43 @@
     var categoryUiId = "subcategories-list-" + @Model.CategoryId;
     var loadingElementId = "loading-element-" + @categoryUiId;
     var subcategory = Model;
+    var subcategoryDeleteUiId = "#deleteModal-" + subcategory.Id;
+    var subcategoryDeleteModalId = "deleteModal-" + subcategory.Id;
     var subcategoryUiId = "subcategory-item-" + subcategory.Id;
     var subcategoryEditUiId = "subcategory-edit-input-" + subcategory.Id;
     var subcategorySpanId = "subcategory-span-" + subcategory.Id;
     <li class="list-group-item" id="@subcategoryUiId">
         <span id="@subcategorySpanId">@subcategory.Name</span>
         <a href="#" title="Редактирай" style="margin-right:5px;" class="glyphicon glyphicon-edit pull-right"></a>
-        @Ajax.ActionLink(" ", "DeleteSubCategory", new { id = subcategory.Id },
-                                    new AjaxOptions
-                                       {
-                                           InsertionMode = InsertionMode.Replace,
-                                           UpdateTargetId = subcategoryUiId,
-                                           HttpMethod = "Post",
-                                           LoadingElementId = loadingElementId
-                                       }, new { @id = subcategoryUiId + "-delete-btn", @class = "glyphicon glyphicon-ban-circle pull-right", @style = "margin-right: 5px;" })
+        <a class="glyphicon glyphicon-ban-circle pull-right text-danger" style="margin-right:5px;" data-toggle="modal" href="@subcategoryDeleteUiId"> </a>
+        <div class="modal fade" id="@subcategoryDeleteModalId">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Моля потвърдете!</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Сигурни ли сте, че искате да изтриете тази категория "@subcategory.Name" ? </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Архивирай</button>
+                        @Ajax.ActionLink("Изтрии!", "DeleteSubCategory", new { id = subcategory.Id },
+                        new AjaxOptions
+                        {
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = subcategoryUiId,
+                        HttpMethod = "Post",
+                        LoadingElementId = loadingElementId
+                        }, new { @id = subcategoryUiId + "-delete-btn",
+                        @title="Изтрии",
+                        @class = "btn btn-danger deleteBtnConfirm"
+                        })
+                    </div>
+                </div>
+            </div>
+        </div>
     </li>
     <li class="list-group-item" style="display:none;" id="@subcategoryEditUiId">
         @using (Ajax.BeginForm("EditSubCategory",
