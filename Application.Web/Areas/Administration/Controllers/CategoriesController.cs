@@ -15,7 +15,7 @@ namespace Application.Web.Areas.Administration.Controllers
         public ActionResult Index()
         {
             var categoriesList = this.Data.Categories.All()
-                .OrderBy(x => x.Id)
+                .OrderByDescending(x => x.DateAdded)
                 .AsEnumerable()
                 .Select(x => new CategoryViewModel
                 {
@@ -67,6 +67,36 @@ namespace Application.Web.Areas.Administration.Controllers
 
         [Authorize]
         [ValidateAntiForgeryToken]
+        public ActionResult PostCategory(CategoryInputModel categoryModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var newCategory = new Category()
+                {
+                    Name = categoryModel.Name,
+                    Description = categoryModel.Description,
+                    DateAdded = DateTime.Now
+                };
+                this.Data.Categories.Add(newCategory);
+                this.Data.SaveChanges();
+
+                var viewModel = new CategoryViewModel
+                {
+                    Id = newCategory.Id,
+                    Name = newCategory.Name,
+                    Description = newCategory.Description
+                };
+                return PartialView("_CategoryPartial", viewModel);
+            }
+            else
+            {
+                // HttpResponceMessage needs using: using System.Net.Http;
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest, ModelState.Values.First().ToString());
+            }
+        }
+
+        [Authorize]
+        [ValidateAntiForgeryToken]
         public ActionResult EditSubCategory(SubCategoryInputModel subcategoryModel)
         {
             if (ModelState.IsValid)
@@ -92,6 +122,23 @@ namespace Application.Web.Areas.Administration.Controllers
             this.Data.SubCategories.Delete(id);
             this.Data.SaveChanges();
             return Content("<span class='label label-success'>Изтрито успешно!</span>");
+        }
+
+        public ActionResult DeleteCategory(int id)
+        {
+            var theCategory = this.Data.Categories.Find(id);
+            foreach (var subCategory in theCategory.SubCategories.ToList())
+            {
+                this.Data.SubCategories.Delete(subCategory);
+            }
+            this.Data.Categories.Delete(id);
+            this.Data.SaveChanges();
+            return Content(@"<div class='alert alert-dismissable alert-danger'>
+                              <button type='button' class='close' data-dismiss='alert'>×</button>
+                              <strong>Категорията беше изтрита успешно!</strong></br>
+                              Всички подкатегории и продукти които са към тази категория - също бяха изтрити безвъзвратно.
+                              Няма връшане назад :)
+                            </div>");
         }
     }
 }

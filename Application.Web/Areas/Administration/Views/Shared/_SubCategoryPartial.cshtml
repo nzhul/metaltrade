@@ -11,8 +11,8 @@
     var subcategorySpanId = "subcategory-span-" + subcategory.Id;
     <li class="list-group-item" id="@subcategoryUiId">
         <span id="@subcategorySpanId">@subcategory.Name</span>
+        <a class="glyphicon glyphicon-ban-circle pull-right text-danger" style="margin-right:-5px;" data-toggle="modal" href="@subcategoryDeleteUiId"> </a>
         <a href="#" title="Редактирай" style="margin-right:5px;" class="glyphicon glyphicon-edit pull-right"></a>
-        <a class="glyphicon glyphicon-ban-circle pull-right text-danger" style="margin-right:5px;" data-toggle="modal" href="@subcategoryDeleteUiId"> </a>
         <div class="modal fade" id="@subcategoryDeleteModalId">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -21,10 +21,10 @@
                         <h4 class="modal-title">Моля потвърдете!</h4>
                     </div>
                     <div class="modal-body">
-                        <p>Сигурни ли сте, че искате да изтриете тази категория "@subcategory.Name" ? </p>
+                        <p>Сигурни ли сте, че искате да изтриете <strong>подкатегория "@subcategory.Name"</strong> ? </p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Откажи</button>
                         <button type="button" class="btn btn-warning" data-dismiss="modal">Архивирай</button>
                         @Ajax.ActionLink("Изтрии!", "DeleteSubCategory", new { id = subcategory.Id },
                         new AjaxOptions

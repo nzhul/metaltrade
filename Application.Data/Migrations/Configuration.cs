@@ -17,8 +17,8 @@ namespace Application.Data.Migrations
 
         protected override void Seed(Application.Data.ApplicationDbContext context)
         {
-            this.AddInitialCategories(context);
-            this.AddInitialSubCategories(context);
+            //this.AddInitialCategories(context);
+            //this.AddInitialSubCategories(context);
         }
 
         private void AddInitialSubCategories(ApplicationDbContext context)

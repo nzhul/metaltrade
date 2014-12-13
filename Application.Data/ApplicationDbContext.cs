@@ -28,5 +28,6 @@ namespace Application.Data
         public IDbSet<SubCategory> SubCategories { get; set; }
         public IDbSet<Tag> Tags { get; set; }
         public IDbSet<Image> Images { get; set; }
+
     }
 }

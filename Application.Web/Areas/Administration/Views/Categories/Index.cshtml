@@ -5,58 +5,47 @@
 
 <div class="container" id="event-container" style="margin-top:-20px;">
     <h3>@ViewBag.Title</h3>
-    <p class="text-danger">
-        //TODO: Make some visual responce for errors when invalid subcategory is made <br />
-        //TODO: Modal dialog do not disapear SOMETIMES when the subcategory is deleted!<br />
-    </p>
-    <div class="row">
+    <div class="modal fade" id="AddCategoryModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Добавяне на нова категория:</h4>
+                </div>
+
+                @using (Ajax.BeginForm("PostCategory",
+                    new AjaxOptions
+                    {
+                        HttpMethod = "Post",
+                        InsertionMode = InsertionMode.InsertBefore,
+                        UpdateTargetId = "first-row",
+                        OnFailure = "CategoryPostFailure"
+                    }))
+                {
+                    <div class="modal-body">
+                        <label for="categoryName">Име</label>
+                        <input type="text" class="form-control" name="name" id="categoryName" value="" placeholder="Име на категорията" /><br />
+                        <label for="categoryDescription">Описание</label>
+                        @Html.AntiForgeryToken()
+                        <textarea class="form-control" name="description" id="categoryDescription" placeholder="Описание на категорията"></textarea>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Откажи</button>
+                        <input type="submit" class="btn btn-primary" id="category-submit-btn" value="Добави Категорията" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <a class="btn btn-primary" style="margin: 0 0 15px 0px;" data-toggle="modal" href="#AddCategoryModal">Добави нова категория</a>
+
+    <div class="row" id="first-row">
         @for (int i = 0; i < Model.Count(); i++)
         {
             var category = Model.ElementAt(i);
-            var categoryUiId = "subcategories-list-" + @category.Id;
-            var loadingElementId = "loading-element-" + @categoryUiId;
-            <div class="col-md-4">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">@category.Name</h3>
-                    </div>
-                    <div class="panel-body">
-                        <ul class="list-group" id="@categoryUiId">
-                            @for (int j = 0; j < category.SubCategories.Count(); j++)
-                            {
-                                var subcategory = category.SubCategories.ElementAt(j);
-                                Html.RenderPartial("_SubCategoryPartial", subcategory);
-                            }
-                            <li id="@loadingElementId" class="list-group-item text-center" style="display:none;">
-                                <img src="~/Content/images/gif-load.gif" />
-                            </li>
-                        </ul>
-                        @using (Ajax.BeginForm("PostSubCategory",
-                            new AjaxOptions
-                            {
-                                HttpMethod = "Post",
-                                InsertionMode = InsertionMode.InsertAfter,
-                                UpdateTargetId = categoryUiId,
-                                OnFailure = "subCategoryPostFailure",
-                                LoadingElementId = loadingElementId
-                            }))
-                        {
-                            @Html.Hidden("CategoryId", category.Id)
-                            @Html.AntiForgeryToken()
-                            <input type="text" name="name" id="subcategoryInput" placeholder=" Подкатегория" class="form-control" />
-                            <textarea name="description" placeholder=" Кратко описание на категорията" class="form-control" style="margin-top:10px;"></textarea>
-                            <input type="submit" class="btn btn-success" value="Добави" style="margin-top:10px;" />
-                        }
-
-
-                    </div>
-                </div>
-            </div>
-            if (i > 0 && (i + 1) % 3 == 0)
-            {
-            @:</div>
-            @:<div class="row">
-            }
+            category.LoopCounter = i;
+            Html.RenderPartial("_CategoryPartial", category);
         }
     </div>
 </div>
@@ -86,10 +75,21 @@
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
             })
+
+            $('#event-container').on('click', '#category-submit-btn', function (e) {
+                $theModalParent = $(this).parents('.modal');
+                $theModalParent.modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+            })
+
         })
 
         function subCategoryPostFailure() {
             alert("Въведи име на категорията");
+        }
+        function CategoryPostFailure() {
+            alert("Невалидно име!");
         }
         function subCategoryEditFailure() {
             alert("Името неможе да е празно");
