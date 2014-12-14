@@ -7,7 +7,7 @@
     @using (Html.BeginForm("Create", "Products", FormMethod.Post, new { @class = "form-horizontal" }))
     {
         @Html.AntiForgeryToken()
-        @Html.ValidationSummary("", new { @class = "text-danger" })
+        @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
 
 		<!-- Registration Section Starts -->
     <h2 class="main-heading text-center">
@@ -28,30 +28,34 @@
                             <!-- Personal Information Starts -->
                             <div class="form-group">
                                 <div class="col-sm-12">
-                                    @Html.LabelFor(model => model.Title, new { @class = "control-label" })
-                                    @Html.ValidationMessageFor(model => model.Title)
-                                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", placeholder = "Име" } })
+                                    @Html.LabelFor(model => model.Name, new { @class = "control-label" })
+                                    @Html.ValidationMessageFor(model => model.Name)
+                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Име" } })
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-6">
                                     @Html.LabelFor(model => model.SelectedCategoryId, new { @class = "control-label" })
-                                    @Html.DropDownListFor(model => model.SelectedCategoryId, Model.Categories, new { @id="categories-dropdown", @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.SelectedCategoryId)
+                                    @Html.DropDownListFor(model => model.SelectedCategoryId, Model.Categories, " -- Избери Категория --", new { @id="categories-dropdown", @class = "form-control" })
                                 </div>
                                 <div class="col-sm-6">
                                     @Html.LabelFor(model => model.SelectedSubCategoryId, new { @class = "control-label" })
-                                    @Html.DropDownListFor(model => model.SelectedSubCategoryId, Model.SubCategories, new { @id="subCategories-dropdown", @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.SelectedSubCategoryId)
+                                    @Html.DropDownListFor(model => model.SelectedSubCategoryId, Model.SubCategories, " -- Първо избери категория --", new {@disabled = "disabled",@id = "subCategories-dropdown", @class = "form-control" })
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-12">
                                     @Html.LabelFor(model => model.ShortDescription, new { @class = "control-label" })
+                                    @Html.ValidationMessageFor(model => model.ShortDescription)
                                     @Html.EditorFor(model => model.ShortDescription)
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-12">
                                     @Html.LabelFor(model => model.BulletsText, new { @class = "control-label" })
+                                    @Html.ValidationMessageFor(model => model.BulletsText)
                                     @Html.EditorFor(model => model.BulletsText)
                                 </div>
                             </div>
@@ -63,12 +67,14 @@
                             <div class="form-group">
                                 <div class="col-sm-12">
                                     @Html.LabelFor(model => model.LongDescription, new { @class = "control-label" })
+                                    @Html.ValidationMessageFor(model => model.LongDescription)
                                     @Html.EditorFor(model => model.LongDescription)
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-12">
                                     @Html.LabelFor(model => model.Tags, new { @class = "control-label" })
+                                    @Html.ValidationMessageFor(model => model.Tags)
                                     @Html.EditorFor(model => model.Tags, new { htmlAttributes = new { @class = "form-control", placeholder = "Изброени с запетайка: Сапани, куки, товари" } })
                                 </div>
                             </div>
@@ -122,17 +128,20 @@
 @section scripts {
 
     <script>
+        // Disabled hack
+        jQuery(function ($) {
 
-        $(document).ready(function () {
-            LoadSubCategories();
-        })
+            $('form').bind('submit', function () {
+                $(this).find(':input').removeAttr('disabled');
+            });
+
+        });
 
         $(document).ready(function () {
             $("#categories-dropdown").change(function () {
                 LoadSubCategories();
             })
         });
-
 
         function LoadSubCategories() {
             $("#subCategories-dropdown").empty();
@@ -149,6 +158,7 @@
                 success: function (subCategories) {
                     if (subCategories.length > 0) {
                         $("#subCategories-dropdown").empty();
+                        $("#subCategories-dropdown").removeAttr("disabled");
                         $.each(subCategories, function (i, subcategory) {
                             $("#subCategories-dropdown").append('<option value="' + subcategory.Value + '">' +
                                  subcategory.Text + '</option>');

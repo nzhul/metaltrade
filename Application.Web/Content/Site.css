@@ -35,3 +35,13 @@
     color:gray;
     margin-right: 5px;
 }
+
+
+/*Error validation styling*/
+.field-validation-error {
+    color: red;
+    font-weight: bold;
+    float: right;
+    position: relative;
+    top: 5px;
+}

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,17 +19,17 @@ namespace Application.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
-        public DateTime CreatedOn { get; set; }
         public string ShortDescription { get; set; }
         public string LongDescription { get; set; }
         public string BulletsText { get; set; }
         public bool IsFeatured { get; set; }
-
         public bool IsActive { get; set; }
+        public DateTime DateAdded { get; set; }
 
         public string ApplicationUserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
 
+        public string CategoryName { get; set; }
 
         public int SubCategoryId { get; set; }
         public virtual SubCategory SubCategory { get; set; }

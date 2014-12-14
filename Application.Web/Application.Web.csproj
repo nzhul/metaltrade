@@ -169,6 +169,7 @@
     <Compile Include="Areas\Administration\Models\InputModels\CreateProductInputModel.cs" />
     <Compile Include="Areas\Administration\Models\InputModels\SubCategoryInputModel.cs" />
     <Compile Include="Areas\Administration\Models\ViewModels\CategoryViewModel.cs" />
+    <Compile Include="Areas\Administration\Models\ViewModels\ProductViewModel.cs" />
     <Compile Include="Areas\Administration\Models\ViewModels\SubCategoryViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />

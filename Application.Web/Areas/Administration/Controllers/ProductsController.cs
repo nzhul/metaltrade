@@ -1,9 +1,12 @@
-﻿using Application.Web.Areas.Administration.InputModels;
+﻿using Application.Models;
+using Application.Web.Areas.Administration.InputModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Application.Web.Areas.Administration.Models.ViewModels;
 
 namespace Application.Web.Areas.Administration.Controllers
 {
@@ -41,21 +44,27 @@ namespace Application.Web.Areas.Administration.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View();
+            var productsList = this.Data.Products.All()
+                .OrderByDescending(x => x.DateAdded)
+                .AsEnumerable()
+                .Select(x => new ProductViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    ShortDescription = x.ShortDescription,
+                    CategoryName = x.CategoryName,
+                    SubCategoryName = x.SubCategory.Name,
+                    IsActive = x.IsActive,
+                    IsFeatured = x.IsFeatured,
+                    DateAdded = x.DateAdded
+                }).ToList();
+            return View(productsList);
         }
 
         [HttpGet]
         public ActionResult Create()
         {
             var model = new CreateProductInputModel();
-            model.LongDescription = "Simple Long Description from ProductsController";
-            model.ShortDescription = "Simple Short Description from ProductsController";
-            model.BulletsText = @"<ul>
-                                <li>Тегло - 10&nbsp;кг</li>
-                                <li>Широчина - 20 мм</li>
-                                <li>други - 20 гр</li>
-                                <li>още нещо - 500 м&nbsp;</li>
-                                </ul>";
             model.Categories = GetCategories();
             model.SubCategories = GetSubCategories();
             return this.View(model);
@@ -76,6 +85,38 @@ namespace Application.Web.Areas.Administration.Controllers
             
 
             return Json(new SelectList(subcategories, "Value", "Text"));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(CreateProductInputModel product)
+        {
+            if (ModelState.IsValid)
+            {
+                var currentUserId = this.User.Identity.GetUserId();
+                var newProduct = new Product
+                {
+                    ApplicationUserId = currentUserId,
+                    BulletsText = product.BulletsText,
+                    DateAdded = DateTime.Now,
+                    Images = null,
+                    IsActive = product.IsActive,
+                    IsFeatured = product.IsFeatured,
+                    LongDescription = product.LongDescription,
+                    Name = product.Name,
+                    ShortDescription = product.ShortDescription,
+                    CategoryName = this.Data.Categories.Find(product.SelectedCategoryId).Name,
+                    SubCategoryId = product.SelectedSubCategoryId,
+                    Tags = null
+                };
+                this.Data.Products.Add(newProduct);
+                this.Data.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            product.Categories = GetCategories();
+            product.SubCategories = GetSubCategories();
+            return View(product);
         }
     }
 }
