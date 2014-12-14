@@ -36,11 +36,11 @@
                             <div class="form-group">
                                 <div class="col-sm-6">
                                     @Html.LabelFor(model => model.SelectedCategoryId, new { @class = "control-label" })
-                                    @Html.DropDownListFor(model => model.SelectedCategoryId, Model.Categories, "--Избери категория--", new { @class = "form-control" })
+                                    @Html.DropDownListFor(model => model.SelectedCategoryId, Model.Categories, new { @id="categories-dropdown", @class = "form-control" })
                                 </div>
                                 <div class="col-sm-6">
                                     @Html.LabelFor(model => model.SelectedSubCategoryId, new { @class = "control-label" })
-                                    @Html.DropDownListFor(model => model.SelectedSubCategoryId, Model.SubCategories, "--Избери подкатегория--", new { @class = "form-control" })
+                                    @Html.DropDownListFor(model => model.SelectedSubCategoryId, Model.SubCategories, new { @id="subCategories-dropdown", @class = "form-control" })
                                 </div>
                             </div>
                             <div class="form-group">
@@ -119,3 +119,50 @@
     }
 </div>
 
+@section scripts {
+
+    <script>
+
+        $(document).ready(function () {
+            LoadSubCategories();
+        })
+
+        $(document).ready(function () {
+            $("#categories-dropdown").change(function () {
+                LoadSubCategories();
+            })
+        });
+
+
+        function LoadSubCategories() {
+            $("#subCategories-dropdown").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetSubCategories")', // we are calling json method
+
+                dataType: 'json',
+
+                data: { id: $("#categories-dropdown").val() },
+                beforeSend: function () {
+                    $("#subCategories-dropdown").append('<option > Зареждане ... </option>');
+                },
+                success: function (subCategories) {
+                    if (subCategories.length > 0) {
+                        $("#subCategories-dropdown").empty();
+                        $.each(subCategories, function (i, subcategory) {
+                            $("#subCategories-dropdown").append('<option value="' + subcategory.Value + '">' +
+                                 subcategory.Text + '</option>');
+                        });
+                    } else {
+                        $("#subCategories-dropdown").empty();
+                        $("#subCategories-dropdown").append('<option > -- Няма подкатегории -- </option>');
+                    }
+                },
+                error: function (ex) {
+                    alert('Неуспешно листване на категориите!.' + ex);
+                }
+            });
+            return false;
+        }
+    </script>
+}

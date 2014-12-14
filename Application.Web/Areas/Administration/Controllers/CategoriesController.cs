@@ -21,14 +21,16 @@ namespace Application.Web.Areas.Administration.Controllers
                 {
                     Id = x.Id,
                     Name = x.Name,
+                    Description = x.Description,
                     SubCategories = this.Data.SubCategories
                         .All()
-                        .OrderBy(y => y.Id)
+                        .OrderBy(y => y.DateAdded)
                         .Where(y => y.CategoryId == x.Id)
                         .Select(y => new SubCategoryViewModel
                         {
                             Id = y.Id,
-                            Name = y.Name
+                            Name = y.Name,
+                            Description = y.Description
                         })
                 }).ToList();
             return View(categoriesList);
@@ -44,7 +46,8 @@ namespace Application.Web.Areas.Administration.Controllers
                 {
                     CategoryId = subcategoryModel.CategoryId,
                     Name = subcategoryModel.Name,
-                    Description = subcategoryModel.Description
+                    Description = subcategoryModel.Description,
+                    DateAdded = DateTime.Now
                 };
                 this.Data.SubCategories.Add(newSubCategory);
                 this.Data.SaveChanges();
@@ -107,6 +110,28 @@ namespace Application.Web.Areas.Administration.Controllers
                 this.Data.SaveChanges();
 
                 var contentToReturn = "<span id='" + "subcategory-span-" + subcategoryModel.Id + "'>" + subcategoryModel.Name+ "</span>";
+
+                return Content(contentToReturn);
+            }
+            else
+            {
+                // HttpResponceMessage needs using: using System.Net.Http;
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest, ModelState.Values.First().ToString());
+            }
+        }
+
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditCategory(CategoryInputModel categoryModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var theCategory = this.Data.Categories.Find(categoryModel.Id);
+                theCategory.Name = categoryModel.Name;
+                theCategory.Description = categoryModel.Description;
+                this.Data.SaveChanges();
+
+                var contentToReturn = "<span id='" + "category-span-" + categoryModel.Id + "'>" + categoryModel.Name + "</span>";
 
                 return Content(contentToReturn);
             }

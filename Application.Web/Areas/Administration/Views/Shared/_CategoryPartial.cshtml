@@ -3,14 +3,21 @@
 @{
     var category = Model;
     var categoryUiId = "category-list-" + category.Id;
+    var categorySpanId = "category-span-" + category.Id;
     var categoryDeleteModalHref = "#category-delete-modal-" + category.Id;
+    var categoryEditModalHref = "#category-edit-modal-" + category.Id;
+    var categoryEditModalId = "category-edit-modal-" + category.Id;
     var categoryDeleteModalId = "category-delete-modal-" + category.Id;
     var subCategoryUiId = "subcategories-list-" + @category.Id;
     var loadingElementId = "loading-element-" + @subCategoryUiId;
     <div class="col-md-4" id="@categoryUiId">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">@category.Name <a class="btn pull-right fa fa-times" data-toggle="modal" href="@categoryDeleteModalHref" style="margin:-5px -13px 0 0;"></a></h3>
+                <h3 class="panel-title">
+                    <span id="@categorySpanId">@category.Name</span>
+                    <a class="btn pull-right fa fa-times" data-toggle="modal" href="@categoryDeleteModalHref" style="margin:-5px -13px 0 0;"></a>
+                    <a class="btn pull-right fa fa-file-text" data-toggle="modal" href="@categoryEditModalHref" style="margin:-5px -13px 0 0;"></a>
+                </h3>
                 <!-- Delete Modal -->
                 <div class="modal fade" id="@categoryDeleteModalId">
                     <div class="modal-dialog">
@@ -43,6 +50,42 @@
                     </div>
                 </div>
                 <!-- Delete Modal End-->
+                <!-- Edit Modal -->
+                <div class="modal fade" id="@categoryEditModalId">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h4 class="modal-title">Редактиране на категория:</h4>
+                            </div>
+
+                            @using (Ajax.BeginForm("EditCategory",
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "Post",
+                                    InsertionMode = InsertionMode.Replace,
+                                    UpdateTargetId = categorySpanId,
+                                    OnFailure = "CategoryEditFailure"
+                                }))
+                            {
+                                <div class="modal-body">
+                                    <label for="categoryName">Име</label>
+                                    <input type="text" class="form-control" name="name" id="categoryName" value="@category.Name" placeholder="Име на категорията" /><br />
+                                    <label for="categoryDescription">Описание</label>
+                                    @Html.AntiForgeryToken()
+                                    <textarea class="form-control" name="description" id="categoryDescription" placeholder="Описание на категорията">@category.Description</textarea>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Откажи</button>
+                                    @Html.Hidden("Id", category.Id)
+                                    <input type="submit" class="btn btn-primary" id="category-submit-btn" value="Запиши" />
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <!-- Edit Modal End-->
             </div>
             <div class="panel-body">
                 <ul class="list-group" id="@subCategoryUiId">

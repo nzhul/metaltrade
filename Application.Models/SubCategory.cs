@@ -21,6 +21,8 @@ namespace Application.Models
 
         public string Description { get; set; }
 
+        public DateTime DateAdded { get; set; }
+
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
 

@@ -60,5 +60,22 @@ namespace Application.Web.Areas.Administration.Controllers
             model.SubCategories = GetSubCategories();
             return this.View(model);
         }
+
+        public JsonResult GetSubCategories(string id)
+        {
+            var categoryId = int.Parse(id);
+            var subcategories = this.Data.SubCategories
+                .All()
+                .OrderBy(x => x.DateAdded)
+                .Where(x => x.CategoryId == categoryId)
+                .Select(x => new SelectListItem
+                    {
+                        Text = x.Name,
+                        Value = x.Id.ToString()
+                    }).ToList();
+            
+
+            return Json(new SelectList(subcategories, "Value", "Text"));
+        }
     }
 }
