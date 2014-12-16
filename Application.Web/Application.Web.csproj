@@ -286,6 +286,7 @@
     <Content Include="Areas\Administration\Views\Categories\Index.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\_SubCategoryPartial.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\_CategoryPartial.cshtml" />
+    <Content Include="Areas\Administration\Views\Shared\_MessagePartial.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />

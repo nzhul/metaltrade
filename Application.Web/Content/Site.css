@@ -45,3 +45,7 @@
     position: relative;
     top: 5px;
 }
+
+.cursor-pointer {
+    cursor: pointer;
+}

@@ -111,12 +111,26 @@ namespace Application.Web.Areas.Administration.Controllers
                 };
                 this.Data.Products.Add(newProduct);
                 this.Data.SaveChanges();
+                TempData["message"] = "Успещно добави <strong>нов продукт</strong> с име: " + product.Name;
+                TempData["messageType"] = "success";
                 return RedirectToAction("Index");
             }
 
             product.Categories = GetCategories();
             product.SubCategories = GetSubCategories();
+            TempData["message"] = "Невалидни данни за продукта!<br/> Моля попълнете <strong>всички</strong> полета в червено!";
+            TempData["messageType"] = "danger";
             return View(product);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult DeleteProduct(int id)
+        {
+            System.Threading.Thread.Sleep(3000);
+            this.Data.Products.Delete(id);
+            this.Data.SaveChanges();
+            return Content("<tr><td class='text-center' style='padding:15px;'><span class='label label-success'>Изтрито успешно!</span></td></tr>");
         }
     }
 }

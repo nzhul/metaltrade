@@ -1,0 +1,23 @@
+﻿@if (TempData["messageType"] != null)
+{
+    var type = String.Empty;
+    switch (TempData["messageType"] as String)
+    {
+        case "success":
+            type = "alert-success";
+            break;
+        case "warning":
+            type = "alert-warning";
+            break;
+        case "danger":
+            type = "alert-danger";
+            break;
+        default:
+            break;
+    }
+
+    <div class="alert alert-dismissable @type">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        @Html.Raw(@TempData["message"])
+    </div>
+}
