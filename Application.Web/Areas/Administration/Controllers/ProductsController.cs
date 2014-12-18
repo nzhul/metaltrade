@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Application.Web.Areas.Administration.Models.ViewModels;
+using System.Net;
 
 namespace Application.Web.Areas.Administration.Controllers
 {
@@ -61,15 +62,6 @@ namespace Application.Web.Areas.Administration.Controllers
             return View(productsList);
         }
 
-        [HttpGet]
-        public ActionResult Create()
-        {
-            var model = new CreateProductInputModel();
-            model.Categories = GetCategories();
-            model.SubCategories = GetSubCategories();
-            return this.View(model);
-        }
-
         public JsonResult GetSubCategories(string id)
         {
             var categoryId = int.Parse(id);
@@ -87,6 +79,15 @@ namespace Application.Web.Areas.Administration.Controllers
             return Json(new SelectList(subcategories, "Value", "Text"));
         }
 
+        [HttpGet]
+        public ActionResult Create()
+        {
+            var model = new CreateProductInputModel();
+            model.Categories = GetCategories();
+            model.SubCategories = GetSubCategories();
+            return this.View(model);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateProductInputModel product)
@@ -94,6 +95,7 @@ namespace Application.Web.Areas.Administration.Controllers
             if (ModelState.IsValid)
             {
                 var currentUserId = this.User.Identity.GetUserId();
+                var selectedCategory = this.Data.Categories.Find(product.SelectedCategoryId);
                 var newProduct = new Product
                 {
                     ApplicationUserId = currentUserId,
@@ -105,7 +107,8 @@ namespace Application.Web.Areas.Administration.Controllers
                     LongDescription = product.LongDescription,
                     Name = product.Name,
                     ShortDescription = product.ShortDescription,
-                    CategoryName = this.Data.Categories.Find(product.SelectedCategoryId).Name,
+                    CategoryName = selectedCategory.Name,
+                    CategoryId = selectedCategory.Id,
                     SubCategoryId = product.SelectedSubCategoryId,
                     Tags = null
                 };
@@ -123,11 +126,80 @@ namespace Application.Web.Areas.Administration.Controllers
             return View(product);
         }
 
+        [HttpGet]
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var productDb = this.Data.Products.Find(id);
+            if (productDb == null)
+            {
+                return HttpNotFound();
+            }
+            var model = new CreateProductInputModel
+            {
+                BulletsText = productDb.BulletsText,
+                Categories = GetCategories(),
+                IsActive = productDb.IsActive,
+                IsFeatured = productDb.IsFeatured,
+                LongDescription = productDb.LongDescription,
+                Name = productDb.Name,
+                SelectedCategoryId = productDb.CategoryId,
+                SelectedSubCategoryId = productDb.SubCategoryId,
+                ShortDescription = productDb.ShortDescription,
+                SubCategories = GetSubCategories(),
+                Tags = GetTagsAsString(id)
+            };
+
+            return this.View(model);
+        }
+
         [HttpPost]
-        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(CreateProductInputModel product)
+        {
+            if (ModelState.IsValid)
+            {
+                var dbProduct = this.Data.Products.Find(product.Id);
+                if (dbProduct == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                dbProduct.BulletsText = product.BulletsText;
+                dbProduct.CategoryId = product.SelectedCategoryId;
+                dbProduct.CategoryName = this.Data.Categories.Find(product.SelectedCategoryId).Name;
+                dbProduct.IsActive = product.IsActive;
+                dbProduct.IsFeatured = product.IsFeatured;
+                dbProduct.LongDescription = product.LongDescription;
+                dbProduct.Name = product.Name;
+                dbProduct.ShortDescription = product.ShortDescription;
+                dbProduct.SubCategoryId = product.SelectedSubCategoryId;
+
+                this.Data.SaveChanges();
+                TempData["message"] = "Продукта беше <strong>редактиран</strong> успешно <strong><a href='#'>ПРЕГЛЕДАЙ ГО!</a></strong>";
+                TempData["messageType"] = "success";
+                return RedirectToAction("Index");
+            }
+
+            product.Categories = GetCategories();
+            product.SubCategories = GetSubCategories();
+            TempData["message"] = "Невалидни данни за продукта!<br/> Моля попълнете <strong>всички</strong> полета в червено!";
+            TempData["messageType"] = "danger";
+            return View(product);
+        }
+
+        private string GetTagsAsString(int? id)
+        {
+            return "not implemented!";
+        }
+
+
+        [HttpPost]
         public ActionResult DeleteProduct(int id)
         {
-            System.Threading.Thread.Sleep(3000);
             this.Data.Products.Delete(id);
             this.Data.SaveChanges();
             return Content("<tr><td class='text-center' style='padding:15px;'><span class='label label-success'>Изтрито успешно!</span></td></tr>");

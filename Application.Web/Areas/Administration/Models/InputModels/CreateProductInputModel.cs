@@ -9,6 +9,8 @@ namespace Application.Web.Areas.Administration.InputModels
 {
     public class CreateProductInputModel
     {
+        public int Id { get; set; }
+
         [Required(ErrorMessage="Името на продукта е задължително!")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Невалидно име - Максимална дължина 50 символа, минимална 3")]
         [Display(Name = "Наименование на продукта:")]

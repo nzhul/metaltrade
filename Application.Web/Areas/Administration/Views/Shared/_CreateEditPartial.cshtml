@@ -1,0 +1,114 @@
+﻿@model Application.Web.Areas.Administration.InputModels.CreateProductInputModel
+
+@using (Html.BeginForm((string)ViewBag.FormMode, "Products", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
+
+    <h2 class="main-heading text-center">
+        @ViewBag.Title <br />
+    </h2>
+    <hr />
+    <section class="registration-area">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="panel panel-smart">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Задължителни данни за продукта</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    @Html.LabelFor(model => model.Name, new { @class = "control-label" })
+                                    @Html.ValidationMessageFor(model => model.Name)
+                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Име" } })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    @Html.LabelFor(model => model.SelectedCategoryId, new { @class = "control-label" })
+                                    @Html.ValidationMessageFor(model => model.SelectedCategoryId)
+                                    @Html.DropDownListFor(model => model.SelectedCategoryId, Model.Categories, " -- Избери Категория --", new { @id = "categories-dropdown", @class = "form-control" })
+                                </div>
+                                <div class="col-sm-6">
+                                    @Html.LabelFor(model => model.SelectedSubCategoryId, new { @class = "control-label" })
+                                    @Html.ValidationMessageFor(model => model.SelectedSubCategoryId)
+                                    @Html.DropDownListFor(model => model.SelectedSubCategoryId, Model.SubCategories, " -- Първо избери категория --", new { @disabled = "disabled", @id = "subCategories-dropdown", @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    @Html.LabelFor(model => model.ShortDescription, new { @class = "control-label" })
+                                    @Html.ValidationMessageFor(model => model.ShortDescription)
+                                    @Html.EditorFor(model => model.ShortDescription)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    @Html.LabelFor(model => model.BulletsText, new { @class = "control-label" })
+                                    @Html.ValidationMessageFor(model => model.BulletsText)
+                                    @Html.EditorFor(model => model.BulletsText)
+                                </div>
+                            </div>
+                            <h3 class="panel-heading inner">
+                                Допълнителни данни
+                            </h3>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    @Html.LabelFor(model => model.LongDescription, new { @class = "control-label" })
+                                    @Html.ValidationMessageFor(model => model.LongDescription)
+                                    @Html.EditorFor(model => model.LongDescription)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    @Html.LabelFor(model => model.Tags, new { @class = "control-label" })
+                                    @Html.ValidationMessageFor(model => model.Tags)
+                                    @Html.EditorFor(model => model.Tags, new { htmlAttributes = new { @class = "form-control", placeholder = "Изброени с запетайка: Сапани, куки, товари" } })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-3">
+                                    @Html.LabelFor(model => model.IsActive, new { @class = "control-label" })
+                                    @Html.CheckBoxFor(model => model.IsActive)
+                                </div>
+                                <div class="col-sm-6">
+                                    @Html.LabelFor(model => model.IsFeatured, new { @class = "control-label" })
+                                    @Html.CheckBoxFor(model => model.IsFeatured)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-warning">
+                                        @ViewBag.FormMode
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <!-- Guest Checkout Panel Starts -->
+                <div class="panel panel-smart">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Добави Снимки
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            Все още няма качени снимки за този продукт!
+                        </p>
+                        <button class="btn btn-warning">As Guest</button>
+                    </div>
+                </div>
+                <!-- Guest Checkout Panel Ends -->
+            </div>
+        </div>
+    </section>
+		<!-- Registration Section Ends -->
+}
+
+
