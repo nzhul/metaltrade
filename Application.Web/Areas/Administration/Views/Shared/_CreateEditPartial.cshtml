@@ -98,10 +98,24 @@
                         </h3>
                     </div>
                     <div class="panel-body">
-                        <p>
-                            Все още няма качени снимки за този продукт!
-                        </p>
-                        <button class="btn btn-warning">As Guest</button>
+                        @using (Html.BeginForm("Upload", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.ValidationSummary()
+
+                            <div class="form-field">
+                                <p>Select pictures:</p>
+                                <div class="upload-container">
+                                    <div class="upload">
+                                        <input type="file" name="files" id="file1" />
+                                        <img src="@Url.Content("~/Content/images/delete.png")" alt="Remove picture." />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-field">
+                                <input type="submit" value="Качи снимките" />
+                            </div>
+                        }
                     </div>
                 </div>
                 <!-- Guest Checkout Panel Ends -->

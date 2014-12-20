@@ -8,6 +8,8 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Application.Web.Areas.Administration.Models.ViewModels;
 using System.Net;
+using System.IO;
+using ImageResizer;
 
 namespace Application.Web.Areas.Administration.Controllers
 {
@@ -203,6 +205,53 @@ namespace Application.Web.Areas.Administration.Controllers
             this.Data.Products.Delete(id);
             this.Data.SaveChanges();
             return Content("<tr><td class='text-center' style='padding:15px;'><span class='label label-success'>Изтрито успешно!</span></td></tr>");
+        }
+
+        [HttpPost]
+        public ActionResult Upload(IEnumerable<HttpPostedFileBase> files)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Dictionary<string, string> versions = new Dictionary<string, string>();
+                    //Define the versions to generate
+                    versions.Add("_indexThumb", "width=230&height=234&crop=auto&format=jpg"); //Crop to square thumbnail
+                    versions.Add("_detailsBigThumb", "maxwidth=336&crop=auto&format=jpg"); //Fit inside 400x400 area, jpeg
+                    versions.Add("_detailsSmallThumb", "width=77&height=61&crop=auto&format=jpg"); //Fit inside 400x400 area, jpeg
+                    versions.Add("_large", "maxwidth=1500&maxheight=1500&format=jpg"); //Fit inside 1900x1200 area
+
+                    foreach (var file in files)
+                    {
+                        if (file != null)
+                        {
+
+                                string uploadFolder = System.Web.HttpContext.Current.Server.MapPath("~/uploads");
+                                if (!Directory.Exists(uploadFolder)) Directory.CreateDirectory(uploadFolder);
+
+                                foreach (string suffix in versions.Keys)
+                                {
+                                    string fileName = Path.Combine(uploadFolder, System.Guid.NewGuid().ToString() + suffix);
+
+                                    //Let the image builder add the correct extension based on the output file type
+                                    fileName = ImageBuilder.Current.Build(file, fileName, new ResizeSettings(versions[suffix]), false, true);
+                                }
+
+
+                            //if (file.ContentLength <= 0) continue; //Skip unused file controls.
+                            //ImageResizer.ImageJob i = new ImageResizer.ImageJob(file, "~/uploads/<guid>.<ext>", new ImageResizer.ResizeSettings(
+                            //            "width=50;height=50;format=jpg;mode=max"));
+                            //i.CreateParentDirectory = true; //Auto-create the uploads directory.
+                            //i.Build();
+                        }
+                    }
+                }
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
         }
     }
 }
