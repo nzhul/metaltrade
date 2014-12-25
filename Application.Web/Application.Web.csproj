@@ -180,9 +180,12 @@
     <Compile Include="Areas\Administration\Controllers\BaseController.cs" />
     <Compile Include="Areas\Administration\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Administration\Controllers\ProductsController.cs" />
+    <Compile Include="Areas\Administration\Models\DataAnnotations\FileSizeAttribute.cs" />
+    <Compile Include="Areas\Administration\Models\DataAnnotations\FileTypesAttribute.cs" />
     <Compile Include="Areas\Administration\Models\InputModels\CategoryInputModel.cs" />
     <Compile Include="Areas\Administration\Models\InputModels\CreateProductInputModel.cs" />
     <Compile Include="Areas\Administration\Models\InputModels\SubCategoryInputModel.cs" />
+    <Compile Include="Areas\Administration\Models\InputModels\UploadPhotoModel.cs" />
     <Compile Include="Areas\Administration\Models\ViewModels\CategoryViewModel.cs" />
     <Compile Include="Areas\Administration\Models\ViewModels\ProductViewModel.cs" />
     <Compile Include="Areas\Administration\Models\ViewModels\SubCategoryViewModel.cs" />

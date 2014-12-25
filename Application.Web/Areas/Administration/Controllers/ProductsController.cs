@@ -10,6 +10,7 @@ using Application.Web.Areas.Administration.Models.ViewModels;
 using System.Net;
 using System.IO;
 using ImageResizer;
+using Application.Web.Areas.Administration.Models.InputModels;
 
 namespace Application.Web.Areas.Administration.Controllers
 {
@@ -41,6 +42,16 @@ namespace Application.Web.Areas.Administration.Controllers
                 });
 
             return new SelectList(categories, "Value", "Text");
+        }
+
+        private IEnumerable<Image> GetImages(int productId)
+        {
+            var images = this.Data.Images
+                .All()
+                .OrderBy(x => x.Id)
+                .Where(x =>x.ProductId == productId);
+
+            return new List<Image>(images);
         }
 
         // GET: Administration/Products
@@ -76,7 +87,7 @@ namespace Application.Web.Areas.Administration.Controllers
                         Text = x.Name,
                         Value = x.Id.ToString()
                     }).ToList();
-            
+
 
             return Json(new SelectList(subcategories, "Value", "Text"));
         }
@@ -143,6 +154,7 @@ namespace Application.Web.Areas.Administration.Controllers
             }
             var model = new CreateProductInputModel
             {
+                Id = productDb.Id,
                 BulletsText = productDb.BulletsText,
                 Categories = GetCategories(),
                 IsActive = productDb.IsActive,
@@ -153,7 +165,8 @@ namespace Application.Web.Areas.Administration.Controllers
                 SelectedSubCategoryId = productDb.SubCategoryId,
                 ShortDescription = productDb.ShortDescription,
                 SubCategories = GetSubCategories(),
-                Tags = GetTagsAsString(id)
+                Tags = GetTagsAsString(id),
+                Images = GetImages(productDb.Id)
             };
 
             return this.View(model);
@@ -208,7 +221,7 @@ namespace Application.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        public ActionResult Upload(IEnumerable<HttpPostedFileBase> files)
+        public ActionResult Upload(UploadPhotoModel uploadData)
         {
             try
             {
@@ -221,31 +234,40 @@ namespace Application.Web.Areas.Administration.Controllers
                     versions.Add("_detailsSmallThumb", "width=77&height=61&crop=auto&format=jpg"); //Fit inside 400x400 area, jpeg
                     versions.Add("_large", "maxwidth=1500&maxheight=1500&format=jpg"); //Fit inside 1900x1200 area
 
-                    foreach (var file in files)
+                    foreach (var file in uploadData.Files)
                     {
                         if (file != null)
                         {
+                            var originalFileName = file.FileName.Split('.')[0].Replace(' ', '_');
+                            var originalFileExtension = file.FileName.Split('.')[1];
+                            int categoryId = uploadData.CategoryId;
+                            int subCategoryId = uploadData.SubCategoryId;
+                            int productId = uploadData.ProductId;
 
-                                string uploadFolder = System.Web.HttpContext.Current.Server.MapPath("~/uploads");
-                                if (!Directory.Exists(uploadFolder)) Directory.CreateDirectory(uploadFolder);
+                            string uploadFolder = System.Web.HttpContext.Current.Server.MapPath("~/Uploads/" + categoryId + "/" + subCategoryId + "/" + productId);
+                            if (!Directory.Exists(uploadFolder)) Directory.CreateDirectory(uploadFolder);
 
-                                foreach (string suffix in versions.Keys)
+                            foreach (string suffix in versions.Keys)
+                            {
+                                //Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+                                string fileName = Path.Combine(uploadFolder, originalFileName + suffix);
+
+                                fileName = ImageBuilder.Current.Build(file, fileName, new ResizeSettings(versions[suffix]), false, true);
+                            }
+
+                            var newImage = new Image
                                 {
-                                    string fileName = Path.Combine(uploadFolder, System.Guid.NewGuid().ToString() + suffix);
-
-                                    //Let the image builder add the correct extension based on the output file type
-                                    fileName = ImageBuilder.Current.Build(file, fileName, new ResizeSettings(versions[suffix]), false, true);
-                                }
-
-
-                            //if (file.ContentLength <= 0) continue; //Skip unused file controls.
-                            //ImageResizer.ImageJob i = new ImageResizer.ImageJob(file, "~/uploads/<guid>.<ext>", new ImageResizer.ResizeSettings(
-                            //            "width=50;height=50;format=jpg;mode=max"));
-                            //i.CreateParentDirectory = true; //Auto-create the uploads directory.
-                            //i.Build();
+                                    ImagePath = "Uploads\\" + categoryId + "\\" + subCategoryId + "\\" + productId + "\\" + originalFileName,
+                                    ImageExtension = originalFileExtension,
+                                    IsPrimary = false,
+                                    ProductId = productId
+                                };
+                            this.Data.Images.Add(newImage);
+                            this.Data.SaveChanges();
                         }
                     }
                 }
+
                 return RedirectToAction("Index");
             }
             catch

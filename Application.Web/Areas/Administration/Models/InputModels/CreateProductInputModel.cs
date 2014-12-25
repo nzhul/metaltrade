@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Application.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -57,5 +58,7 @@ namespace Application.Web.Areas.Administration.InputModels
 
         [Display(Name = "Пибличен: ")]
         public bool IsActive { get; set; }
+
+        public IEnumerable<Image> Images { get; set; }
     }
 }

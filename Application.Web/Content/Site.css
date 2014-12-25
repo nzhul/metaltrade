@@ -49,3 +49,25 @@
 .cursor-pointer {
     cursor: pointer;
 }
+
+.thumbnail-hover {
+    background: rgba(0, 0, 0, 0.80);
+    width: 77px;
+    height: 25px;
+    position: relative;
+    z-index: 2;
+    left: -83px;
+    top: 1px;
+    float: left;
+    margin-right:-79px;
+    margin-top:65px;
+    text-align:center;
+    font-size:12px;
+}
+
+.product-image-thumbnail-admin {
+    float: left; 
+    width: 77px;
+    margin: 5px 6px -5px 0px;
+    border: 1px solid black;
+}

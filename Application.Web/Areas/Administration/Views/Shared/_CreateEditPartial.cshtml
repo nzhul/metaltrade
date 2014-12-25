@@ -11,7 +11,7 @@
     <hr />
     <section class="registration-area">
         <div class="row">
-            <div class="col-sm-8">
+            <div class="col-sm-7">
                 <div class="panel panel-smart">
                     <div class="panel-heading">
                         <h3 class="panel-title">Задължителни данни за продукта</h3>
@@ -89,7 +89,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-5">
                 <!-- Guest Checkout Panel Starts -->
                 <div class="panel panel-smart">
                     <div class="panel-heading">
@@ -98,16 +98,48 @@
                         </h3>
                     </div>
                     <div class="panel-body">
+                        @if (Model.Images.Count() > 0)
+                        {
+                            foreach (var image in Model.Images)
+                            {
+                                var imageSrc = "../../../"+@image.ImagePath + "_detailsSmallThumb."+@image.ImageExtension;
+                                <img src="@imageSrc" class="product-image-thumbnail-admin" />
+                                <div class="thumbnail-hover">
+                                    <a href="#" class="glyphicon glyphicon-arrow-up" 
+                                       data-toggle="tooltip" 
+                                       data-placement="top" 
+                                       title="Направи картинката ГЛАВНА!"></a> 
+                                    <a href="#" class="fa fa-times"
+                                       data-toggle="tooltip"
+                                       data-placement="top"
+                                       title="Изтрии картинката!"></a>
+                                </div>
+                            }
+                            <div class="clearfix"></div>
+                            <hr />
+                        }
+                        else
+                        {
+                            <div class="alert alert-dismissable alert-info">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <p>Продукта все още няма добавени никакви снимки!<br/>
+                                    Използвай <strong>формата</strong> отдолу за да добавиш
+                                </p>
+                            </div>
+                        }
                         @using (Html.BeginForm("Upload", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
                         {
                             @Html.ValidationSummary()
 
                             <div class="form-field">
-                                <p>Select pictures:</p>
+                                <p>Избери снимки:</p>
                                 <div class="upload-container">
                                     <div class="upload">
                                         <input type="file" name="files" id="file1" />
                                         <img src="@Url.Content("~/Content/images/delete.png")" alt="Remove picture." />
+                                        <input type="hidden" name="ProductId" value="@Model.Id" />
+                                        <input type="hidden" name="CategoryId" value="@Model.SelectedCategoryId" />
+                                        <input type="hidden" name="SubCategoryId" value="@Model.SelectedSubCategoryId" />
                                     </div>
                                 </div>
                             </div>

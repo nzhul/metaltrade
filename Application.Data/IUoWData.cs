@@ -14,6 +14,7 @@ namespace Application.Data
         IRepository<Product> Products { get; }
         IRepository<Category> Categories { get; }
         IRepository<SubCategory> SubCategories { get; }
+        IRepository<Image> Images { get; }
 
         int SaveChanges();
     }

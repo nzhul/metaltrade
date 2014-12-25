@@ -64,7 +64,7 @@
     $(document).ready(function () {
         var currentImage = 1;
         $("body").on("change", "input[name='files']", function () {
-            var pathToRemoveIcon = "@Url.Content("~/Public/images/delete.png")";
+            var pathToRemoveIcon = "@Url.Content("~/Content/images/delete.png")";
             currentImage = currentImage + 1;
             var htmlToAppend = '<div class="upload"><input type="file" name="files" id="file' + currentImage + '" /><img src="' + pathToRemoveIcon + '" alt="Remove picture." /></div>';
             $('.upload-container').append(htmlToAppend);
