@@ -98,7 +98,7 @@
                         </h3>
                     </div>
                     <div class="panel-body">
-                        @if (Model.Images.Count() > 0)
+                        @if (Model.Images != null && Model.Images.Count() > 0)
                         {
                             foreach (var image in Model.Images)
                             {

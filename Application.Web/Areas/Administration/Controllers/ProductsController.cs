@@ -54,12 +54,16 @@ namespace Application.Web.Areas.Administration.Controllers
             return new List<Image>(images);
         }
 
+        const int PageSize = 2;
+
         // GET: Administration/Products
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
+            int pageNumber = id.GetValueOrDefault(1);
             var productsList = this.Data.Products.All()
                 .OrderByDescending(x => x.DateAdded)
+                .Skip((pageNumber - 1) * PageSize).Take(PageSize)
                 .AsEnumerable()
                 .Select(x => new ProductViewModel
                 {
@@ -72,6 +76,9 @@ namespace Application.Web.Areas.Administration.Controllers
                     IsFeatured = x.IsFeatured,
                     DateAdded = x.DateAdded
                 }).ToList();
+
+            ViewBag.Pages = Math.Ceiling((double)this.Data.Products.All().Count() / PageSize);
+            ViewBag.CurrentPage = id;
             return View(productsList);
         }
 
@@ -241,10 +248,9 @@ namespace Application.Web.Areas.Administration.Controllers
                             var originalFileName = file.FileName.Split('.')[0].Replace(' ', '_');
                             var originalFileExtension = file.FileName.Split('.')[1];
                             int categoryId = uploadData.CategoryId;
-                            int subCategoryId = uploadData.SubCategoryId;
                             int productId = uploadData.ProductId;
 
-                            string uploadFolder = System.Web.HttpContext.Current.Server.MapPath("~/Uploads/" + categoryId + "/" + subCategoryId + "/" + productId);
+                            string uploadFolder = System.Web.HttpContext.Current.Server.MapPath("~/Uploads/" + categoryId + "/" + productId);
                             if (!Directory.Exists(uploadFolder)) Directory.CreateDirectory(uploadFolder);
 
                             foreach (string suffix in versions.Keys)
@@ -257,7 +263,7 @@ namespace Application.Web.Areas.Administration.Controllers
 
                             var newImage = new Image
                                 {
-                                    ImagePath = "Uploads\\" + categoryId + "\\" + subCategoryId + "\\" + productId + "\\" + originalFileName,
+                                    ImagePath = "Uploads\\" + categoryId + "\\" + productId + "\\" + originalFileName,
                                     ImageExtension = originalFileExtension,
                                     IsPrimary = false,
                                     ProductId = productId

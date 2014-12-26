@@ -71,3 +71,15 @@
     margin: 5px 6px -5px 0px;
     border: 1px solid black;
 }
+
+.popup-ajax {
+    cursor:pointer;
+}
+
+.admin-hover-image {
+    position:absolute;
+    margin: -240px 0 0 -100px;
+    border: 1px solid black;
+    box-shadow: rgba(0,0,0,0.7) 3px 3px 3px;
+    visibility:hidden;
+}

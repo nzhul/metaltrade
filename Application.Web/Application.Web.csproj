@@ -307,6 +307,7 @@
     <Content Include="Areas\Administration\Views\Shared\_MessagePartial.cshtml" />
     <Content Include="Areas\Administration\Views\Products\Edit.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\_CreateEditPartial.cshtml" />
+    <Content Include="Areas\Administration\Views\Shared\_Pagination.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />

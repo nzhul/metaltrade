@@ -4,11 +4,10 @@
 }
 
 <div class="container" id="event-container" style="margin-top:-20px;">
-    <h3>@ViewBag.Title</h3>   
+    <h3>@ViewBag.Title</h3>
     <div class="panel panel-info" style="border: 1px solid #222222;">
         <div class="panel-heading" style="background: #222222;color: #777;border-bottom:none;">Стоманени въжета > Асансьорни въжета</div>
         <div class="panel-body">
-
             <table class="table table-striped table-hover ">
                 <thead>
                     <tr>
@@ -32,7 +31,10 @@
                         var categoryDeleteModalId = "product-delete-modal-" + product.Id;
                         var loadingElementId = "loading-element-" + product.Id;
                         <tr id="@productRowUiId">
-                            <td><span data-toggle="tooltip" data-placement="top" title="" data-original-title="Тук трябва да се зарежда картинката при Hover" class="glyphicon glyphicon-picture"></span></td>
+                            <td>
+                                <div class="glyphicon glyphicon-picture popup-ajax"></div>
+                                <img src="~/Uploads/6/7/pironi-1_indexThumb.jpg" class="admin-hover-image" />
+                            </td>
                             <td>@product.Name</td>
                             <td>@product.CategoryName</td>
                             <td>@product.SubCategoryName</td>
@@ -58,10 +60,14 @@
                             </td>
                             <td><span class="label label-default">@Html.DisplayFor(x => product.DateAdded)</span></td>
                             <td>
-                                <a href="#" title="Преглед" class="glyphicon glyphicon-file edit-btn" 
+                                <a href="#" title="Преглед" class="glyphicon glyphicon-file edit-btn"
                                    data-toggle="tooltip" data-placement="top"></a>
-                                <a href="Products/Edit/@product.Id" title="Редакция" class="glyphicon glyphicon-edit edit-btn"
-                                   data-toggle="tooltip" data-placement="top"></a>
+                                @Html.ActionLink(" ", "Edit", 
+                                    new { id = product.Id }, 
+                                    new { @class = "glyphicon glyphicon-edit edit-btn", 
+                                            data_toggle = "tooltip", 
+                                            data_placement = "top", 
+                                            title = "Редакция" })
                                 <a href="@categoryDeleteModalHref" title="Изтрии" class="glyphicon glyphicon-ban-circle edit-btn"
                                    data-toggle="modal" data-placement="top"></a>
 
@@ -108,25 +114,16 @@
                     }
                 </tbody>
             </table>
-            <ul class="pagination pull-right">
-                <li class="disabled"><a href="#">«</a></li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">»</a></li>
-            </ul>
+            @Html.Partial("_Pagination")
             @Html.ActionLink("Добави Продукт", "Create", "Products", new { area = "Administration" }, new { @class = "btn btn-primary" })
         </div>
     </div>
 </div>
 
 @section scripts {
-        <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script>
-        function productDeleteFailure()
-        {
+        function productDeleteFailure() {
             alert("Error deleting the product!");
         }
 
@@ -136,5 +133,14 @@
             $('body').removeClass('modal-open');
             $('.modal-backdrop').remove();
         })
+
+        $('.popup-ajax').on('mouseenter', function () {
+            var target = $(this);
+            target.next().css('visibility', 'visible');
+        })
+        $('.popup-ajax').on('mouseleave', function () {
+            var target = $(this);
+            target.next().css('visibility', 'hidden');
+        })
     </script>
-    }
+}
