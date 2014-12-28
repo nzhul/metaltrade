@@ -5,8 +5,8 @@
 
 <div class="container" id="event-container" style="margin-top:-20px;">
     <h3>@ViewBag.Title</h3>
-    <div class="panel panel-info" style="border: 1px solid #222222;">
-        <div class="panel-heading" style="background: #222222;color: #777;border-bottom:none;">Стоманени въжета > Асансьорни въжета</div>
+    <div class="panel panel-info">
+        <div class="panel-heading">Стоманени въжета > Асансьорни въжета</div>
         <div class="panel-body">
             <table class="table table-striped table-hover ">
                 <thead>
@@ -30,10 +30,11 @@
                         var categoryDeleteModalHref = "#product-delete-modal-" + product.Id;
                         var categoryDeleteModalId = "product-delete-modal-" + product.Id;
                         var loadingElementId = "loading-element-" + product.Id;
+                        var imageUrl = "/" + product.PrimaryImage.ImagePath + "_indexThumb." + product.PrimaryImage.ImageExtension;
                         <tr id="@productRowUiId">
                             <td>
                                 <div class="glyphicon glyphicon-picture popup-ajax"></div>
-                                <img src="~/Uploads/6/7/pironi-1_indexThumb.jpg" class="admin-hover-image" />
+                                <img src="@imageUrl" class="admin-hover-image" />
                             </td>
                             <td>@product.Name</td>
                             <td>@product.CategoryName</td>
@@ -115,7 +116,7 @@
                 </tbody>
             </table>
             @Html.Partial("_Pagination")
-            @Html.ActionLink("Добави Продукт", "Create", "Products", new { area = "Administration" }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Добави Продукт", "Create", "Products", new { area = "Administration" }, new { @class = "btn btn-warning" })
         </div>
     </div>
 </div>

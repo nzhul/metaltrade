@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Application.Web.Models.HomeViewModel
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -30,191 +31,43 @@
         <div class="col-md-9">
             <h3 class="side-heading">Най-популярни продукти:</h3>
             <div class="row">
-                <div class="col-md-4">
-                    <div class="product-col">
-                        <img src="Content/images/product-thumbnail-placeholder.jpg" class="image" alt="Alternate Text" />
-                        <div class="caption">
-                            <h4><a href="Products/Details/1"> Лентови полиестерни сапани</a></h4>
-                            <div class="description">
-                                Видове: Еднораменен сапан; Двураменен сапан; Тритаменен сапан; Четирираменен сапан;
-                            </div>
-                            <div class="cart-button button-group">
-                                <button type="button" title="" class="btn btn-wishlist" data-original-title="Кагегория: Сапани">
-                                    <i class="glyphicon glyphicon-th-large"></i>
-                                </button>
-                                <a href="Products/Details/1" type="button" class="btn btn-cart">
-                                    Детайли
-                                    <i class="fa fa-arrow-circle-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="product-col">
-                        <img src="Content/images/product-thumbnail-placeholder.jpg" class="image" alt="Alternate Text" />
-                        <div class="caption">
-                            <h4><a href="Products/Details/1"> Лентови полиестерни сапани</a></h4>
-                            <div class="description">
-                                Видове: Еднораменен сапан; Двураменен сапан; Тритаменен сапан; Четирираменен сапан;
-                            </div>
-                            <div class="cart-button button-group">
-                                <button type="button" title="" class="btn btn-wishlist" data-original-title="Кагегория: Сапани">
-                                    <i class="glyphicon glyphicon-th-large"></i>
-                                </button>
-                                <a href="Products/Details/1" type="button" class="btn btn-cart">
-                                    Детайли
-                                    <i class="fa fa-arrow-circle-right"></i>
-                                </a>
+                @for (int i = 0; i < Model.Products.Count(); i++)
+                {
+                    var product = Model.Products.ElementAt(i);
+                    var productThumbnail = product.PrimaryImage.ImagePath + "_indexThumb." + product.PrimaryImage.ImageExtension;
+                    <div class="col-md-4">
+                        <div class="product-col">
+                            <img src="@productThumbnail" class="image" alt="Alternate Text" />
+                            <div class="caption">
+                                <h4>
+                                    @Html.ActionLink(product.Name, "Details", "Products", new { id = product.Id }, null)
+                                </h4>
+                                <div class="description">
+                                    @Html.Raw(product.ShortDescription)
+                                </div>
+                                <div class="cart-button button-group" style="margin-top:-15px;">
+                                    <a  class="btn btn-wishlist" data-original-title="Кагегория: @product.CategoryName">
+                                        <i class="glyphicon glyphicon-th-large"></i>
+                                    </a>
+                                    <a href="Products/Details/1" type="button" class="btn btn-cart">
+                                        Детайли
+                                        <i class="fa fa-arrow-circle-right"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="product-col">
-                        <img src="Content/images/product-thumbnail-placeholder.jpg" class="image" alt="Alternate Text" />
-                        <div class="caption">
-                            <h4><a href="Products/Details/1"> Лентови полиестерни сапани</a></h4>
-                            <div class="description">
-                                Видове: Еднораменен сапан; Двураменен сапан; Тритаменен сапан; Четирираменен сапан;
-                            </div>
-                            <div class="cart-button button-group">
-                                <button type="button" title="" class="btn btn-wishlist" data-original-title="Кагегория: Сапани">
-                                    <i class="glyphicon glyphicon-th-large"></i>
-                                </button>
-                                <a href="Products/Details/1" type="button" class="btn btn-cart">
-                                    Детайли
-                                    <i class="fa fa-arrow-circle-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    if (i > 0 && (i + 1) % 3 == 0)
+                    {
+                        @:</div>
+                        @:<div class="row">
+                    }
+                }
             </div>
-
             <div class="row">
-                <div class="col-md-4">
-                    <div class="product-col">
-                        <img src="Content/images/product-thumbnail-placeholder.jpg" class="image" alt="Alternate Text" />
-                        <div class="caption">
-                            <h4><a href="Products/Details/1"> Лентови полиестерни сапани</a></h4>
-                            <div class="description">
-                                Видове: Еднораменен сапан; Двураменен сапан; Тритаменен сапан; Четирираменен сапан;
-                            </div>
-                            <div class="cart-button button-group">
-                                <button type="button" title="" class="btn btn-wishlist" data-original-title="Кагегория: Сапани">
-                                    <i class="glyphicon glyphicon-th-large"></i>
-                                </button>
-                                <button type="button" class="btn btn-cart">
-                                    Детайли
-                                    <i class="fa fa-arrow-circle-right"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="product-col">
-                        <img src="Content/images/product-thumbnail-placeholder.jpg" class="image" alt="Alternate Text" />
-                        <div class="caption">
-                            <h4><a href="Products/Details/1"> Лентови полиестерни сапани</a></h4>
-                            <div class="description">
-                                Видове: Еднораменен сапан; Двураменен сапан; Тритаменен сапан; Четирираменен сапан;
-                            </div>
-                            <div class="cart-button button-group">
-                                <button type="button" title="" class="btn btn-wishlist" data-original-title="Кагегория: Сапани">
-                                    <i class="glyphicon glyphicon-th-large"></i>
-                                </button>
-                                <button type="button" class="btn btn-cart">
-                                    Детайли
-                                    <i class="fa fa-arrow-circle-right"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="product-col">
-                        <img src="Content/images/product-thumbnail-placeholder.jpg" class="image" alt="Alternate Text" />
-                        <div class="caption">
-                            <h4><a href="Products/Details/1"> Лентови полиестерни сапани</a></h4>
-                            <div class="description">
-                                Видове: Еднораменен сапан; Двураменен сапан; Тритаменен сапан; Четирираменен сапан;
-                            </div>
-                            <div class="cart-button button-group">
-                                <button type="button" title="" class="btn btn-wishlist" data-original-title="Кагегория: Сапани">
-                                    <i class="glyphicon glyphicon-th-large"></i>
-                                </button>
-                                <button type="button" class="btn btn-cart">
-                                    Детайли
-                                    <i class="fa fa-arrow-circle-right"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="product-col">
-                        <img src="Content/images/product-thumbnail-placeholder.jpg" class="image" alt="Alternate Text" />
-                        <div class="caption">
-                            <h4><a href="Products/Details/1"> Лентови полиестерни сапани</a></h4>
-                            <div class="description">
-                                Видове: Еднораменен сапан; Двураменен сапан; Тритаменен сапан; Четирираменен сапан;
-                            </div>
-                            <div class="cart-button button-group">
-                                <button type="button" title="" class="btn btn-wishlist" data-original-title="Кагегория: Сапани">
-                                    <i class="glyphicon glyphicon-th-large"></i>
-                                </button>
-                                <button type="button" class="btn btn-cart">
-                                    Детайли
-                                    <i class="fa fa-arrow-circle-right"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="product-col">
-                        <img src="Content/images/product-thumbnail-placeholder.jpg" class="image" alt="Alternate Text" />
-                        <div class="caption">
-                            <h4><a href="Products/Details/1"> Лентови полиестерни сапани</a></h4>
-                            <div class="description">
-                                Видове: Еднораменен сапан; Двураменен сапан; Тритаменен сапан; Четирираменен сапан;
-                            </div>
-                            <div class="cart-button button-group">
-                                <button type="button" title="" class="btn btn-wishlist" data-original-title="Кагегория: Сапани">
-                                    <i class="glyphicon glyphicon-th-large"></i>
-                                </button>
-                                <button type="button" class="btn btn-cart">
-                                    Детайли
-                                    <i class="fa fa-arrow-circle-right"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="product-col">
-                        <img src="Content/images/product-thumbnail-placeholder.jpg" class="image" alt="Alternate Text" />
-                        <div class="caption">
-                            <h4><a href="Products/Details/1"> Лентови полиестерни сапани</a></h4>
-                            <div class="description">
-                                Видове: Еднораменен сапан; Двураменен сапан; Тритаменен сапан; Четирираменен сапан;
-                            </div>
-                            <div class="cart-button button-group">
-                                <button type="button" title="" class="btn btn-wishlist" data-original-title="Кагегория: Сапани">
-                                    <i class="glyphicon glyphicon-th-large"></i>
-                                </button>
-                                <button type="button" class="btn btn-cart">
-                                    Детайли
-                                    <i class="fa fa-arrow-circle-right"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-md-12 text-center">
+                    @Html.ActionLink("Виж всички продукти", "Index", "Products",null, new { @class = "btn btn-warning" })
+                    
                 </div>
             </div>
         </div>

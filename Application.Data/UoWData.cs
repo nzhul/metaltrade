@@ -1,5 +1,7 @@
 ﻿using Application.Data.Repositories;
 using Application.Models;
+using Application.Models.Articles;
+using Application.Models.Pages;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -46,6 +48,16 @@ namespace Application.Data
         public IRepository<Image> Images
         {
             get { return this.GetRepository<Image>(); }
+        }
+
+        public IRepository<Article> Articles
+        {
+            get { return this.GetRepository<Article>(); }
+        }
+
+        public IRepository<Page> Pages
+        {
+            get { return this.GetRepository<Page>(); }
         }
 
         public int SaveChanges()

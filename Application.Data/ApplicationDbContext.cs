@@ -1,5 +1,7 @@
 ﻿using Application.Data.Migrations;
 using Application.Models;
+using Application.Models.Articles;
+using Application.Models.Pages;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
@@ -28,6 +30,8 @@ namespace Application.Data
         public IDbSet<SubCategory> SubCategories { get; set; }
         public IDbSet<Tag> Tags { get; set; }
         public IDbSet<Image> Images { get; set; }
+        public IDbSet<Article> Articles { get; set; }
+        public IDbSet<Page> Pages { get; set; }
 
     }
 }

@@ -1,0 +1,10 @@
+﻿@model Application.Web.Areas.Administration.Models.InputModels.CreatePageInputModel
+@{
+    ViewBag.Title = "Добавяне на страница";
+    ViewBag.FormModeText = "Добави";
+    ViewBag.FormMode = "Create";
+}
+
+<div class="container">
+    @{Html.RenderPartial("_CreateEditPagePartial", Model);}
+</div>

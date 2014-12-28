@@ -44,17 +44,7 @@ namespace Application.Web.Areas.Administration.Controllers
             return new SelectList(categories, "Value", "Text");
         }
 
-        private IEnumerable<Image> GetImages(int productId)
-        {
-            var images = this.Data.Images
-                .All()
-                .OrderBy(x => x.Id)
-                .Where(x =>x.ProductId == productId);
-
-            return new List<Image>(images);
-        }
-
-        const int PageSize = 2;
+        const int PageSize = 10;
 
         // GET: Administration/Products
         [HttpGet]
@@ -74,7 +64,8 @@ namespace Application.Web.Areas.Administration.Controllers
                     SubCategoryName = x.SubCategory.Name,
                     IsActive = x.IsActive,
                     IsFeatured = x.IsFeatured,
-                    DateAdded = x.DateAdded
+                    DateAdded = x.DateAdded,
+                    PrimaryImage = x.Images.First(image => image.IsPrimary == true)
                 }).ToList();
 
             ViewBag.Pages = Math.Ceiling((double)this.Data.Products.All().Count() / PageSize);
@@ -121,7 +112,6 @@ namespace Application.Web.Areas.Administration.Controllers
                     ApplicationUserId = currentUserId,
                     BulletsText = product.BulletsText,
                     DateAdded = DateTime.Now,
-                    Images = null,
                     IsActive = product.IsActive,
                     IsFeatured = product.IsFeatured,
                     LongDescription = product.LongDescription,
@@ -130,9 +120,21 @@ namespace Application.Web.Areas.Administration.Controllers
                     CategoryName = selectedCategory.Name,
                     CategoryId = selectedCategory.Id,
                     SubCategoryId = product.SelectedSubCategoryId,
-                    Tags = null
+                    Tags = null // Delete if problem
                 };
+
+                var defaultImage = new Image
+                {
+                    ImageExtension = "jpg",
+                    ImagePath = "Content\\images\\noimage\\no-image",
+                    IsPrimary = true,
+                    DateAdded = DateTime.Now
+                };
+
+                
                 this.Data.Products.Add(newProduct);
+                this.Data.SaveChanges();
+                newProduct.Images.Add(defaultImage);
                 this.Data.SaveChanges();
                 TempData["message"] = "Успещно добави <strong>нов продукт</strong> с име: " + product.Name;
                 TempData["messageType"] = "success";
@@ -173,7 +175,7 @@ namespace Application.Web.Areas.Administration.Controllers
                 ShortDescription = productDb.ShortDescription,
                 SubCategories = GetSubCategories(),
                 Tags = GetTagsAsString(id),
-                Images = GetImages(productDb.Id)
+                Images = productDb.Images
             };
 
             return this.View(model);
@@ -241,14 +243,17 @@ namespace Application.Web.Areas.Administration.Controllers
                     versions.Add("_detailsSmallThumb", "width=77&height=61&crop=auto&format=jpg"); //Fit inside 400x400 area, jpeg
                     versions.Add("_large", "maxwidth=1500&maxheight=1500&format=jpg"); //Fit inside 1900x1200 area
 
+                    int categoryId = uploadData.CategoryId;
+                    int productId = uploadData.ProductId;
+                    var theProduct = this.Data.Products.Find(productId);
+
+                    bool firstLoop = true;
                     foreach (var file in uploadData.Files)
                     {
                         if (file != null)
                         {
                             var originalFileName = file.FileName.Split('.')[0].Replace(' ', '_');
                             var originalFileExtension = file.FileName.Split('.')[1];
-                            int categoryId = uploadData.CategoryId;
-                            int productId = uploadData.ProductId;
 
                             string uploadFolder = System.Web.HttpContext.Current.Server.MapPath("~/Uploads/" + categoryId + "/" + productId);
                             if (!Directory.Exists(uploadFolder)) Directory.CreateDirectory(uploadFolder);
@@ -266,14 +271,25 @@ namespace Application.Web.Areas.Administration.Controllers
                                     ImagePath = "Uploads\\" + categoryId + "\\" + productId + "\\" + originalFileName,
                                     ImageExtension = originalFileExtension,
                                     IsPrimary = false,
-                                    ProductId = productId
+                                    DateAdded = DateTime.Now
                                 };
-                            this.Data.Images.Add(newImage);
+
+                            if (firstLoop)
+                            {
+                                theProduct.Images.First(image => image.IsPrimary == true).IsPrimary = false;
+                                newImage.IsPrimary = true;
+                            }
+                            
+                            theProduct.Images.Add(newImage);
                             this.Data.SaveChanges();
                         }
+
+                        firstLoop = false;
                     }
                 }
 
+                TempData["message"] = "Снимката беше <strong>добавена</strong> успешно!";
+                TempData["messageType"] = "success";
                 return RedirectToAction("Index");
             }
             catch

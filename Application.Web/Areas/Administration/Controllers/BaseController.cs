@@ -1,4 +1,6 @@
 ﻿using Application.Data;
+using Application.Web.Areas.Administration.Models.ViewModels;
+using Application.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +21,17 @@ namespace Application.Web.Areas.Administration.Controllers
         public BaseController()
             : this(new UoWData())
         {
+            var model = new LayoutModel();
+            model.Pages = this.Data.Pages
+                .All()
+                .OrderBy(x => x.Id)
+                .Select(x => new PageViewModel
+                {
+                    Id = x.Id,
+                    Title = x.Title
+                })
+                .ToList();
+            ViewBag.LayoutModel = model;
         }
     }
 }

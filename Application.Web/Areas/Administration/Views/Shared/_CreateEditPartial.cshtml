@@ -2,6 +2,15 @@
 
 @using (Html.BeginForm((string)ViewBag.FormMode, "Products", FormMethod.Post, new { @class = "form-horizontal" }))
 {
+    var columnWidth = 7;
+    if (ViewBag.FormMode == "Edit")
+    {
+        columnWidth = 7;
+    }
+    else
+    {
+        columnWidth = 12;
+    }
     @Html.AntiForgeryToken()
     @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
 
@@ -11,7 +20,7 @@
     <hr />
     <section class="registration-area">
         <div class="row">
-            <div class="col-sm-7">
+            <div class="col-sm-@columnWidth">
                 <div class="panel panel-smart">
                     <div class="panel-heading">
                         <h3 class="panel-title">Задължителни данни за продукта</h3>
@@ -81,7 +90,7 @@
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <button type="submit" class="btn btn-warning">
-                                        @ViewBag.FormMode
+                                        @ViewBag.FormModeText
                                     </button>
                                 </div>
                             </div>
@@ -89,69 +98,73 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-5">
-                <!-- Guest Checkout Panel Starts -->
-                <div class="panel panel-smart">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            Добави Снимки
-                        </h3>
-                    </div>
-                    <div class="panel-body">
-                        @if (Model.Images != null && Model.Images.Count() > 0)
-                        {
-                            foreach (var image in Model.Images)
+            @if (ViewBag.FormMode == "Edit")
+            {
+                <div class="col-sm-5">
+                    <!-- Guest Checkout Panel Starts -->
+                    <div class="panel panel-smart">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                Добави Снимки
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            @if (Model.Images != null && Model.Images.Count() > 0)
                             {
-                                var imageSrc = "../../../"+@image.ImagePath + "_detailsSmallThumb."+@image.ImageExtension;
-                                <img src="@imageSrc" class="product-image-thumbnail-admin" />
-                                <div class="thumbnail-hover">
-                                    <a href="#" class="glyphicon glyphicon-arrow-up" 
-                                       data-toggle="tooltip" 
-                                       data-placement="top" 
-                                       title="Направи картинката ГЛАВНА!"></a> 
-                                    <a href="#" class="fa fa-times"
-                                       data-toggle="tooltip"
-                                       data-placement="top"
-                                       title="Изтрии картинката!"></a>
+                                foreach (var image in Model.Images.OrderByDescending(x => x.DateAdded))
+                                {
+                                    var imageSrc = "../../../" + @image.ImagePath + "_detailsSmallThumb." + @image.ImageExtension;
+                                    <img src="@imageSrc" class="product-image-thumbnail-admin" />
+                                    <div class="thumbnail-hover">
+                                        <a href="#" class="glyphicon glyphicon-arrow-up"
+                                           data-toggle="tooltip"
+                                           data-placement="top"
+                                           title="Направи картинката ГЛАВНА!"></a>
+                                        <a href="#" class="fa fa-times"
+                                           data-toggle="tooltip"
+                                           data-placement="top"
+                                           title="Изтрии картинката!"></a>
+                                    </div>
+                                }
+                                <div class="clearfix"></div>
+                                <hr />
+                            }
+                            else
+                            {
+                                <div class="alert alert-dismissable alert-info">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <p>
+                                        Продукта все още няма добавени никакви снимки!<br />
+                                        Използвай <strong>формата</strong> отдолу за да добавиш
+                                    </p>
                                 </div>
                             }
-                            <div class="clearfix"></div>
-                            <hr />
-                        }
-                        else
-                        {
-                            <div class="alert alert-dismissable alert-info">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                <p>Продукта все още няма добавени никакви снимки!<br/>
-                                    Използвай <strong>формата</strong> отдолу за да добавиш
-                                </p>
-                            </div>
-                        }
-                        @using (Html.BeginForm("Upload", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                        {
-                            @Html.ValidationSummary()
+                            @using (Html.BeginForm("Upload", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                @Html.ValidationSummary()
 
-                            <div class="form-field">
-                                <p>Избери снимки:</p>
-                                <div class="upload-container">
-                                    <div class="upload">
-                                        <input type="file" name="files" id="file1" />
-                                        <img src="@Url.Content("~/Content/images/delete.png")" alt="Remove picture." />
-                                        <input type="hidden" name="ProductId" value="@Model.Id" />
-                                        <input type="hidden" name="CategoryId" value="@Model.SelectedCategoryId" />
-                                        <input type="hidden" name="SubCategoryId" value="@Model.SelectedSubCategoryId" />
+                                <div class="form-field">
+                                    <p>Избери снимки:</p>
+                                    <div class="upload-container">
+                                        <div class="upload">
+                                            <input type="file" name="files" id="file1" />
+                                            <img src="@Url.Content("~/Content/images/delete.png")" alt="Remove picture." />
+                                            <input type="hidden" name="ProductId" value="@Model.Id" />
+                                            <input type="hidden" name="CategoryId" value="@Model.SelectedCategoryId" />
+                                            <input type="hidden" name="SubCategoryId" value="@Model.SelectedSubCategoryId" />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="form-field">
-                                <input type="submit" value="Качи снимките" />
-                            </div>
-                        }
+                                <div class="form-field">
+                                    <input type="submit" value="Качи снимките" />
+                                </div>
+                            }
+                        </div>
                     </div>
+                    <!-- Guest Checkout Panel Ends -->
                 </div>
-                <!-- Guest Checkout Panel Ends -->
-            </div>
+            }
         </div>
     </section>
 		<!-- Registration Section Ends -->

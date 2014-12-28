@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Application.Web.Areas.Administration.Models.ViewModels.ArticleViewModel>
+@{
+    ViewBag.Title = "Новини";
+}
+
+<div class="container" id="event-container" style="margin-top:-20px;">
+    <h3>@ViewBag.Title</h3>
+    @Html.ActionLink("Добави статия", "Create", "Articles", null, new { @class = "btn btn-warning", @style="margin: 0 0 15px 0px;" })
+    <div class="row">
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            var article = Model.ElementAt(i);
+            article.LoopCounter = i;
+            Html.RenderPartial("_ArticlePartial", article);
+        }
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $('#event-container').on('click', '.deleteBtnConfirm', function (e) {
+                $theModalParent = $(this).parents('.modal');
+                $theModalParent.modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+            })
+        })
+
+        function articleDeleteFailure() {
+            alert("Грешка при изтриването на статията");
+        }
+    </script>
+}

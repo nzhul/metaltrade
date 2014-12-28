@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Application.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace Application.Web.Areas.Administration.Models.ViewModels
         public string SubCategoryName { get; set; }
         public bool IsActive { get; set; }
         public bool IsFeatured { get; set; }
+        public Image PrimaryImage { get; set; }
 
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}",

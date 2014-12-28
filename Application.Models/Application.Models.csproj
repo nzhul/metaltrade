@@ -54,7 +54,6 @@
   <ItemGroup>
     <Compile Include="ApplicationUser.cs" />
     <Compile Include="Articles\Article.cs" />
-    <Compile Include="Articles\ArticleCategory.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Image.cs" />
     <Compile Include="Pages\Page.cs" />

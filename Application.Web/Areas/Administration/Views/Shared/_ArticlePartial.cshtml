@@ -1,0 +1,70 @@
+﻿@model Application.Web.Areas.Administration.Models.ViewModels.ArticleViewModel
+
+@{
+    var article = Model;
+    var articleDeleteModalHref = "#article-delete-modal-" + article.Id;
+    var articleDeleteModalId = "article-delete-modal-" + article.Id;
+    var loadingElementId = "loading-element-" + article.Id;
+    var articleUiId = "article-list-" + article.Id;
+    
+    
+    <div class="col-md-6" id="@articleUiId">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    @article.Title
+                <a class="btn pull-right fa fa-times" title="Изтрии!" data-toggle="modal" href="@articleDeleteModalHref" style="margin:-5px -13px 0 0;"></a>
+                    @Html.ActionLink(" ", "Edit", new { id = article.Id }, 
+                        new { @class = "btn pull-right fa fa-file-text", 
+                                @style = "margin:-5px -13px 0 0;",
+                                @title = "Редактирай!",
+                                @data_toggle="tooltip"})
+            </h3>
+            <!-- Delete Modal -->
+            <div class="modal fade" id="@articleDeleteModalId">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title">Моля потвърдете!</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p style="color:black;">Сигурни ли сте, че искате да изтриете <strong>статия "@article.Title"</strong>  ? </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Откажи</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">Архивирай</button>
+                            @Ajax.ActionLink("Изтрии!", "DeleteArticle", new { id = article.Id },
+                                new AjaxOptions
+                                {
+                                    InsertionMode = InsertionMode.Replace,
+                                    UpdateTargetId = articleUiId,
+                                    HttpMethod = "Post",
+                                    LoadingElementId = loadingElementId
+                                }, new
+                                {
+                                    @id = articleUiId + "-delete-btn",
+                                    @title = "Изтрии",
+                                    @class = "btn btn-danger deleteBtnConfirm"
+                                })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Delete Modal End-->
+        </div>
+        <div class="panel-body article-body">
+            <div id="@loadingElementId" class="list-group-item text-center" style="width:50px;margin: 0 auto;display:none;">
+                <img src="~/Content/images/gif-load.gif" />
+            </div>
+            @Html.Raw(article.ShortDescription)
+            <button class="btn btn-default">Процети цялата статия</button>
+        </div>
+    </div>
+</div>
+    if (article.LoopCounter > 0 && (article.LoopCounter + 1) % 2 == 0)
+    {
+        @:</div>
+        @:<div class="row">
+    }
+}
