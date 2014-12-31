@@ -11,10 +11,12 @@ namespace Application.Models
     {
         private ICollection<Tag> tags;
         private ICollection<Image> images;
+        private ICollection<SubCategory> subCategories;
         public Product()
         {
             this.tags = new HashSet<Tag>();
             this.images = new HashSet<Image>();
+            this.subCategories = new HashSet<SubCategory>();
         }
         public int Id { get; set; }
         public string Name { get; set; }
@@ -29,12 +31,13 @@ namespace Application.Models
         public string ApplicationUserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
 
-        public string CategoryName { get; set; }
-        public int CategoryId { get; set; }
+        public virtual Category Category { get; set; }
 
-        public int SubCategoryId { get; set; }
-        public virtual SubCategory SubCategory { get; set; }
-
+        public virtual ICollection<SubCategory> SubCategories
+        {
+            get { return this.subCategories; }
+            set { this.subCategories = value; }
+        }
 
         public virtual ICollection<Image> Images
         {

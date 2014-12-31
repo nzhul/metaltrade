@@ -31,6 +31,34 @@ namespace Application.Web.Controllers
                 })
                 .ToList();
             ViewBag.LayoutModel = model;
+
+            // Populate Categories - TODO: use Cache
+            model.Categories = GetAllCategories();
+            ViewBag.LayoutModel = model;
+        }
+
+        private IEnumerable<CategoryViewModel> GetAllCategories()
+        {
+            return this.Data.Categories
+                .All()
+                .OrderBy(x => x.Id)
+                .AsEnumerable()
+                .Select(x => new CategoryViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    SubCategories = this.Data.SubCategories
+                        .All()
+                        .OrderBy(y => y.DateAdded)
+                        .Where(y => y.CategoryId == x.Id)
+                        .Select(y => new SubCategoryViewModel
+                        {
+                            Id = y.Id,
+                            Name = y.Name,
+                            Description = y.Description
+                        })
+                }).ToList();
+
         }
     }
 }

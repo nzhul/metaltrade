@@ -3,14 +3,12 @@
     ViewBag.Title = "Страница";
 }
 <div class="container">
-    <!-- Main Container Starts -->
-    <div id="main-container" class="container">
         <div class="row">
             <!-- Primary Content Starts -->
             <div class="col-md-9">
                 <!-- Breadcrumb Starts -->
                 <ol class="breadcrumb">
-                    <li><a href="index.html">Страници</a></li>
+                    <li><a href="/">Начало</a></li>
                     <li class="active">@Model.Title</li>
                 </ol>
                 <!-- Breadcrumb Ends -->
@@ -29,24 +27,10 @@
             <!-- Sidebar Starts -->
             <div class="col-md-3">
                 <!-- Categories Links Starts -->
-                <h3 class="side-heading">Категории:</h3>
-
-                <div id="menu">
-                    <div class="list-group">
-                        <a class="list-group-item" data-toggle="collapse" data-target="#sm" data-parent="#menu">Стоманени въжета <span class="glyphicon glyphicon-th-large pull-right"></span></a>
-                        <div id="sm" class="sublinks collapse">
-                            <a class="list-group-item small"><span class="glyphicon glyphicon-chevron-right"></span> С общо предназначение</a>
-                            <a class="list-group-item small"><span class="glyphicon glyphicon-chevron-right"></span> За пренапрегнати конструкции</a>
-                        </div>
-                        <a class="list-group-item" data-toggle="collapse" data-target="#sl" data-parent="#menu">Сапани <span class="glyphicon glyphicon-th-large pull-right"></span></a>
-                        <div id="sl" class="sublinks collapse">
-                            <a class="list-group-item small"><span class="glyphicon glyphicon-chevron-right"></span> Сапани от стоманени въжета</a>
-                            <a class="list-group-item small"><span class="glyphicon glyphicon-chevron-right"></span> Сапани от полиестерна тъкан</a>
-                            <a class="list-group-item small"><span class="glyphicon glyphicon-chevron-right"></span> Верижни сапани</a>
-                        </div>
-                        <a class="list-group-item">ANOTHER LINK ...</a>
-                    </div>
-                </div>
+                @if (ViewBag.LayoutModel.Categories != null)
+                {
+                    @Html.Partial("_Categories", (List<Application.Web.Areas.Administration.Models.ViewModels.CategoryViewModel>)ViewBag.LayoutModel.Categories)
+                }
                 <!-- Categories Links Ends -->
                 <!-- Shopping Options Starts -->
                 <h3 class="side-heading">Търси по:</h3>
@@ -127,6 +111,3 @@
             <!-- Sidebar Ends -->
         </div>
     </div>
-    <!-- Main Container Ends -->
-</div>
-

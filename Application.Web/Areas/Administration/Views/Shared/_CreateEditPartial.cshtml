@@ -35,17 +35,41 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-sm-6">
+                                <div class="col-sm-12">
                                     @Html.LabelFor(model => model.SelectedCategoryId, new { @class = "control-label" })
                                     @Html.ValidationMessageFor(model => model.SelectedCategoryId)
                                     @Html.DropDownListFor(model => model.SelectedCategoryId, Model.Categories, " -- Избери Категория --", new { @id = "categories-dropdown", @class = "form-control" })
                                 </div>
-                                <div class="col-sm-6">
-                                    @Html.LabelFor(model => model.SelectedSubCategoryId, new { @class = "control-label" })
-                                    @Html.ValidationMessageFor(model => model.SelectedSubCategoryId)
-                                    @Html.DropDownListFor(model => model.SelectedSubCategoryId, Model.SubCategories, " -- Първо избери категория --", new { @disabled = "disabled", @id = "subCategories-dropdown", @class = "form-control" })
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        @Html.LabelFor(model => model.SelectedSubCategoriesIds, new { @class = "control-label", @style="margin-left:15px;" }) <br />
+                                        @Html.ValidationMessageFor(model => model.SelectedSubCategoriesIds)
+                                        <div class="col-md-4">
+
+                                            @{
+                                            int count = 0;
+                                            string isChecked = "";
+                                            foreach (var availableSubCategory in Model.AvailableSubCategories)
+                                            {
+                                                if (Model.SelectedSubCategoriesIds != null && Model.SelectedSubCategoriesIds.Contains(availableSubCategory.Id))
+                                                {
+                                                    isChecked = "checked=checked";
+                                                }
+                                                if (count > 0 && (count + 1) % 4 == 0)
+                                                {
+                                                    @:</div>
+                                                    @:<div class="col-md-4">
+                                                }
+                                                    <input name="SelectedSubCategoriesIds" id="Dynamic @count" @isChecked type="checkbox" value="@availableSubCategory.Id" /> <label for="Dynamic @count"> @availableSubCategory.Name</label><br />
+                                                count++;
+                                                isChecked = "";
+                                                }
+                                            }
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+
                             <div class="form-group">
                                 <div class="col-sm-12">
                                     @Html.LabelFor(model => model.ShortDescription, new { @class = "control-label" })
@@ -151,7 +175,7 @@
                                             <img src="@Url.Content("~/Content/images/delete.png")" alt="Remove picture." />
                                             <input type="hidden" name="ProductId" value="@Model.Id" />
                                             <input type="hidden" name="CategoryId" value="@Model.SelectedCategoryId" />
-                                            <input type="hidden" name="SubCategoryId" value="@Model.SelectedSubCategoryId" />
+                                            @*<input type="hidden" name="SubCategoryId" value="@Model.SelectedSubCategoryId" />*@
                                         </div>
                                     </div>
                                 </div>

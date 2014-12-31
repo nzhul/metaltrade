@@ -29,19 +29,13 @@ namespace Application.Web.Areas.Administration.Controllers
 
             return new SelectList(categories, "Value", "Text");
         }
-
-        private IEnumerable<SelectListItem> GetSubCategories()
+        private IEnumerable<SubCategory> InitSubCategories()
         {
-            var categories = this.Data.SubCategories
+            var subCategories = this.Data.SubCategories
                 .All()
                 .OrderBy(x => x.Id)
-                .Select(x => new SelectListItem
-                {
-                    Value = x.Id.ToString(),
-                    Text = x.Name.ToString()
-                });
-
-            return new SelectList(categories, "Value", "Text");
+                .ToList();
+                return subCategories;
         }
 
         const int PageSize = 10;
@@ -60,8 +54,7 @@ namespace Application.Web.Areas.Administration.Controllers
                     Id = x.Id,
                     Name = x.Name,
                     ShortDescription = x.ShortDescription,
-                    CategoryName = x.CategoryName,
-                    SubCategoryName = x.SubCategory.Name,
+                    CategoryName = x.Category.Name,
                     IsActive = x.IsActive,
                     IsFeatured = x.IsFeatured,
                     DateAdded = x.DateAdded,
@@ -95,7 +88,7 @@ namespace Application.Web.Areas.Administration.Controllers
         {
             var model = new CreateProductInputModel();
             model.Categories = GetCategories();
-            model.SubCategories = GetSubCategories();
+            model.AvailableSubCategories = InitSubCategories();
             return this.View(model);
         }
 
@@ -117,11 +110,15 @@ namespace Application.Web.Areas.Administration.Controllers
                     LongDescription = product.LongDescription,
                     Name = product.Name,
                     ShortDescription = product.ShortDescription,
-                    CategoryName = selectedCategory.Name,
-                    CategoryId = selectedCategory.Id,
-                    SubCategoryId = product.SelectedSubCategoryId,
+                    Category = selectedCategory,
                     Tags = null // Delete if problem
                 };
+
+                for (int i = 0; i < product.SelectedSubCategoriesIds.Count; i++)
+                {
+                    var theSubCategory = this.Data.SubCategories.Find(product.SelectedSubCategoriesIds[i]);
+                    newProduct.SubCategories.Add(theSubCategory);
+                }
 
                 var defaultImage = new Image
                 {
@@ -142,7 +139,7 @@ namespace Application.Web.Areas.Administration.Controllers
             }
 
             product.Categories = GetCategories();
-            product.SubCategories = GetSubCategories();
+            product.AvailableSubCategories = InitSubCategories();
             TempData["message"] = "Невалидни данни за продукта!<br/> Моля попълнете <strong>всички</strong> полета в червено!";
             TempData["messageType"] = "danger";
             return View(product);
@@ -170,14 +167,19 @@ namespace Application.Web.Areas.Administration.Controllers
                 IsFeatured = productDb.IsFeatured,
                 LongDescription = productDb.LongDescription,
                 Name = productDb.Name,
-                SelectedCategoryId = productDb.CategoryId,
-                SelectedSubCategoryId = productDb.SubCategoryId,
+                SelectedCategoryId = productDb.Category.Id,
                 ShortDescription = productDb.ShortDescription,
-                SubCategories = GetSubCategories(),
                 Tags = GetTagsAsString(id),
                 Images = productDb.Images
             };
 
+            model.AvailableSubCategories = InitSubCategories();
+
+            model.SelectedSubCategoriesIds = new List<int>();
+            foreach (var subCategory in productDb.SubCategories)
+            {
+                model.SelectedSubCategoriesIds.Add(subCategory.Id);
+            }
             return this.View(model);
         }
 
@@ -193,14 +195,25 @@ namespace Application.Web.Areas.Administration.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
                 dbProduct.BulletsText = product.BulletsText;
-                dbProduct.CategoryId = product.SelectedCategoryId;
-                dbProduct.CategoryName = this.Data.Categories.Find(product.SelectedCategoryId).Name;
+                dbProduct.Category = this.Data.Categories.Find(product.SelectedCategoryId);
                 dbProduct.IsActive = product.IsActive;
                 dbProduct.IsFeatured = product.IsFeatured;
                 dbProduct.LongDescription = product.LongDescription;
                 dbProduct.Name = product.Name;
                 dbProduct.ShortDescription = product.ShortDescription;
-                dbProduct.SubCategoryId = product.SelectedSubCategoryId;
+
+                // Delete all SubCategories
+                foreach (var subCategory in dbProduct.SubCategories.ToList())
+                {
+                    dbProduct.SubCategories.Remove(subCategory);
+                }
+                this.Data.SaveChanges();
+                // Insert The New SubCategories
+                for (int i = 0; i < product.SelectedSubCategoriesIds.Count; i++)
+                {
+                    var theSubCategory = this.Data.SubCategories.Find(product.SelectedSubCategoriesIds[i]);
+                    dbProduct.SubCategories.Add(theSubCategory);
+                }
 
                 this.Data.SaveChanges();
                 TempData["message"] = "Продукта беше <strong>редактиран</strong> успешно <strong><a href='#'>ПРЕГЛЕДАЙ ГО!</a></strong>";
@@ -209,7 +222,7 @@ namespace Application.Web.Areas.Administration.Controllers
             }
 
             product.Categories = GetCategories();
-            product.SubCategories = GetSubCategories();
+            product.AvailableSubCategories = InitSubCategories();
             TempData["message"] = "Невалидни данни за продукта!<br/> Моля попълнете <strong>всички</strong> полета в червено!";
             TempData["messageType"] = "danger";
             return View(product);
@@ -294,7 +307,9 @@ namespace Application.Web.Areas.Administration.Controllers
             }
             catch
             {
-                return View();
+                TempData["message"] = "Неуспешно качване на снимка!<br/> Моля свържете се с администратор!";
+                TempData["messageType"] = "danger";
+                return RedirectToAction("Index");
             }
         }
     }

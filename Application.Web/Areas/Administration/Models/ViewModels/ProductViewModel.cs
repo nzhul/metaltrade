@@ -12,8 +12,8 @@ namespace Application.Web.Areas.Administration.Models.ViewModels
         public int Id { get; set; }
         public string Name { get; set; }
         public string ShortDescription { get; set; }
+        public int CategoryId { get; set; }
         public string CategoryName { get; set; }
-        public string SubCategoryName { get; set; }
         public bool IsActive { get; set; }
         public bool IsFeatured { get; set; }
         public Image PrimaryImage { get; set; }

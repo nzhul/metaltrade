@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Application.Web.Areas.Administration.Models.ViewModels.CategoryViewModel>
+<h3 class="side-heading">Категории:</h3>
+<div id="menu">
+    <div class="list-group">
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            var category = Model.ElementAt(i);
+            var target = "#group-" + category.Id;
+            var targetId = "group-" + category.Id;
+            var collapsed = "collapse";
+            if (Request.QueryString["Category"] == category.Id.ToString())
+            {
+                collapsed = "";
+            }
+            <a class="list-group-item"
+               data-toggle="collapse"
+               data-target="@target"
+               data-parent="#menu">
+                @category.Name
+                <span class="glyphicon glyphicon-th-large pull-right"></span>
+            </a>
+            if (category.SubCategories.Count() > 0)
+            {
+                <div id="@targetId" class="sublinks @collapsed">
+                    @for (int j = 0; j < category.SubCategories.Count(); j++)
+                    {
+                        var subCategory = category.SubCategories.ElementAt(j);
+                        var isActiveSubCategory = "";
+                        if (Request.QueryString["SubCategory"] == subCategory.Id.ToString())
+                        {
+                            isActiveSubCategory = "active";
+                        }
+                        <a href="Products/?Category=@category.Id&SubCategory=@subCategory.Id" class="list-group-item small @isActiveSubCategory">
+                            <span class="glyphicon glyphicon-chevron-right"></span> @subCategory.Name
+                        </a>
+                    }
+                </div>
+            }
+        }
+    </div>
+</div>

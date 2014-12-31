@@ -15,7 +15,7 @@ namespace Application.Web.Controllers
         public ActionResult Index()
         {
             var model = new HomeViewModel();
-            model.Categories = GetAllCategories();
+            //model.Categories = GetAllCategories();
             model.Products = GetFeaturedProducts();
             return View(model);
         }
@@ -31,39 +31,39 @@ namespace Application.Web.Controllers
                 .AsEnumerable()
                 .Select(x => new ProductViewModel
                 {
-                    CategoryName = x.CategoryName,
+                    CategoryId = x.Category.Id,
+                    CategoryName = x.Category.Name,
                     DateAdded = x.DateAdded,
                     Id = x.Id,
                     Name = x.Name,
                     PrimaryImage = x.Images.First(image => image.IsPrimary),
-                    ShortDescription = x.ShortDescription,
-                    SubCategoryName = x.SubCategory.Name
+                    ShortDescription = x.ShortDescription
                 }).ToList();
         }
 
-        private IEnumerable<CategoryViewModel> GetAllCategories()
-        {
-            return this.Data.Categories
-                .All()
-                .OrderBy(x => x.Id)
-                .AsEnumerable()
-                .Select(x => new CategoryViewModel
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    SubCategories = this.Data.SubCategories
-                        .All()
-                        .OrderBy(y => y.DateAdded)
-                        .Where(y => y.CategoryId == x.Id)
-                        .Select(y => new SubCategoryViewModel
-                        {
-                            Id = y.Id,
-                            Name = y.Name,
-                            Description = y.Description
-                        })
-                }).ToList();
+        //private IEnumerable<CategoryViewModel> GetAllCategories()
+        //{
+        //    return this.Data.Categories
+        //        .All()
+        //        .OrderBy(x => x.Id)
+        //        .AsEnumerable()
+        //        .Select(x => new CategoryViewModel
+        //        {
+        //            Id = x.Id,
+        //            Name = x.Name,
+        //            SubCategories = this.Data.SubCategories
+        //                .All()
+        //                .OrderBy(y => y.DateAdded)
+        //                .Where(y => y.CategoryId == x.Id)
+        //                .Select(y => new SubCategoryViewModel
+        //                {
+        //                    Id = y.Id,
+        //                    Name = y.Name,
+        //                    Description = y.Description
+        //                })
+        //        }).ToList();
 
-        }
+        //}
 
         public ActionResult About()
         {

@@ -4,29 +4,34 @@
 }
 
 <div class="row">
-    @*@Html.Partial("Home/_Slider")*@
+    @Html.Partial("Home/_Slider")
+</div>
+<div class="row">
+    <!-- 3 Column Banners Starts -->
+    <div class="col3-banners">
+        <div class="container">
+            <ul class="row list-unstyled">
+                <li class="col-sm-4">
+                    <img src="~/Content/images/banners/3col-banner1.jpg" alt="banners" class="img-responsive" />
+                </li>
+                <li class="col-sm-4">
+                    <img src="~/Content/images/banners/3col-banner2.jpg" alt="banners" class="img-responsive" />
+                </li>
+                <li class="col-sm-4">
+                    <img src="~/Content/images/banners/3col-banner3.jpg" alt="banners" class="img-responsive" />
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 3 Column Banners Ends -->
 </div>
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <h3 class="side-heading">Категории:</h3>
-
-            <div id="menu">
-                <div class="list-group">
-                    <a class="list-group-item" data-toggle="collapse" data-target="#sm" data-parent="#menu">Стоманени въжета <span class="glyphicon glyphicon-th-large pull-right"></span></a>
-                    <div id="sm" class="sublinks collapse">
-                        <a class="list-group-item small"><span class="glyphicon glyphicon-chevron-right"></span> С общо предназначение</a>
-                        <a class="list-group-item small"><span class="glyphicon glyphicon-chevron-right"></span> За пренапрегнати конструкции</a>
-                    </div>
-                    <a  class="list-group-item" data-toggle="collapse" data-target="#sl" data-parent="#menu">Сапани <span class="glyphicon glyphicon-th-large pull-right"></span></a>
-                    <div id="sl" class="sublinks collapse">
-                        <a class="list-group-item small"><span class="glyphicon glyphicon-chevron-right"></span> Сапани от стоманени въжета</a>
-                        <a class="list-group-item small"><span class="glyphicon glyphicon-chevron-right"></span> Сапани от полиестерна тъкан</a>
-                        <a class="list-group-item small"><span class="glyphicon glyphicon-chevron-right"></span> Верижни сапани</a>
-                    </div>
-                    <a  class="list-group-item">ANOTHER LINK ...</a>
-                </div>
-            </div>
+            @if (ViewBag.LayoutModel.Categories != null)
+            {
+                @Html.Partial("_Categories", (List<Application.Web.Areas.Administration.Models.ViewModels.CategoryViewModel>)ViewBag.LayoutModel.Categories)
+            }
         </div>
         <div class="col-md-9">
             <h3 class="side-heading">Най-популярни продукти:</h3>
@@ -46,10 +51,10 @@
                                     @Html.Raw(product.ShortDescription)
                                 </div>
                                 <div class="cart-button button-group" style="margin-top:-15px;">
-                                    <a  class="btn btn-wishlist" data-original-title="Кагегория: @product.CategoryName">
+                                    <a href="Products/?Category=@product.CategoryId"  class="btn btn-wishlist" data-original-title="Кагегория: @product.CategoryName">
                                         <i class="glyphicon glyphicon-th-large"></i>
                                     </a>
-                                    <a href="Products/Details/1" type="button" class="btn btn-cart">
+                                    <a href="Products/Details/@product.Id" type="button" class="btn btn-cart">
                                         Детайли
                                         <i class="fa fa-arrow-circle-right"></i>
                                     </a>
