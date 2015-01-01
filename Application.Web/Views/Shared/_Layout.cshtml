@@ -149,7 +149,7 @@
                                                 <li class="dropdown-header">@category.Name</li>
                                                 @foreach (var subCategory in category.SubCategories)
                                                 {
-                                                    <li><a tabindex="-1" href="Products/?Category=@category.Id&SubCategory=@subCategory.Id">@subCategory.Name</a></li>
+                                                    <li><a tabindex="-1" href="@Url.Action("Index", "Products", new { Category = category.Id, SubCategory = subCategory.Id })">@subCategory.Name</a></li>
                                                 }
                                             </ul>
                                         }

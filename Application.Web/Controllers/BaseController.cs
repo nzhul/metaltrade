@@ -47,6 +47,7 @@ namespace Application.Web.Controllers
                 {
                     Id = x.Id,
                     Name = x.Name,
+                    Description = x.Description,
                     SubCategories = this.Data.SubCategories
                         .All()
                         .OrderBy(y => y.DateAdded)

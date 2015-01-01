@@ -14,8 +14,7 @@ namespace Application.Web.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var model = new HomeViewModel();
-            //model.Categories = GetAllCategories();
+            var model = new ProductsViewModel();
             model.Products = GetFeaturedProducts();
             return View(model);
         }
@@ -40,30 +39,6 @@ namespace Application.Web.Controllers
                     ShortDescription = x.ShortDescription
                 }).ToList();
         }
-
-        //private IEnumerable<CategoryViewModel> GetAllCategories()
-        //{
-        //    return this.Data.Categories
-        //        .All()
-        //        .OrderBy(x => x.Id)
-        //        .AsEnumerable()
-        //        .Select(x => new CategoryViewModel
-        //        {
-        //            Id = x.Id,
-        //            Name = x.Name,
-        //            SubCategories = this.Data.SubCategories
-        //                .All()
-        //                .OrderBy(y => y.DateAdded)
-        //                .Where(y => y.CategoryId == x.Id)
-        //                .Select(y => new SubCategoryViewModel
-        //                {
-        //                    Id = y.Id,
-        //                    Name = y.Name,
-        //                    Description = y.Description
-        //                })
-        //        }).ToList();
-
-        //}
 
         public ActionResult About()
         {
