@@ -206,6 +206,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ProductDetailsViewModel.cs" />
     <Compile Include="Models\ProductsViewModel.cs" />
     <Compile Include="Models\LayoutModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -339,6 +340,29 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\lightbox\css\lightbox.css" />
+    <Content Include="Scripts\lightbox\css\screen.css" />
+    <Content Include="Scripts\lightbox\img\close.png" />
+    <Content Include="Scripts\lightbox\img\demopage\favicon.png" />
+    <Content Include="Scripts\lightbox\img\demopage\image-1.jpg" />
+    <Content Include="Scripts\lightbox\img\demopage\image-2.jpg" />
+    <Content Include="Scripts\lightbox\img\demopage\image-3.jpg" />
+    <Content Include="Scripts\lightbox\img\demopage\image-4.jpg" />
+    <Content Include="Scripts\lightbox\img\demopage\image-5.jpg" />
+    <Content Include="Scripts\lightbox\img\demopage\image-6.jpg" />
+    <Content Include="Scripts\lightbox\img\demopage\thumb-1.jpg" />
+    <Content Include="Scripts\lightbox\img\demopage\thumb-2.jpg" />
+    <Content Include="Scripts\lightbox\img\demopage\thumb-3.jpg" />
+    <Content Include="Scripts\lightbox\img\demopage\thumb-4.jpg" />
+    <Content Include="Scripts\lightbox\img\demopage\thumb-5.jpg" />
+    <Content Include="Scripts\lightbox\img\demopage\thumb-6.jpg" />
+    <Content Include="Scripts\lightbox\img\loading.gif" />
+    <Content Include="Scripts\lightbox\img\next.png" />
+    <Content Include="Scripts\lightbox\img\prev.png" />
+    <Content Include="Scripts\lightbox\index.html" />
+    <Content Include="Scripts\lightbox\js\jquery-1.11.0.min.js" />
+    <Content Include="Scripts\lightbox\js\lightbox.js" />
+    <Content Include="Scripts\lightbox\js\lightbox.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -556,6 +580,11 @@
     <Content Include="Views\Pages\Index.cshtml" />
     <Content Include="Views\Shared\_Categories.cshtml" />
     <Content Include="Views\Shared\Home\_Products.cshtml" />
+    <Content Include="Scripts\lightbox\img\demopage\.DS_Store" />
+    <Content Include="Scripts\lightbox\js\.DS_Store" />
+    <Content Include="Scripts\lightbox\js\jquery-1.11.0.min.map" />
+    <Content Include="Scripts\lightbox\js\lightbox.min.map" />
+    <Content Include="Scripts\lightbox\README.markdown" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

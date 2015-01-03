@@ -1,8 +1,8 @@
-﻿@*@model Application.Models.Product
+﻿@model Application.Models.Product
 
 @{
     ViewBag.Title = "Details";
-}*@
+}
 
 <div class="container">
     <!-- Main Container Starts -->
@@ -11,54 +11,75 @@
             <div class="col-md-9">
                 <!-- Breadcrumb Starts -->
                 <ol class="breadcrumb">
-                    <li><a href="index.html">Начало</a></li>
-                    <li><a href="category-list.html">Сапани</a></li>
-                    <li class="active">Куки за съпани Ф 20</li>
+                    <li><a href="/">Начало</a></li>
+                    <li><a href="/Products">Продукти</a></li>
+                    <li><a href="/Products?Category=@Model.Category.Id">@Model.Category.Name</a></li>
+                    <li class="active">@Model.Name</li>
                 </ol>
                 <!-- Breadcrumb Ends -->
                 <!-- Product Info Starts -->
                 <div class="row product-info">
                     <!-- Left Starts -->
                     <div class="col-sm-5 images-block">
-                        <p>
-                            <img src="~/Content/images/products/hook-1.jpg" alt="Image" class="img-responsive thumbnail" />
+                        <p class="product-gallery-box">
+                            @*@{
+                                var primaryImage = @Model.Images.First(x => x.IsPrimary);
+                                var imageUrl = "/"+primaryImage.ImagePath + "_detailsBigThumb." + primaryImage.ImageExtension;
+                                var imageUrlBig = "/" + primaryImage.ImagePath + "_large." + primaryImage.ImageExtension;
+                            }
+                            <a href="@imageUrlBig" data-lightbox="product-images" data-title="@Model.Name"><img src="@imageUrl" alt="Image" class="img-responsive thumbnail" /></a>*@
+                            @foreach (var thumbnail in @Model.Images)
+                            {
+                                string thumbnailUrl = "/" + thumbnail.ImagePath + "_detailsBigThumb." + thumbnail.ImageExtension;
+                                string imageUrlBigNext = "/" + thumbnail.ImagePath + "_large." + thumbnail.ImageExtension;
+                                string isPrimaryString = "";
+                                if (thumbnailUrl.Contains("no-image") && @Model.Images.Count > 1)
+                                {
+                                    continue;
+                                }
+                                if (thumbnail.IsPrimary)
+                                {
+                                    isPrimaryString = "data-primary=primary";
+                                }
+                                <a href="@imageUrlBigNext" id="big-thumbnail-@thumbnail.Id" @isPrimaryString data-lightbox="product-images" style="display:none;"  data-title="@Model.Name"><img src="@thumbnailUrl" alt="Image" class="img-responsive thumbnail" /></a>
+                            }
                         </p>
                         <ul class="list-unstyled list-inline">
-                            <li>
-                                <img src="~/Content/images/products/hook-2.jpg" alt="Image" style="width:77px;" class="img-responsive thumbnail" />
-                            </li>
-                            <li>
-                                <img src="~/Content/images/products/hook-3.jpg" alt="Image" style="width:77px;" class="img-responsive thumbnail" />
-                            </li>
-                            <li>
-                                <img src="~/Content/images/products/hook-4.jpg" alt="Image" style="width:77px;" class="img-responsive thumbnail" />
-                            </li>
-                            <li>
-                                <img src="~/Content/images/products/hook-4.jpg" alt="Image" style="width:77px;" class="img-responsive thumbnail" />
-                            </li>
+                            @foreach (var thumbnail in @Model.Images)
+                            {
+                                string thumbnailUrl = "/" + thumbnail.ImagePath + "_detailsSmallThumb." + thumbnail.ImageExtension;
+                                if (thumbnailUrl.Contains("no-image") && @Model.Images.Count > 1)
+                                {
+                                    continue;
+                                }
+                                <li>
+                                    <img src="@thumbnailUrl" id="small-thumbnail-@thumbnail.Id" alt="Image" style="width:77px;cursor:pointer;" class="img-responsive thumbnail gallery-trigger" />
+                                </li>
+                            }
                         </ul>
                     </div>
                     <!-- Left Ends -->
                     <!-- Right Starts -->
                     <div class="col-sm-7 product-details">
                         <!-- Product Name Starts -->
-                        <h2>Куки за съпани - Ф 20</h2>
+                        <h2>@Model.Name</h2>
                         <!-- Product Name Ends -->
                         <hr />
                         <!-- Manufacturer Starts -->
-                        <ul class="list-unstyled manufacturer">
+                        @Html.Raw(Model.BulletsText)
+                        @*<ul class="list-unstyled manufacturer">
                             <li>
-                                <span>Производител:</span> Metal Company LTD
+                                <span class="emptyClassHack">Производител:</span> Metal Company LTD
                             </li>
-                            <li><span>Ширина на четката:</span> от 1200 до 2400 мм. (в зависимост от модела)</li>
-                            <li><span>Диаметър:</span> 600 мм</li>
-                            <li><span>Товароподемност:</span> 2,00 тона (в зависимост от модела)</li>
-                            <li><span>Дължина:</span> 2 метра</li>
-                            <li><span>Тегло:</span> 5 гр</li>
+                            <li><span class="emptyClassHack">Ширина на четката:</span> от 1200 до 2400 мм. (в зависимост от модела)</li>
+                            <li><span class="emptyClassHack">Диаметър:</span> 600 мм</li>
+                            <li><span class="emptyClassHack">Товароподемност:</span> 2,00 тона (в зависимост от модела)</li>
+                            <li><span class="emptyClassHack">Дължина:</span> 2 метра</li>
+                            <li><span class="emptyClassHack">Тегло:</span> 5 гр</li>
                             <li>
-                                <span>Налични:</span> <strong class="label label-success">На склад</strong>
+                                <span class="emptyClassHack">Налични:</span> <strong class="label label-success">На склад</strong>
                             </li>
-                        </ul>
+                        </ul>*@
                         <!-- Manufacturer Ends -->
                         <hr />
                         <!-- Available Options Starts -->
@@ -234,52 +255,6 @@
                     @Html.Partial("_Categories", (List<Application.Web.Areas.Administration.Models.ViewModels.CategoryViewModel>)ViewBag.LayoutModel.Categories)
                 }
                 <!-- Categories Links Ends -->
-                <!-- Shopping Options Starts -->
-                <h3 class="side-heading">Търси по:</h3>
-                <div class="list-group">
-                    <div class="list-group-item">
-                        Производител
-                    </div>
-                    <div class="list-group-item">
-                        <div class="filter-group">
-                            <label class="checkbox">
-                                <input name="filter1" type="checkbox" value="br1" checked="checked" />
-                                Производител 1
-                            </label>
-                            <label class="checkbox">
-                                <input name="filter2" type="checkbox" value="br2" />
-                                Производител 2
-                            </label>
-                            <label class="checkbox">
-                                <input name="filter2" type="checkbox" value="br2" />
-                                Производител 3
-                            </label>
-                        </div>
-                    </div>
-                    <div class="list-group-item">
-                        Марка
-                    </div>
-                    <div class="list-group-item">
-                        <div class="filter-group">
-                            <label class="radio">
-                                <input name="filter-manuf" type="radio" value="mr1" checked="checked" />
-                                Марка 1
-                            </label>
-                            <label class="radio">
-                                <input name="filter-manuf" type="radio" value="mr2" />
-                                Марка 2
-                            </label>
-                            <label class="radio">
-                                <input name="filter-manuf" type="radio" value="mr3" />
-                                Марка 3
-                            </label>
-                        </div>
-                    </div>
-                    <div class="list-group-item">
-                        <button type="button" class="btn btn-warning">Филтрирай</button>
-                    </div>
-                </div>
-                <!-- Shopping Options Ends -->
                 <!-- Bestsellers Links Starts -->
                 <h3 class="side-heading">Най-продавани</h3>
                 <div class="product-col">
@@ -314,3 +289,26 @@
         </div>
     </div>
     <!-- Main Container Ends -->
+
+@section scripts {
+    <script src="~/Scripts/lightbox/js/lightbox.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("*[data-primary='primary']").css('display', 'block');
+
+            $('.gallery-trigger').on('click', function() {
+                var thumbnail = $(this)
+                var IdString = thumbnail.attr('id');
+                var Id = IdString.split('-').pop();
+
+                $('.product-gallery-box a').css('display', 'none');
+                $('#big-thumbnail-' + Id).css('display', 'block');
+            })
+        })
+    </script>
+}
+
+@section styles {
+<link href="~/Scripts/lightbox/css/lightbox.css" rel="stylesheet" />
+    }

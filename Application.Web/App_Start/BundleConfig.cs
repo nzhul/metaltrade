@@ -45,9 +45,7 @@ namespace Application.Web
                       "~/Content/spice-shopee/js/jquery-1.11.1.min.js",
                       "~/Content/spice-shopee/js/jquery-migrate-1.2.1.min.js",
                       "~/Content/spice-shopee/js/bootstrap.min.js",
-                      "~/Content/spice-shopee/js/bootstrap-hover-dropdown.min.js",
-                      "~/Content/spice-shopee/js/jquery.magnific-popup.min.js",
-                      "~/Content/spice-shopee/js/custom.js"));
+                      "~/Content/spice-shopee/js/bootstrap-hover-dropdown.min.js"));
 
             //<script src="Content/spice-shopee/js/jquery-1.11.1.min.js"></script>
             //<script src="Content/spice-shopee/js/jquery-migrate-1.2.1.min.js"></script>

@@ -29,6 +29,7 @@ namespace Application.Web.Controllers
             var productsQuerable = this.Data.Products
                 .All()
                 .OrderBy(x => x.DateAdded)
+                .Where(x => x.IsActive == true)
                 .AsQueryable();
 
             if (categoryId != null)
@@ -81,17 +82,20 @@ namespace Application.Web.Controllers
         // GET: Products/Details/5
         public ActionResult Details(int? id)
         {
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            //Product product = this.Data.Products.Find(id);
-            //if (product == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            //return View(product);
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Product product = this.Data.Products.Find(id);
+            if (product.IsActive == false)
+            {
+                product = null;
+            }
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            return View(product);
         }
 
     }
