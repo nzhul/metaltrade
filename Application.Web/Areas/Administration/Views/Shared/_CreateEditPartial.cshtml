@@ -44,27 +44,32 @@
                                     <div class="col-sm-12">
                                         @Html.LabelFor(model => model.SelectedSubCategoriesIds, new { @class = "control-label", @style="margin-left:15px;" }) <br />
                                         @Html.ValidationMessageFor(model => model.SelectedSubCategoriesIds)
-                                        <div class="col-md-4">
+                                            <div id="subCategories-box" @if (@ViewBag.FormMode == "Create")
+	                                            {
+		                                             @: style="display:none;"
+	                                            }>
+                                                <div class="col-md-4">
+                                                    @{
+                                                    int count = 0;
+                                                    string isChecked = "";
+                                                    foreach (var availableSubCategory in Model.AvailableSubCategories)
+                                                    {
+                                                        if (Model.SelectedSubCategoriesIds != null && Model.SelectedSubCategoriesIds.Contains(availableSubCategory.Id))
+                                                        {
+                                                            isChecked = "checked=checked";
+                                                        }
+                                                        if (count > 0 && (count + 1) % 4 == 0)
+                                                        {
+                                                                                            @:</div>
+                                                                                            @:<div class="col-md-4">
+                                                                                                }
+                                                                                                <input name="SelectedSubCategoriesIds" id="Dynamic @count" @isChecked type="checkbox" value="@availableSubCategory.Id" /> <label for="Dynamic @count"> @availableSubCategory.Name</label><br />
+                                                        count++;
+                                                        isChecked = "";
+                                                    }
+                                                    }
+                                                </div>
 
-                                            @{
-                                            int count = 0;
-                                            string isChecked = "";
-                                            foreach (var availableSubCategory in Model.AvailableSubCategories)
-                                            {
-                                                if (Model.SelectedSubCategoriesIds != null && Model.SelectedSubCategoriesIds.Contains(availableSubCategory.Id))
-                                                {
-                                                    isChecked = "checked=checked";
-                                                }
-                                                if (count > 0 && (count + 1) % 4 == 0)
-                                                {
-                                                    @:</div>
-                                                    @:<div class="col-md-4">
-                                                }
-                                                    <input name="SelectedSubCategoriesIds" id="Dynamic @count" @isChecked type="checkbox" value="@availableSubCategory.Id" /> <label for="Dynamic @count"> @availableSubCategory.Name</label><br />
-                                                count++;
-                                                isChecked = "";
-                                                }
-                                            }
                                             </div>
                                         </div>
                                     </div>

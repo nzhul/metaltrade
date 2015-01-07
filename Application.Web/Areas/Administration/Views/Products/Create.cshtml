@@ -12,44 +12,55 @@
 @section scripts {
 
     <script>
-        // Disabled hack
-        jQuery(function ($) {
+    // Disabled hack
+    jQuery(function ($) {
 
-            $('form').bind('submit', function () {
-                $(this).find(':input').removeAttr('disabled');
-            });
-
+        $('form').bind('submit', function () {
+            $(this).find(':input').removeAttr('disabled');
         });
 
-        $(document).ready(function () {
-            $("#categories-dropdown").change(function () {
-                LoadSubCategories();
-            })
-        });
+    });
 
-        function LoadSubCategories() {
-            $("#subCategories-dropdown").empty();
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("GetSubCategories")', // we are calling json method
+    $(document).ready(function () {
+        $("#categories-dropdown").change(function () {
+            LoadSubCategories();
+        })
+    });
+
+    function LoadSubCategories() {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetSubCategories")', // we are calling json method
 
                 dataType: 'json',
 
                 data: { id: $("#categories-dropdown").val() },
                 beforeSend: function () {
-                    $("#subCategories-dropdown").append('<option > Зареждане ... </option>');
+                    $("#subCategories-box").empty();
+                    $("#subCategories-box").show();
+                    
+                    $("#subCategories-box").append('<img style="margin:20px 0 0 30px;" src="/Content/images/gif-load.gif" />');
                 },
                 success: function (subCategories) {
+                    console.log(subCategories)
                     if (subCategories.length > 0) {
-                        $("#subCategories-dropdown").empty();
-                        $("#subCategories-dropdown").removeAttr("disabled");
-                        $.each(subCategories, function (i, subcategory) {
-                            $("#subCategories-dropdown").append('<option value="' + subcategory.Value + '">' +
-                                 subcategory.Text + '</option>');
-                        });
+                        $('#subCategories-box img').remove();
+                        $("#subCategories-box").append('<div class="col-md-4">');
+                        var appendTarget = $("#subCategories-box div.col-md-4");
+
+                        for (var i = 0; i < subCategories.length; i++) {
+                            var subCategory = subCategories[i];
+                            appendTarget.append('<input type="checkbox" id="Dynamic ' + subCategory.Value + '" name="SelectedSubCategoriesIds" value="' + subCategory.Value + '"/> <label for="Dynamic ' + subCategory.Value + '">' + subCategory.Text + '</label><br />');
+                            if (i > 0 && (i + 1) % 4 == 0) {
+                                var newColumn = $('<div class="col-md-4">');
+                                $("#subCategories-box").append(newColumn);
+                                appendTarget = newColumn;
+                            }
+                        }
                     } else {
-                        $("#subCategories-dropdown").empty();
-                        $("#subCategories-dropdown").append('<option > -- Няма подкатегории -- </option>');
+                        $("#subCategories-box").empty();
+                        $("#subCategories-box").show();
+                        $("#subCategories-box").append('<div class="col-md-4"><p>Категорията нама никакви подкатегории. Моля добавете подкатегории.</p></div>');
                     }
                 },
                 error: function (ex) {

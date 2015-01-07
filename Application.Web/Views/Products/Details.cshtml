@@ -1,7 +1,8 @@
-﻿@model Application.Models.Product
+﻿@model Application.Web.Models.ProductDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
+    var theProduct = Model.TheProduct;
 }
 
 <div class="container">
@@ -13,8 +14,8 @@
                 <ol class="breadcrumb">
                     <li><a href="/">Начало</a></li>
                     <li><a href="/Products">Продукти</a></li>
-                    <li><a href="/Products?Category=@Model.Category.Id">@Model.Category.Name</a></li>
-                    <li class="active">@Model.Name</li>
+                    <li><a href="/Products?Category=@theProduct.Category.Id">@theProduct.Category.Name</a></li>
+                    <li class="active">@theProduct.Name</li>
                 </ol>
                 <!-- Breadcrumb Ends -->
                 <!-- Product Info Starts -->
@@ -28,12 +29,12 @@
                                 var imageUrlBig = "/" + primaryImage.ImagePath + "_large." + primaryImage.ImageExtension;
                             }
                             <a href="@imageUrlBig" data-lightbox="product-images" data-title="@Model.Name"><img src="@imageUrl" alt="Image" class="img-responsive thumbnail" /></a>*@
-                            @foreach (var thumbnail in @Model.Images)
+                            @foreach (var thumbnail in @theProduct.Images)
                             {
                                 string thumbnailUrl = "/" + thumbnail.ImagePath + "_detailsBigThumb.jpg";
                                 string imageUrlBigNext = "/" + thumbnail.ImagePath + "_large.jpg";
                                 string isPrimaryString = "";
-                                if (thumbnailUrl.Contains("no-image") && @Model.Images.Count > 1)
+                                if (thumbnailUrl.Contains("no-image") && @theProduct.Images.Count > 1)
                                 {
                                     continue;
                                 }
@@ -41,14 +42,14 @@
                                 {
                                     isPrimaryString = "data-primary=primary";
                                 }
-                                <a href="@imageUrlBigNext" id="big-thumbnail-@thumbnail.Id" @isPrimaryString data-lightbox="product-images" style="display:none;"  data-title="@Model.Name"><img src="@thumbnailUrl" alt="Image" class="img-responsive thumbnail" /></a>
+                                <a href="@imageUrlBigNext" id="big-thumbnail-@thumbnail.Id" @isPrimaryString data-lightbox="product-images" style="display:none;"  data-title="@theProduct.Name"><img src="@thumbnailUrl" alt="Image" class="img-responsive thumbnail" /></a>
                             }
                         </p>
                         <ul class="list-unstyled list-inline">
-                            @foreach (var thumbnail in @Model.Images)
+                            @foreach (var thumbnail in @theProduct.Images)
                             {
                                 string thumbnailUrl = "/" + thumbnail.ImagePath + "_detailsSmallThumb.jpg";
-                                if (thumbnailUrl.Contains("no-image") && @Model.Images.Count > 1)
+                                if (thumbnailUrl.Contains("no-image") && @theProduct.Images.Count > 1)
                                 {
                                     continue;
                                 }
@@ -62,11 +63,11 @@
                     <!-- Right Starts -->
                     <div class="col-sm-7 product-details">
                         <!-- Product Name Starts -->
-                        <h2>@Model.Name</h2>
+                        <h2>@theProduct.Name</h2>
                         <!-- Product Name Ends -->
                         <hr />
                         <!-- Manufacturer Starts -->
-                        @Html.Raw(Model.BulletsText)
+                        @Html.Raw(theProduct.BulletsText)
                         @*<ul class="list-unstyled manufacturer">
                             <li>
                                 <span class="emptyClassHack">Производител:</span> Metal Company LTD
@@ -111,7 +112,8 @@
                 <div class="product-info-box">
                     <h4 class="heading">Допълнителна информация</h4>
                     <div class="content panel-smart">
-                        <p>Lorem Ipsum е елементарен примерен текст, използван в печатарската и типографската индустрия. Lorem Ipsum е индустриален стандарт от около 1500 година, когато неизвестен печатар взема няколко печатарски букви и ги разбърква, за да напечата с тях книга с примерни шрифтове. Този начин не само е оцелял повече от 5 века, но е навлязъл и в публикуването на електронни издания като е запазен почти без промяна. Популяризиран е през 60те години на 20ти век</p>
+                        @Html.Raw(theProduct.LongDescription)
+                        @*<p>Lorem Ipsum е елементарен примерен текст, използван в печатарската и типографската индустрия. Lorem Ipsum е индустриален стандарт от около 1500 година, когато неизвестен печатар взема няколко печатарски букви и ги разбърква, за да напечата с тях книга с примерни шрифтове. Този начин не само е оцелял повече от 5 века, но е навлязъл и в публикуването на електронни издания като е запазен почти без промяна. Популяризиран е през 60те години на 20ти век</p>
                         <div class="panel panel-warning">
                             <div class="panel-heading">
                                 <h3 class="panel-title" style="margin: 10px 0 0 10px;">Едноверижен сапан - технически характеристики</h3>
@@ -172,7 +174,7 @@
                                     </tbody>
                                 </table> 
                             </div>
-                        </div>
+                        </div>*@
                     </div>
                 </div>
                 <!-- Additional Information Ends -->
@@ -181,66 +183,7 @@
                     <h4 class="heading">Подобни продукти</h4>
                     <!-- Products Row Starts -->
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="product-col">
-                                <img src="~/Content/images/product-thumbnail-placeholder.jpg" class="image" alt="Alternate Text" />
-                                <div class="caption">
-                                    <h4><a href="Products/Details/1"> Лентови полиестерни сапани</a></h4>
-                                    <div class="description">
-                                        Видове: Еднораменен сапан; Двураменен сапан; Тритаменен сапан; Четирираменен сапан;
-                                    </div>
-                                    <div class="cart-button button-group">
-                                        <button type="button" title="" class="btn btn-wishlist" data-original-title="Кагегория: Сапани">
-                                            <i class="glyphicon glyphicon-th-large"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-cart">
-                                            Детайли
-                                            <i class="fa fa-arrow-circle-right"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="product-col">
-                                <img src="~/Content/images/product-thumbnail-placeholder.jpg" class="image" alt="Alternate Text" />
-                                <div class="caption">
-                                    <h4><a href="Products/Details/1"> Лентови полиестерни сапани</a></h4>
-                                    <div class="description">
-                                        Видове: Еднораменен сапан; Двураменен сапан; Тритаменен сапан; Четирираменен сапан;
-                                    </div>
-                                    <div class="cart-button button-group">
-                                        <button type="button" title="" class="btn btn-wishlist" data-original-title="Кагегория: Сапани">
-                                            <i class="glyphicon glyphicon-th-large"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-cart">
-                                            Детайли
-                                            <i class="fa fa-arrow-circle-right"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="product-col">
-                                <img src="~/Content/images/product-thumbnail-placeholder.jpg" class="image" alt="Alternate Text" />
-                                <div class="caption">
-                                    <h4><a href="Products/Details/1"> Лентови полиестерни сапани</a></h4>
-                                    <div class="description">
-                                        Видове: Еднораменен сапан; Двураменен сапан; Тритаменен сапан; Четирираменен сапан;
-                                    </div>
-                                    <div class="cart-button button-group">
-                                        <button type="button" title="" class="btn btn-wishlist" data-original-title="Кагегория: Сапани">
-                                            <i class="glyphicon glyphicon-th-large"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-cart">
-                                            Детайли
-                                            <i class="fa fa-arrow-circle-right"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @Html.Partial("Home/_Products", Model.SimilarProducts)
                     </div>
                     <!-- Products Row Ends -->
                 </div>

@@ -95,7 +95,28 @@ namespace Application.Web.Controllers
             {
                 return HttpNotFound();
             }
-            return View(product);
+
+            var productViewData = new ProductDetailsViewModel
+            {
+                TheProduct = product,
+                SimilarProducts = this.Data.Products
+                .All()
+                .OrderBy(x => x.DateAdded)
+                .Where(x => x.Category.Id == product.Category.Id && x.Id != product.Id)
+                .Take(3)
+                .Select(x => new ProductViewModel
+                {
+                    CategoryId = x.Category.Id,
+                    CategoryName = x.Category.Name,
+                    DateAdded = x.DateAdded,
+                    Id = x.Id,
+                    Name = x.Name,
+                    PrimaryImage = x.Images.FirstOrDefault(image => image.IsPrimary),
+                    ShortDescription = x.ShortDescription
+                }).ToList()
+            };
+
+            return View(productViewData);
         }
 
     }

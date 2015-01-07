@@ -5,7 +5,7 @@
     var productThumbnail = product.PrimaryImage.ImagePath + "_indexThumb.jpg";
     <div class="col-md-4">
         <div class="product-col">
-            <img src="@productThumbnail" class="image" alt="Alternate Text" />
+            <img src="\@productThumbnail" class="image" alt="Alternate Text" />
             <div class="caption">
                 <h4>
                     @Html.ActionLink(product.Name, "Details", "Products", new { id = product.Id }, null)
