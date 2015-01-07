@@ -30,8 +30,8 @@
                             <a href="@imageUrlBig" data-lightbox="product-images" data-title="@Model.Name"><img src="@imageUrl" alt="Image" class="img-responsive thumbnail" /></a>*@
                             @foreach (var thumbnail in @Model.Images)
                             {
-                                string thumbnailUrl = "/" + thumbnail.ImagePath + "_detailsBigThumb." + thumbnail.ImageExtension;
-                                string imageUrlBigNext = "/" + thumbnail.ImagePath + "_large." + thumbnail.ImageExtension;
+                                string thumbnailUrl = "/" + thumbnail.ImagePath + "_detailsBigThumb.jpg";
+                                string imageUrlBigNext = "/" + thumbnail.ImagePath + "_large.jpg";
                                 string isPrimaryString = "";
                                 if (thumbnailUrl.Contains("no-image") && @Model.Images.Count > 1)
                                 {
@@ -47,7 +47,7 @@
                         <ul class="list-unstyled list-inline">
                             @foreach (var thumbnail in @Model.Images)
                             {
-                                string thumbnailUrl = "/" + thumbnail.ImagePath + "_detailsSmallThumb." + thumbnail.ImageExtension;
+                                string thumbnailUrl = "/" + thumbnail.ImagePath + "_detailsSmallThumb.jpg";
                                 if (thumbnailUrl.Contains("no-image") && @Model.Images.Count > 1)
                                 {
                                     continue;
