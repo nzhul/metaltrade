@@ -366,6 +366,18 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\TagIt\.gitignore" />
+    <Content Include="Scripts\TagIt\css\jquery.tagit.css" />
+    <Content Include="Scripts\TagIt\css\tagit.ui-zendesk.css" />
+    <Content Include="Scripts\TagIt\examples.html" />
+    <Content Include="Scripts\TagIt\js\tag-it.js" />
+    <Content Include="Scripts\TagIt\js\tag-it.min.js" />
+    <Content Include="Scripts\TagIt\prototype.js" />
+    <Content Include="Scripts\TagIt\_static\examples.css" />
+    <Content Include="Scripts\TagIt\_static\master.css" />
+    <Content Include="Scripts\TagIt\_static\reset.css" />
+    <Content Include="Scripts\TagIt\_static\screenshot.png" />
+    <Content Include="Scripts\TagIt\_static\subpage.css" />
     <Content Include="Scripts\tinymce\license.txt" />
     <Content Include="Scripts\tinymce\plugins\advlist\plugin.js" />
     <Content Include="Scripts\tinymce\plugins\advlist\plugin.min.js" />
@@ -585,6 +597,9 @@
     <Content Include="Scripts\lightbox\js\jquery-1.11.0.min.map" />
     <Content Include="Scripts\lightbox\js\lightbox.min.map" />
     <Content Include="Scripts\lightbox\README.markdown" />
+    <Content Include="Scripts\TagIt\LICENSE" />
+    <Content Include="Scripts\TagIt\Makefile" />
+    <Content Include="Scripts\TagIt\README.markdown" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

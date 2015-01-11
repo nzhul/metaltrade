@@ -83,6 +83,16 @@ namespace Application.Web.Areas.Administration.Controllers
             return Json(new SelectList(subcategories, "Value", "Text"));
         }
 
+        public JsonResult GetAllTags()
+        {
+            var tags = this.Data.Tags
+                .All()
+                .OrderBy(x => x.Id)
+                .Select(x => x.Name).ToList();
+
+            return Json(tags, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpGet]
         public ActionResult Create()
         {
@@ -111,8 +121,30 @@ namespace Application.Web.Areas.Administration.Controllers
                     Name = product.Name,
                     ShortDescription = product.ShortDescription,
                     Category = selectedCategory,
-                    Tags = null // Delete if problem
                 };
+
+                // Add the tags
+                foreach (var tag in product.Tags)
+                {
+                    var tagDb = this.Data.Tags
+                        .All()
+                        .Where(x => x.Name == tag).FirstOrDefault();
+                    if (tagDb != null)
+                    {
+                        newProduct.Tags.Add(tagDb);
+                    }
+                    else
+                    {
+                        var newTag = new Tag
+                        {
+                            Name = tag
+                        };
+                        this.Data.Tags.Add(newTag);
+                        this.Data.SaveChanges();
+                        newProduct.Tags.Add(newTag);
+                    }
+                    this.Data.SaveChanges();
+                }
 
                 for (int i = 0; i < product.SelectedSubCategoriesIds.Count; i++)
                 {
@@ -169,7 +201,7 @@ namespace Application.Web.Areas.Administration.Controllers
                 Name = productDb.Name,
                 SelectedCategoryId = productDb.Category.Id,
                 ShortDescription = productDb.ShortDescription,
-                Tags = GetTagsAsString(id),
+                Tags = productDb.Tags.Select(x=>x.Name).ToList(),
                 Images = productDb.Images
             };
 
@@ -202,6 +234,36 @@ namespace Application.Web.Areas.Administration.Controllers
                 dbProduct.Name = product.Name;
                 dbProduct.ShortDescription = product.ShortDescription;
 
+                // Remove all Tags
+                foreach (var tag in dbProduct.Tags.ToList())
+                {
+                    dbProduct.Tags.Remove(tag);
+                }
+                this.Data.SaveChanges();
+
+                // Add the tags again
+                foreach (var tag in product.Tags)
+                {
+                    var tagDb = this.Data.Tags
+                        .All()
+                        .Where(x => x.Name == tag).FirstOrDefault();
+                    if (tagDb != null)
+                    {
+                        dbProduct.Tags.Add(tagDb);
+                    }
+                    else
+                    {
+                        var newTag = new Tag
+                        {
+                            Name = tag
+                        };
+                        this.Data.Tags.Add(newTag);
+                        this.Data.SaveChanges();
+                        dbProduct.Tags.Add(newTag);
+                    }
+                    this.Data.SaveChanges();
+                }
+
                 // Delete all SubCategories
                 foreach (var subCategory in dbProduct.SubCategories.ToList())
                 {
@@ -216,7 +278,7 @@ namespace Application.Web.Areas.Administration.Controllers
                 }
 
                 this.Data.SaveChanges();
-                TempData["message"] = "Продукта беше <strong>редактиран</strong> успешно <strong><a href='#'>ПРЕГЛЕДАЙ ГО!</a></strong>";
+                TempData["message"] = "Продукта беше <strong>редактиран</strong> успешно <strong><a href='/Products/Details/" + dbProduct.Id +"'>ПРЕГЛЕДАЙ ГО!</a></strong>";
                 TempData["messageType"] = "success";
                 return RedirectToAction("Index");
             }
@@ -226,11 +288,6 @@ namespace Application.Web.Areas.Administration.Controllers
             TempData["message"] = "Невалидни данни за продукта!<br/> Моля попълнете <strong>всички</strong> полета в червено!";
             TempData["messageType"] = "danger";
             return View(product);
-        }
-
-        private string GetTagsAsString(int? id)
-        {
-            return "not implemented!";
         }
 
 

@@ -86,9 +86,20 @@
                         <!-- Available Options Starts -->
                         <div class="options">
                             <div class="form-group">
-                                <label class="control-label text-uppercase" for="input-quantity">Количество (бр):</label>
-                                <input type="number" name="quantity" value="1" size="2" id="input-quantity" class="form-control" />
+                                Тагове:
+                                @if (theProduct.Tags.Count > 0)
+                                {
+                                    foreach (var tag in theProduct.Tags)
+                                    {
+                                        @Html.ActionLink(tag.Name, "Tag", new { id = tag.Id }, new { @class = "label label-default", @style="margin-left: 5px;" })
+                                    }
+                                }
+                                else
+                                {
+                                    <small class="disabled"> Продукта тяма тагове </small>
+                                }
                             </div>
+                            <hr />
                             <div class="cart-button button-group">
                                 <button type="button" title="Wishlist" class="btn btn-wishlist">
                                     <i class="fa fa-heart"></i>

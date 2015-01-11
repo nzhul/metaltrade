@@ -60,6 +60,11 @@ namespace Application.Data
             get { return this.GetRepository<Page>(); }
         }
 
+        public IRepository<Tag> Tags
+        {
+            get { return this.GetRepository<Tag>(); }
+        }
+
         public int SaveChanges()
         {
             return this.context.SaveChanges();

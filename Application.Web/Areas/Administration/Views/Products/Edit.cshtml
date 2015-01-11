@@ -9,8 +9,45 @@
     @{Html.RenderPartial("_CreateEditPartial", Model);}
 </div>
 
-@section scripts {
+@section styles {
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
+    <link href="~/Scripts/TagIt/css/jquery.tagit.css" rel="stylesheet" />
+}
 
+@section scripts {
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="~/Scripts/TagIt/js/tag-it.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var sampleTags = Array();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetAllTags")', // we are calling json method
+            dataType: 'json',
+            success: function (allTags) {
+                if (allTags.length > 0) {
+                    $('#myTags').tagit({
+                        availableTags: allTags,
+                        allowSpaces: true
+                    });
+                } else {
+                    // No Data
+                }
+            },
+            error: function (ex) {
+                alert('Неуспешно листване на таговете!.' + ex);
+            }
+        });
+
+        //-------------------------------
+        // Allow spaces without quotes.
+        //-------------------------------
+
+
+    });
+
+</script>
     <script>
         // Disabled hack
         jQuery(function ($) {

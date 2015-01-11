@@ -12,6 +12,11 @@ namespace Application.Web.Areas.Administration.InputModels
 {
     public class CreateProductInputModel
     {
+        public CreateProductInputModel()
+        {
+            this.Tags = new List<string>();
+        }
+
         public int Id { get; set; }
 
         [Required(ErrorMessage="Името на продукта е задължително!")]
@@ -40,11 +45,6 @@ namespace Application.Web.Areas.Administration.InputModels
         [UIHint("tinymce_full")]
         public string BulletsText { get; set; }
 
-        // TODO: Create custon validation for the tags
-        [Required(ErrorMessage = "Таговете са задължителни!")]
-        [Display(Name = "Тагове: ")]
-        public string Tags { get; set; }
-
         [Required(ErrorMessage="Задължително!")]
         [Display(Name = "Категория")]
         public int SelectedCategoryId { get; set; }
@@ -63,6 +63,9 @@ namespace Application.Web.Areas.Administration.InputModels
         [CheckList(1, false, ErrorMessage = "Моля изберете поне една подкатегория!")]
         [Display(Name = "Подкатегории")]
         public List<int> SelectedSubCategoriesIds { get; set; }
+
+        [Display(Name = "Тагове")]
+        public List<string> Tags { get; set; }
 
     }
 }

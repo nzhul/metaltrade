@@ -21,6 +21,7 @@ namespace Application.Data
 
         IRepository<Article> Articles { get; }
         IRepository<Page> Pages { get; }
+        IRepository<Tag> Tags { get; }
 
         int SaveChanges();
     }

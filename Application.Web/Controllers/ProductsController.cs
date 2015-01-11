@@ -17,14 +17,21 @@ namespace Application.Web.Controllers
     {
 
         // GET: Products
-        public ActionResult Index(int? Category, int? SubCategory, int? Page)
+        public ActionResult Index(int? category, int? subCategory, int? page)
         {
             var model = new ProductsViewModel();
-            model.Products = GetProducts(Category, SubCategory, Page);
+            model.Products = GetProducts(category, subCategory, page, null);
             return View(model);
         }
 
-        private IEnumerable<ProductViewModel> GetProducts(int? categoryId, int? subCategoryId, int? page)
+        public ActionResult Tag(int? id)
+        {
+            var model = new ProductsViewModel();
+            model.Products = GetProducts(null, null, null, id);
+            return View("Index",model);
+        }
+
+        private IEnumerable<ProductViewModel> GetProducts(int? categoryId, int? subCategoryId, int? page, int? tagId)
         {
             var productsQuerable = this.Data.Products
                 .All()
@@ -39,6 +46,10 @@ namespace Application.Web.Controllers
             if (subCategoryId != null)
             {
                 productsQuerable = productsQuerable.Where(x => x.SubCategories.Any(subcategory => subcategory.Id == subCategoryId));
+            }
+            if (tagId != null)
+            {
+                productsQuerable = productsQuerable.Where(x => x.Tags.Any(tag => tag.Id == tagId));
             }
 
             if (page != null)
@@ -60,23 +71,6 @@ namespace Application.Web.Controllers
                 });
 
             return products;
-
-            //return this.Data.Products
-            //    .All()
-            //    .Where(x => x.IsActive == true)
-            //    .OrderBy(x => x.DateAdded)
-            //    .Take(9)
-            //    .AsEnumerable()
-            //    .Select(x => new ProductViewModel
-            //    {
-            //        CategoryId = x.Category.Id,
-            //        CategoryName = x.Category.Name,
-            //        DateAdded = x.DateAdded,
-            //        Id = x.Id,
-            //        Name = x.Name,
-            //        PrimaryImage = x.Images.First(image => image.IsPrimary),
-            //        ShortDescription = x.ShortDescription
-            //    }).ToList();
         }
 
         // GET: Products/Details/5
@@ -118,6 +112,5 @@ namespace Application.Web.Controllers
 
             return View(productViewData);
         }
-
     }
 }
