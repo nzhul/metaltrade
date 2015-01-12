@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Application.Web.Areas.Administration.Models.ViewModels.TagViewModel>
+@{
+    ViewBag.Title = "Тагове";
+}
+
+<div class="container" id="event-container" style="margin-top:-20px;">
+    <h3>@ViewBag.Title</h3>
+    <div class="row">
+        <div class="col-md-12">
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                var tag = Model.ElementAt(i);
+                Html.RenderPartial("_TagPartial", tag);
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $('#event-container').on('click', '.deleteBtnConfirm', function (e) {
+                $theModalParent = $(this).parents('.modal');
+                $theModalParent.modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+            })
+        })
+
+        function articleDeleteFailure() {
+            alert("Грешка при изтриването на тага");
+        }
+    </script>
+}

@@ -1,0 +1,52 @@
+﻿@model Application.Web.Areas.Administration.Models.ViewModels.TagViewModel
+
+@{
+    var tag = Model;
+    var tagDeleteModalId = "delete-modal-" + tag.Id;
+    var tagDeleteModalHref = "#delete-modal-" + tag.Id;
+    var tagUiId = "tag-" + tag.Id;
+    var loadingElementId = "loading-element-" + tag.Id;
+    
+    <div class="btn btn-primary" id="@tagUiId">
+        <span>@Model.Name</span> 
+        <a class="fa fa-times" data-toggle="modal" href="@tagDeleteModalHref" style="color:white;margin-left:10px;"></a>
+        
+    </div>
+    <!--Modal-->
+    <div class="modal fade" id="@tagDeleteModalId">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Моля потвърдете!</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Сигурни ли сте, че искате да изтриете тагът <strong>"@tag.Name"</strong> ? </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Откажи</button>
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Архивирай</button>
+                    @Ajax.ActionLink("Изтрии!", "DeleteTag", new { id = tag.Id },
+                        new AjaxOptions
+                        {
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = tagUiId,
+                            HttpMethod = "Post",
+                            LoadingElementId = loadingElementId
+                        }, new
+                        {
+                            @id = tagUiId + "-delete-btn",
+                            @title = "Изтрии",
+                            @class = "btn btn-danger deleteBtnConfirm"
+                        })
+                </div>
+            </div>
+        </div>
+    </div>
+        <!--Modal End-->
+        <!--Loading Element-->
+    <div id="@loadingElementId" class="text-center" style="width:50px;margin: 0 auto;display:none;">
+        <img src="~/Content/images/gif-load.gif" />
+    </div>
+        <!--Loading Element End-->
+}
