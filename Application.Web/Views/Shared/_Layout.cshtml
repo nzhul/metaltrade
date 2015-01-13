@@ -101,7 +101,7 @@
                     <!-- Logo Starts -->
                     <div class="col-md-9">
                         <div id="logo">
-                            <a href="/"><img src="~../../../../Content/images/logo.jpg" title="Spice Shoppe" alt="Spice Shoppe" class="img-responsive" /></a>
+                            <a href="/"><img src="~../../../../Content/images/logo.jpg" title="Online Сапани" alt="Spice Shoppe" class="img-responsive" /></a>
                         </div>
                     </div>
                     <!-- Logo Starts -->
@@ -272,5 +272,8 @@
 
             @Scripts.Render("~/bundles/spice-shopee")
             @RenderSection("scripts", required: false)
+    <script>
+        $(function () { $("[data-toggle='tooltip']").tooltip(); });
+    </script>
 </body>
 </html>
