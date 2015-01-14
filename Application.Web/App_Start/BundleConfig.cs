@@ -42,8 +42,8 @@ namespace Application.Web
                       "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/spice-shopee").Include(
-                      "~/Content/spice-shopee/js/jquery-1.11.1.min.js",
-                      "~/Content/spice-shopee/js/jquery-migrate-1.2.1.min.js",
+                      "~/Scripts/jquery-2.1.1.min.js",
+                      "~/Scripts/autocomplete/jquery-ui.min.js",
                       "~/Content/spice-shopee/js/bootstrap.min.js",
                       "~/Content/spice-shopee/js/bootstrap-hover-dropdown.min.js"));
 

@@ -153,6 +153,7 @@ hr{
 			#search .input-group .btn{
 				background:#252a2f;
 				border:solid #525c66;
+                height: 46px;
 				border-width:1px 1px 1px 0;
 				color:#ffb400;
 				-webkit-border-radius:0;

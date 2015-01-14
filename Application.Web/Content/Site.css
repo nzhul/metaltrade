@@ -94,3 +94,62 @@
 }
 
 .panel.panel-info .article-body img { width:100%;height:100%;}
+
+/* Autocomplete */
+
+.ui-autocomplete {
+    width: 255px;
+}
+.ui-autocomplete > li {
+    list-style-type: none;
+}
+
+.ui-autocomplete .ui-menu-item {
+    position:relative;
+    left:-250px;
+    width: 472px;
+}
+
+.autocomplete-row {
+    background: #2f353b;
+    padding: 10px;
+    border: 1px solid #525c66;
+    width: 472px;
+    margin-bottom:-1px;
+}
+.autocomplete-row:first-child {
+    position:relative;
+    top:2px;
+}
+
+.autocomplete-row:hover {
+    background: #525c66;
+}
+
+.autocomplete-row img {
+    float: left;
+    border: 1px solid #525c66;
+}
+
+.autocomplete-row-title {
+    text-transform: uppercase;
+    color: #ffb400;
+    float: left;
+    margin: 0 0 0 10px;
+}
+
+.autocomplete-row-title:hover
+{
+    color:white;
+}
+
+.autocomplete-row-description {
+    float:left;
+    margin: 0 0 0 10px;
+    color: #c1c1c1;
+    width: 350px;
+    font-size: 12px;
+    line-height: 14px;
+}
+
+/* Autocomplete END*/

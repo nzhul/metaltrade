@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="us">
+<head>
+	<meta charset="utf-8">
+	<title>jQuery UI Example Page</title>
+	<link href="jquery-ui.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Autocomplete -->
+<h2 class="demoHeaders">Autocomplete</h2>
+<div>
+	<input id="project">
+</div>
+
+
+
+<script src="jquery.js"></script>
+<script src="jquery-ui.min.js"></script>
+<script>
+    $(function() {
+        var projects = [
+            {
+                id: "1",
+                value: "jquery",
+                label: "jQuery",
+                desc: "the write less, do more, JavaScript library",
+                icon: "jquery_32x32.png"
+            },
+            {
+                id: "2",
+                value: "jquery-ui",
+                label: "jQuery UI",
+                desc: "the official user interface library for jQuery",
+                icon: "jqueryui_32x32.png"
+            },
+            {
+                id: "3",
+                value: "sizzlejs",
+                label: "Sizzle JS",
+                desc: "a pure-JavaScript CSS selector engine",
+                icon: "sizzlejs_32x32.png"
+            }
+        ];
+
+        $( "#project" ).autocomplete({
+            minLength: 0,
+            source: projects
+        }).autocomplete( "instance" )._renderItem = function( ul, item ) {
+            return $( "<li>" )
+                    .append( "<a href='Products/Details/" + item.id + "'>" +item.label+"<br>" + item.desc + "</a>" )
+                    .appendTo( ul );
+        };
+    });
+</script>
+</body>
+</html>

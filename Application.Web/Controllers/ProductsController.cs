@@ -16,6 +16,24 @@ namespace Application.Web.Controllers
     public class ProductsController : BaseController
     {
 
+        // Autocomplete
+        public JsonResult GetAutocomplete(string term)
+        {
+            var products = this.Data.Products
+                .All()
+                .OrderBy(x => x.Id)
+                .Select(x => new ProductAutocompleteViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Value = x.Name,
+                    Description = x.ShortDescription,
+                    IconUrl = x.Images.FirstOrDefault(image => image.IsPrimary).ImagePath + "_detailsSmallThumb.jpg"
+                }).ToList();
+
+            return Json(products, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: Products
         public ActionResult Index(int? category, int? subCategory, int? page)
         {

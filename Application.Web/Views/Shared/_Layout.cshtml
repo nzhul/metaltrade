@@ -109,7 +109,7 @@
                     <div class="col-md-3">
                         <div id="search">
                             <div class="input-group">
-                                <input type="text" class="form-control input-lg" placeholder="Търси">
+                                <input id="searchbox" type="text" class="form-control input-lg" placeholder="Търси">
                                 <span class="input-group-btn">
                                     <button class="btn btn-lg" type="button">
                                         <i class="fa fa-search"></i>
@@ -117,6 +117,11 @@
                                 </span>
                             </div>
                         </div>
+                        @*<div class="autocomplete-row clearfix">
+                            <a href="Products/Details/3"><img src="~/Uploads/1/1/2722738-5353872158-255660_detailsSmallThumb.jpg" /></a>
+                            <a href="Products/Details/3" class="autocomplete-row-title">Сапан Едновъжен с 4 куки Ф 20 - 15 тона</a><br />
+                            <p class="autocomplete-row-description ">Този сапан е подходящ за повдигане на дърва, асансьори и други тежки неща. Може да научите повече за това, което правим на следния адрес ...</p>
+                        </div>*@
                     </div>
                     <!-- Search Ends -->
                 </div>
@@ -274,6 +279,43 @@
             @RenderSection("scripts", required: false)
     <script>
         $(function () { $("[data-toggle='tooltip']").tooltip(); });
+    </script>
+    <script>
+    $(function () {
+        var projects = [
+            {
+                id: "1",
+                value: "jquery",
+                label: "jQuery",
+                desc: "the write less, do more, JavaScript library",
+                iconUrl: "/Uploads/1/1/2722738-5353872158-255660_detailsSmallThumb.jpg"
+            },
+            {
+                id: "2",
+                value: "jquery-ui",
+                label: "jQuery UI",
+                desc: "the official user interface library for jQuery",
+                iconUrl: "/Uploads/1/1/pironi-1_detailsSmallThumb.jpg"
+            },
+            {
+                id: "3",
+                value: "sizzlejs",
+                label: "Sizzle JS",
+                desc: "a pure-JavaScript CSS selector engine",
+                iconUrl: "/Uploads/1/1/latest_detailsSmallThumb.jpg"
+            }
+        ];
+
+        $("#searchbox").autocomplete({
+            minLength: 2,
+            source: '@Url.Action("GetAutocomplete", "Products", new { Area = "" })',
+        }).autocomplete("instance")._renderItem = function (ul, item) {
+            console.log(item)
+            return $("<li>")
+                    .append("<div class='autocomplete-row clearfix'><a href='/Products/Details/" + item.Id + "'><img src='/" + item.IconUrl + "' /></a><a href='/Products/Details/" + item.Id + "' class='autocomplete-row-title'>" + item.Name + "</a><br /><p class='autocomplete-row-description '>" + item.Description + " ...</p></div>")
+                    .appendTo(ul);
+        };
+    });
     </script>
 </body>
 </html>
