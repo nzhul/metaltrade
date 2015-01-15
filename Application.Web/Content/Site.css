@@ -116,6 +116,7 @@
     border: 1px solid #525c66;
     width: 472px;
     margin-bottom:-1px;
+    box-shadow: 5px 5px 0px #252a2f;
 }
 .autocomplete-row:first-child {
     position:relative;
@@ -124,6 +125,14 @@
 
 .autocomplete-row:hover {
     background: #525c66;
+    border-top: 1px solid #252a2f;
+    border-left: 1px solid #252a2f;
+    border-bottom: 1px solid #252a2f;
+}
+
+.autocomplete-row:hover img 
+{
+    border: 1px solid #252a2f;
 }
 
 .autocomplete-row img {
@@ -153,3 +162,38 @@
 }
 
 /* Autocomplete END*/
+
+
+
+/*Table CSS*/
+
+table
+{
+	width: 480px;
+	text-align: left;
+	border-collapse: collapse;
+	border: 1px solid gray;
+    box-shadow: 2px 2px 0px gray;
+}
+table th
+{
+	padding: 12px 17px 12px 17px;
+	font-weight: bold;
+	font-size: 14px;
+	color: gray;
+	border-bottom: 1px dashed gray;
+    background: #e5e5e5;
+    
+}
+table td
+{
+	padding: 7px 17px 7px 17px;
+	color: gray;
+}
+table tbody tr:hover td
+{
+    color: #6a6a6a;
+	background: #e5e5e5;
+}
+
+/*Table CSS END*/

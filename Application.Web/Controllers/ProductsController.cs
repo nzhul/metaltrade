@@ -19,14 +19,16 @@ namespace Application.Web.Controllers
         // Autocomplete
         public JsonResult GetAutocomplete(string term)
         {
+
             var products = this.Data.Products
                 .All()
                 .OrderBy(x => x.Id)
+                .Where(x => x.Name.Contains(term) || x.Tags.Any(tag => tag.Name.Contains(term)))
                 .Select(x => new ProductAutocompleteViewModel
                 {
                     Id = x.Id,
                     Name = x.Name,
-                    Value = x.Name,
+                    value = x.Name,
                     Description = x.ShortDescription,
                     IconUrl = x.Images.FirstOrDefault(image => image.IsPrimary).ImagePath + "_detailsSmallThumb.jpg"
                 }).ToList();

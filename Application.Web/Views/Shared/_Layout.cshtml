@@ -312,7 +312,7 @@
         }).autocomplete("instance")._renderItem = function (ul, item) {
             console.log(item)
             return $("<li>")
-                    .append("<div class='autocomplete-row clearfix'><a href='/Products/Details/" + item.Id + "'><img src='/" + item.IconUrl + "' /></a><a href='/Products/Details/" + item.Id + "' class='autocomplete-row-title'>" + item.Name + "</a><br /><p class='autocomplete-row-description '>" + item.Description + " ...</p></div>")
+                    .append("<div class='autocomplete-row clearfix'><a href='/Products/Details/" + item.Id + "'><img src='/" + item.IconUrl + "' /></a><a href='/Products/Details/" + item.Id + "' class='autocomplete-row-title'>" + item.Name + "</a><br /><div class='autocomplete-row-description '>" + item.Description + "</div></div>")
                     .appendTo(ul);
         };
     });
