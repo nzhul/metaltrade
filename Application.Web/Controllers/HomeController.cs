@@ -16,7 +16,23 @@ namespace Application.Web.Controllers
         {
             var model = new ProductsViewModel();
             model.Products = GetFeaturedProducts();
+            model.Articles = GetLatestArticles();
             return View(model);
+        }
+
+        private IEnumerable<ArticleViewModel> GetLatestArticles()
+        {
+            return this.Data.Articles
+                .All()
+                .OrderByDescending(x => x.DateCreated)
+                .Take(3)
+                .AsEnumerable()
+                .Select(x => new ArticleViewModel
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    ShortDescription = x.ShortDescription
+                }).ToList();
         }
 
         private IEnumerable<ProductViewModel> GetFeaturedProducts()

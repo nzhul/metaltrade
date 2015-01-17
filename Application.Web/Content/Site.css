@@ -197,3 +197,41 @@ table tbody tr:hover td
 }
 
 /*Table CSS END*/
+
+
+
+/*News */
+
+.news-row {
+    border: 1px solid #e8e8e8;
+    background: white;
+    width:100%;
+    margin: 5px 0 0 0px;
+}
+
+.news-row h6 a {color: black;}
+.news-row h6 {width: 100%; text-transform: uppercase;}
+
+.news-row .news-short-description {
+    font-size: 12px;
+    line-height: 18px;
+    border-top: 1px solid #e8e8e8;
+    padding-top: 5px;
+}
+
+.news-row .news-more {
+    background: #ffb400;
+    border-radius: 0px;
+    color: black;
+    text-transform: uppercase;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 12px;
+    padding: 5px 5px 2px 5px;
+    margin-bottom: 15px;
+}
+
+.news-row .news-more:hover {
+    background: #2f353b;
+    color: #fff;
+}
+/*News End*/

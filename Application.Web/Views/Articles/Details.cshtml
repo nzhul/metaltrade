@@ -1,6 +1,6 @@
-﻿@model Application.Models.Pages.Page
+﻿@model Application.Models.Articles.Article
 @{
-    ViewBag.Title = "Страница";
+    ViewBag.Title = "Новина";
 }
 <div class="container">
         <div class="row">
@@ -9,6 +9,7 @@
                 <!-- Breadcrumb Starts -->
                 <ol class="breadcrumb">
                     <li><a href="/">Начало</a></li>
+                    <li><a href="/Articles">Новини</a></li>
                     <li class="active">@Model.Title</li>
                 </ol>
                 <!-- Breadcrumb Ends -->
@@ -19,6 +20,7 @@
                             <h3>@Model.Title</h3>
                             <hr />
                             @Html.Raw(Model.Content)
+
                         </div>
                     </div>
                 </div>

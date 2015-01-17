@@ -58,7 +58,7 @@
                 <img src="~/Content/images/gif-load.gif" />
             </div>
             @Html.Raw(article.ShortDescription)
-            <button class="btn btn-default">Процети цялата статия</button>
+            <a href="@Url.Action("Details", "Articles", new { Area = "", id = article.Id })" class="btn btn-default">Процети цялата статия</a>
         </div>
     </div>
 </div>

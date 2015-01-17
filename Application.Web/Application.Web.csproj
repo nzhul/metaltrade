@@ -199,6 +199,7 @@
     <Compile Include="Areas\Administration\Models\ViewModels\SubCategoryViewModel.cs" />
     <Compile Include="Areas\Administration\Models\ViewModels\TagViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ArticlesController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -605,6 +606,9 @@
     <Content Include="Scripts\TagIt\LICENSE" />
     <Content Include="Scripts\TagIt\Makefile" />
     <Content Include="Scripts\TagIt\README.markdown" />
+    <Content Include="Views\Shared\Home\_Articles.cshtml" />
+    <Content Include="Views\Articles\Details.cshtml" />
+    <Content Include="Views\Articles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

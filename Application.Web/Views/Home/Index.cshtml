@@ -32,6 +32,10 @@
             {
                 @Html.Partial("_Categories", (List<Application.Web.Areas.Administration.Models.ViewModels.CategoryViewModel>)ViewBag.LayoutModel.Categories)
             }
+            <div>
+                <h3 class="side-heading">Новини: </h3>
+                @Html.Partial("Home/_Articles", Model.Articles)
+            </div>
         </div>
         <div class="col-md-9">
             <h3 class="side-heading">Най-популярни продукти:</h3>

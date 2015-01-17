@@ -116,7 +116,7 @@ namespace Application.Web.Areas.Administration.Controllers
                 dbPage.DateModified = DateTime.Now;
 
                 this.Data.SaveChanges();
-                TempData["message"] = "Страницата беше <strong>редактирана</strong> успешно <strong><a href='#'>ПРЕГЛЕДАЙ Я!</a></strong>";
+                TempData["message"] = "Страницата беше <strong>редактирана</strong> успешно <strong><a href='/Pages/"+dbPage.Id+"'>ПРЕГЛЕДАЙ Я!</a></strong>";
                 TempData["messageType"] = "success";
                 return RedirectToAction("Index");
             }

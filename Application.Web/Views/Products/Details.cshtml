@@ -23,12 +23,6 @@
                     <!-- Left Starts -->
                     <div class="col-sm-5 images-block">
                         <p class="product-gallery-box">
-                            @*@{
-                                var primaryImage = @Model.Images.First(x => x.IsPrimary);
-                                var imageUrl = "/"+primaryImage.ImagePath + "_detailsBigThumb." + primaryImage.ImageExtension;
-                                var imageUrlBig = "/" + primaryImage.ImagePath + "_large." + primaryImage.ImageExtension;
-                            }
-                            <a href="@imageUrlBig" data-lightbox="product-images" data-title="@Model.Name"><img src="@imageUrl" alt="Image" class="img-responsive thumbnail" /></a>*@
                             @foreach (var thumbnail in @theProduct.Images)
                             {
                                 string thumbnailUrl = "/" + thumbnail.ImagePath + "_detailsBigThumb.jpg";
@@ -99,22 +93,21 @@
                                     <small class="disabled"> Продукта тяма тагове </small>
                                 }
                             </div>
-                            <hr />
-                            <div class="cart-button button-group">
-                                <button type="button" title="Wishlist" class="btn btn-wishlist">
-                                    <i class="fa fa-heart"></i>
-                                </button>
-                                <button type="button" title="Compare" class="btn btn-compare">
-                                    <i class="fa fa-bar-chart-o"></i>
-                                </button>
+
+                            <div class="cart-button button-group print-buttons">
+                                <hr />
+                                <a href="javascript:window.print()" data-toggle="tooltip" title="Принтирай!" class="btn btn-compare">
+                                    <i class="fa fa-print"></i>
+                                </a>
                                 <button type="button" class="btn btn-cart">
                                     Поръчай
                                     <i class="fa fa-shopping-cart"></i>
                                 </button>
                             </div>
+                            <hr />
                         </div>
                         <!-- Available Options Ends -->
-                        <hr />
+
                     </div>
                     <!-- Right Ends -->
                 </div>
@@ -124,73 +117,11 @@
                     <h4 class="heading">Допълнителна информация</h4>
                     <div class="content panel-smart">
                         @Html.Raw(theProduct.LongDescription)
-                        @*<p>Lorem Ipsum е елементарен примерен текст, използван в печатарската и типографската индустрия. Lorem Ipsum е индустриален стандарт от около 1500 година, когато неизвестен печатар взема няколко печатарски букви и ги разбърква, за да напечата с тях книга с примерни шрифтове. Този начин не само е оцелял повече от 5 века, но е навлязъл и в публикуването на електронни издания като е запазен почти без промяна. Популяризиран е през 60те години на 20ти век</p>
-                        <div class="panel panel-warning">
-                            <div class="panel-heading">
-                                <h3 class="panel-title" style="margin: 10px 0 0 10px;">Едноверижен сапан - технически характеристики</h3>
-                            </div>
-                            <div class="panel-body">
-                                <table class="table table-striped table-hover ">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Column heading</th>
-                                            <th>Column heading</th>
-                                            <th>Column heading</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                        </tr>
-                                        <tr class="info">
-                                            <td>3</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                        </tr>
-                                        <tr class="success">
-                                            <td>4</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                        </tr>
-                                        <tr class="danger">
-                                            <td>5</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                        </tr>
-                                        <tr class="warning">
-                                            <td>6</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                        </tr>
-                                        <tr class="active">
-                                            <td>7</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                        </tr>
-                                    </tbody>
-                                </table> 
-                            </div>
-                        </div>*@
                     </div>
                 </div>
                 <!-- Additional Information Ends -->
                 <!-- Related Products Starts -->
-                <div class="product-info-box">
+                <div class="product-info-box print-similarproducts">
                     <h4 class="heading">Подобни продукти</h4>
                     <!-- Products Row Starts -->
                     <div class="row">
@@ -202,7 +133,7 @@
             </div>
             <!-- Primary Content Ends -->
             <!-- Sidebar Starts -->
-            <div class="col-md-3">
+            <div class="col-md-3 print-sidebar">
                 <!-- Categories Links Starts -->
                 @if (ViewBag.LayoutModel.Categories != null)
                 {
@@ -265,4 +196,5 @@
 
 @section styles {
 <link href="~/Scripts/lightbox/css/lightbox.css" rel="stylesheet" />
-    }
+<link href="~/Content/product-print.css" rel="stylesheet" media="print" />
+}

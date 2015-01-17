@@ -12,7 +12,7 @@ namespace Application.Web.Areas.Administration.Models.InputModels
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Заглавието на статията е задължително!")]
-        [StringLength(50, MinimumLength = 3, ErrorMessage = "Невалидно заглавие - Максимална дължина 50 символа, минимална 3")]
+        [StringLength(250, MinimumLength = 3, ErrorMessage = "Невалидно заглавие - Максимална дължина 250 символа, минимална 3")]
         [Display(Name = "Заглавие на статията:")]
         public string Title { get; set; }
 
