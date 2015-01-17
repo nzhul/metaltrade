@@ -97,14 +97,14 @@
 
 /* Autocomplete */
 
-.ui-autocomplete {
+.search-autocomplete {
     width: 255px;
 }
-.ui-autocomplete > li {
+.search-autocomplete > li {
     list-style-type: none;
 }
 
-.ui-autocomplete .ui-menu-item {
+.search-autocomplete .ui-menu-item {
     position:relative;
     left:-250px;
     width: 472px;
@@ -235,3 +235,12 @@ table tbody tr:hover td
     color: #fff;
 }
 /*News End*/
+
+
+.upload-img-remove-icon {
+    float:right;
+    cursor: pointer;
+    position: relative;
+    left: -20px;
+    top: -10px;
+}

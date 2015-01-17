@@ -15,8 +15,21 @@
 }
 
 @section scripts {
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var currentImage = 1;
+        $("body").on("change", "input[name='files']", function () {
+            var pathToRemoveIcon = "@Url.Content("~/Content/images/delete.png")";
+            currentImage = currentImage + 1;
+            var htmlToAppend = '<div class="upload"><input type="file" name="files" id="file' + currentImage + '" /><img class="upload-img-remove-icon" src="' + pathToRemoveIcon + '" alt="Remove picture." /></div>';
+            $('.upload-container').append(htmlToAppend);
+        }).on("click", ".upload img", function () {
+            if ($(this).parent().siblings().length > 0) {
+                $(this).parent().remove();
+            }
+        });
+    });
+</script>
 <script src="~/Scripts/TagIt/js/tag-it.js"></script>
 <script type="text/javascript">
     $(function () {
@@ -107,20 +120,4 @@
             return false;
         }
     </script>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        var currentImage = 1;
-        $("body").on("change", "input[name='files']", function () {
-            var pathToRemoveIcon = "@Url.Content("~/Content/images/delete.png")";
-            currentImage = currentImage + 1;
-            var htmlToAppend = '<div class="upload"><input type="file" name="files" id="file' + currentImage + '" /><img src="' + pathToRemoveIcon + '" alt="Remove picture." /></div>';
-            $('.upload-container').append(htmlToAppend);
-        }).on("click", ".upload img", function () {
-            if ($(this).parent().siblings().length > 0) {
-                $(this).parent().remove();
-            }
-        });
-    });
-</script>
 }

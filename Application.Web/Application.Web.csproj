@@ -235,6 +235,7 @@
     <Content Include="Content\images\products\thumb2.jpg" />
     <Content Include="Content\images\products\thumb3.jpg" />
     <Content Include="Content\images\products\thumb4.jpg" />
+    <Content Include="Content\product-print.css" />
     <Content Include="Content\spice-shopee\about.html" />
     <Content Include="Content\spice-shopee\cart.html" />
     <Content Include="Content\spice-shopee\category-grid.html" />
