@@ -369,5 +369,59 @@ namespace Application.Web.Areas.Administration.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        [HttpGet]
+        public ActionResult MakePrimary(int imageId, int productId)
+        {
+            var theProduct = this.Data.Products.Find(productId);
+            if (theProduct == null)
+            {
+                return HttpNotFound();
+            }
+
+            var oldPrimary = theProduct.Images.FirstOrDefault(image => image.IsPrimary);
+            oldPrimary.IsPrimary = false;
+
+            var newPrimary = theProduct.Images.FirstOrDefault(image => image.Id == imageId);
+            newPrimary.IsPrimary = true;
+
+            this.Data.SaveChanges();
+
+            return RedirectToAction("Edit", new { id = productId });
+        }
+
+        [HttpPost]
+        public ActionResult DeleteImage(int imageId)
+        {
+            var theImage = this.Data.Images.Find(imageId);
+            string file1 = System.Web.HttpContext.Current.Server.MapPath("~/" + theImage.ImagePath + "_detailsBigThumb.jpg");
+            string file2 = System.Web.HttpContext.Current.Server.MapPath("~/" + theImage.ImagePath + "_detailsSmallThumb.jpg");
+            string file3 = System.Web.HttpContext.Current.Server.MapPath("~/" + theImage.ImagePath + "_indexThumb.jpg");
+            string file4 = System.Web.HttpContext.Current.Server.MapPath("~/" + theImage.ImagePath + "_large.jpg");
+
+            TryToDelete(file1);
+            TryToDelete(file2);
+            TryToDelete(file3);
+            TryToDelete(file4);
+
+            this.Data.Images.Delete(imageId);
+            this.Data.SaveChanges();
+
+            return Content(@"<span class='label label-success'>Изтрито успешно!</span>");
+
+        }
+
+        private bool TryToDelete(string filePath)
+        {
+            try
+            {
+                System.IO.File.Delete(filePath);
+                return true;
+            }
+            catch (IOException)
+            {
+                return false;
+            }
+        }
     }
 }

@@ -10,6 +10,8 @@ using Application.Data;
 using Application.Models;
 using Application.Web.Areas.Administration.Models.ViewModels;
 using Application.Web.Models;
+using System.Net.Mail;
+using System.Configuration;
 
 namespace Application.Web.Controllers
 {
@@ -131,6 +133,32 @@ namespace Application.Web.Controllers
             };
 
             return View(productViewData);
+        }
+
+        [HttpPost]
+        public ActionResult SendRequestEmail(string fullName, 
+            string email, string company, string phone, string requestText,
+            int width, int weight, int productId)
+        {
+            string sender = ConfigurationManager.AppSettings["emailSender"];
+            string receiver = ConfigurationManager.AppSettings["emailReceiver"];
+            var theProduct = this.Data.Products.Find(productId);
+
+            MailMessage mailMessage = new MailMessage(sender, receiver);
+            mailMessage.Subject = "Запитване за продукт: " + theProduct.Name;
+            mailMessage.Body = "Имена: " + fullName + "<br/>" +
+                               "Email: " + email + "<br/>" +
+                               "Фирма: " + company + "<br/>" +
+                               "Телефон: " + phone + "<br/><br/>" +
+                               "Запитване: <br/>" + requestText;
+
+            SmtpClient smtpClient = new SmtpClient();
+
+            // The settings are in web.config file
+            smtpClient.Send(mailMessage);
+
+            return RedirectToAction("Index");
+            
         }
     }
 }

@@ -244,3 +244,11 @@ table tbody tr:hover td
     left: -20px;
     top: -10px;
 }
+
+.is-primary {
+    background: #ffb400;
+}
+
+.is-primary a {
+    color: black;
+}

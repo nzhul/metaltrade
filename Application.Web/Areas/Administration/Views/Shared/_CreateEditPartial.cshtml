@@ -150,17 +150,35 @@
                             {
                                 foreach (var image in Model.Images.OrderByDescending(x => x.DateAdded))
                                 {
-                                    var imageSrc = "../../../" + @image.ImagePath + "_detailsSmallThumb." + @image.ImageExtension;
-                                    <img src="@imageSrc" class="product-image-thumbnail-admin" />
-                                    <div class="thumbnail-hover">
-                                        <a href="#" class="glyphicon glyphicon-arrow-up"
-                                           data-toggle="tooltip"
-                                           data-placement="top"
-                                           title="Направи картинката ГЛАВНА!"></a>
-                                        <a href="#" class="fa fa-times"
-                                           data-toggle="tooltip"
-                                           data-placement="top"
-                                           title="Изтрии картинката!"></a>
+                                    var imageSrc = "../../../" + @image.ImagePath + "_detailsSmallThumb." + image.ImageExtension;
+                                    var isPrimary = @image.IsPrimary ? "is-primary" : " ";
+                                    var imageThumbnailBoxId = "thumb-box-"+image.Id;
+
+                                    <div id="@imageThumbnailBoxId">
+                                        <img src="@imageSrc" class="product-image-thumbnail-admin" />
+                                        <div class="thumbnail-hover @isPrimary">
+                                            @if (!image.IsPrimary)
+                                        {
+                                                <a href="@Url.Action("MakePrimary", "Products", new { imageId = image.Id, productId = Model.Id })" class="glyphicon glyphicon-arrow-up"
+                                                   data-toggle="tooltip"
+                                                   data-placement="top"
+                                                   title="Направи картинката ГЛАВНА!"></a>
+                                                @*<a href="#" class="fa fa-times"
+                                                    data-toggle="tooltip"
+                                                    data-placement="top"
+                                                    title="Изтрии картинката!"></a>*@
+                                                @Ajax.ActionLink(" ", "DeleteImage", new { imageId = image.Id },
+                                                new AjaxOptions
+                                                {
+                                                    InsertionMode = InsertionMode.Replace,
+                                                    UpdateTargetId = imageThumbnailBoxId,
+                                                    HttpMethod = "Post",
+                                                }, new { @class="fa fa-times", @data_toggle="tooltip", @data_placement = "top", @title="Изтрии картинката!" })
+                                        } else
+	                                    {
+                                                <strong>Главна</strong>
+	                                    }
+                                        </div>
                                     </div>
                                 }
                                 <div class="clearfix"></div>
