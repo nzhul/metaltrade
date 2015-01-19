@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Application.Web.Models.ContactFormInputModel
+
+@{
     ViewBag.Title = "Контакти";
 }
 <div class="container">
@@ -62,37 +64,45 @@
                         <h3 class="panel-title">Изпратете ни съобщение</h3>
                     </div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form">
+                        @Html.Partial("~/Areas/Administration/Views/Shared/_MessagePartial.cshtml")
+                        @using (Html.BeginForm("SendContactRequest", "Home", FormMethod.Post,
+                            new { @class = "form-horizontal" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                             <div class="form-group">
-                                <label for="name" class="col-sm-2 control-label">
-                                    Име
-                                </label>
+                                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="Име">
+                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder="Име" } })
+                                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="email" class="col-sm-2 control-label">
-                                    Email
-                                </label>
+                                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
                                 <div class="col-sm-10">
-                                    <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="subject" class="col-sm-2 control-label">
-                                    Относно
-                                </label>
+                                @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Относно">
+                                    @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", @placeholder = "Телефон" } })
+                                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="message" class="col-sm-2 control-label">
-                                    Съобщение
-                                </label>
+                                @Html.LabelFor(model => model.Subject, htmlAttributes: new { @class = "control-label col-md-2" })
                                 <div class="col-sm-10">
-                                    <textarea name="message" id="message" class="form-control" rows="5" placeholder="Message"></textarea>
+                                    @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-control", @placeholder = "Относно" } })
+                                    @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-sm-10">
+                                    @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control", @placeholder = "Съдържание" } })
+                                    @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group">
@@ -102,7 +112,7 @@
                                     </button>
                                 </div>
                             </div>
-                        </form>
+                        }
                     </div>
                 </div>
             </div>

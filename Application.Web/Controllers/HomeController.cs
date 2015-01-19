@@ -2,8 +2,10 @@
 using Application.Web.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
+using System.Net.Mail;
 using System.Web.Mvc;
 
 namespace Application.Web.Controllers
@@ -63,11 +65,46 @@ namespace Application.Web.Controllers
             return View();
         }
 
+        [HttpGet]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
 
-            return View();
+            var model = new ContactFormInputModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult SendContactRequest(ContactFormInputModel contactData)
+        {
+            if (ModelState.IsValid)
+            {
+                string sender = ConfigurationManager.AppSettings["emailSender"];
+                string receiver = ConfigurationManager.AppSettings["emailReceiver"];
+
+                MailMessage mailMessage = new MailMessage(sender, receiver);
+                mailMessage.IsBodyHtml = true;
+                mailMessage.Subject = "Запитване (контактна форма): ";
+                mailMessage.Body = "Имена: " + contactData.Name + "<br/>" +
+                                   "Email: " + contactData.Email + "<br/>" +
+                                   "Телефон: " + contactData.Phone + "<br/><br/>" +
+                                   "Запитване: <br/>" + contactData.Content;
+
+                SmtpClient smtpClient = new SmtpClient();
+
+                // The settings are in web.config file
+                smtpClient.Send(mailMessage);
+
+                // TempData success
+                TempData["message"] = "Съобщението беше <strong>изпратено</strong> успешно!";
+                TempData["messageType"] = "success";
+
+                return RedirectToAction("Contact");
+            }
+            else
+            {
+                return View("Contact", contactData);
+            }
         }
     }
 }
