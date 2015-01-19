@@ -64,9 +64,8 @@
                         <h3 class="panel-title">Изпратете ни съобщение</h3>
                     </div>
                     <div class="panel-body">
-                        @Html.Partial("~/Areas/Administration/Views/Shared/_MessagePartial.cshtml")
-                        @using (Html.BeginForm("SendContactRequest", "Home", FormMethod.Post,
-                            new { @class = "form-horizontal" }))
+                        @using (Ajax.BeginForm("Contact", "Home", null, new AjaxOptions { UpdateTargetId = "result" },
+                            new { @class = "form-horizontal", @id="result" }))
                         {
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -120,3 +119,9 @@
         </div>
         <!-- Ends -->
     </div>
+
+@section scripts {
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+}

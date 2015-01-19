@@ -75,7 +75,7 @@ namespace Application.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult SendContactRequest(ContactFormInputModel contactData)
+        public ActionResult Contact(ContactFormInputModel contactData)
         {
             if (ModelState.IsValid)
             {
@@ -95,11 +95,10 @@ namespace Application.Web.Controllers
                 // The settings are in web.config file
                 smtpClient.Send(mailMessage);
 
-                // TempData success
-                TempData["message"] = "Съобщението беше <strong>изпратено</strong> успешно!";
-                TempData["messageType"] = "success";
-
-                return RedirectToAction("Contact");
+                return Content(@"<div class='alert alert-dismissable alert-success'>
+                            <button type='button' class='close' data-dismiss='alert'>×</button>
+                            <strong>Съобщението беше изпратено успешно!</strong>
+                        </div>");
             }
             else
             {

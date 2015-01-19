@@ -158,6 +158,33 @@
                                 </div>
                             </div>
                         </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Dropdown <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li class="dropdown-header">Dropdown header</li>
+                                <li><a href="#">Separated link</a></li>
+                                <li class="menu-item dropdown dropdown-submenu">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Level 1</a>
+                                    <ul class="dropdown-menu">
+                                        <li class="menu-item ">
+                                            <a href="#">Link 1</a>
+                                        </li>
+                                        <li class="menu-item dropdown dropdown-submenu">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Level 2</a>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a href="#">Link 3</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
                         <li>@Html.ActionLink("Новини", "Index", "Articles", new { area = string.Empty }, null)</li>
                         @if (ViewBag.LayoutModel != null)
                         {

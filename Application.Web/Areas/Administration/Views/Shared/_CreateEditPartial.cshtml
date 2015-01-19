@@ -150,7 +150,7 @@
                             {
                                 foreach (var image in Model.Images.OrderByDescending(x => x.DateAdded))
                                 {
-                                    var imageSrc = "../../../" + @image.ImagePath + "_detailsSmallThumb." + image.ImageExtension;
+                                    var imageSrc = "../../../" + @image.ImagePath + "_detailsSmallThumb.jpg";
                                     var isPrimary = @image.IsPrimary ? "is-primary" : " ";
                                     var imageThumbnailBoxId = "thumb-box-"+image.Id;
 
