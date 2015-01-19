@@ -61,7 +61,10 @@
                         <!-- Product Name Ends -->
                         <hr />
                         <!-- Manufacturer Starts -->
-                        @Html.Raw(theProduct.BulletsText)
+                        <div class="print-bullets">
+                            @Html.Raw(theProduct.BulletsText)
+                        </div>
+                        
                         @*<ul class="list-unstyled manufacturer">
                             <li>
                                 <span class="emptyClassHack">Производител:</span> Metal Company LTD
