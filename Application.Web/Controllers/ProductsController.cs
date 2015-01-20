@@ -136,28 +136,36 @@ namespace Application.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult SendRequestEmail(string fullName, 
-            string email, string company, string phone, string requestText,
-            int width, int weight, int productId)
+        public ActionResult SendProductRequest(ProductDetailsViewModel requestData)
         {
             string sender = ConfigurationManager.AppSettings["emailSender"];
             string receiver = ConfigurationManager.AppSettings["emailReceiver"];
-            var theProduct = this.Data.Products.Find(productId);
 
             MailMessage mailMessage = new MailMessage(sender, receiver);
-            mailMessage.Subject = "Запитване за продукт: " + theProduct.Name;
-            mailMessage.Body = "Имена: " + fullName + "<br/>" +
-                               "Email: " + email + "<br/>" +
-                               "Фирма: " + company + "<br/>" +
-                               "Телефон: " + phone + "<br/><br/>" +
-                               "Запитване: <br/>" + requestText;
+            mailMessage.IsBodyHtml = true;
+            mailMessage.Subject = "Запитване за продукт: " + requestData.ProductRequestModel.ProductName;
+            mailMessage.Body = "Имена: " + requestData.ProductRequestModel.Name + "<br/>" +
+                               "Email: " + requestData.ProductRequestModel.Email + "<br/>" +
+                               "Фирма: " + requestData.ProductRequestModel.Company + "<br/>" +
+                               "Телефон: " + requestData.ProductRequestModel.Phone + "<br/><br/>" +
+                               "Диаметър(Ф): " + (requestData.ProductRequestModel.Width != null ? requestData.ProductRequestModel.Width : "--липсва--") + "<br/>" +
+                               "Тонаж(т): " + (requestData.ProductRequestModel.Weight != null ? requestData.ProductRequestModel.Weight : "--липсва--") +"<br/>" +
+                               "Дължина(м): " + (requestData.ProductRequestModel.Length != null ? requestData.ProductRequestModel.Length : "--липсва--")  + "<br/><br/>" +
+                               "Запитване: <br/>" + requestData.ProductRequestModel.Content;
 
             SmtpClient smtpClient = new SmtpClient();
 
             // The settings are in web.config file
             smtpClient.Send(mailMessage);
 
-            return RedirectToAction("Index");
+            return Content(@"<div class='modal-body'>
+                                    <div class='alert alert-dismissable alert-success'>
+                                        <button type='button' class='close' data-dismiss='alert'>×</button>
+                                        <strong>Запитването беше изпратено успешно!</strong><br />
+                                        <p>Ще се свържем с вас, възможно най-скоро!</p>
+                                        <button type='button' class='btn btn-warning' data-dismiss='modal'>Затвори прозореца!</button>
+                                    </div>
+                                </div>");
             
         }
     }

@@ -11,5 +11,7 @@ namespace Application.Web.Models
     {
         public Product TheProduct { get; set; }
         public IEnumerable<ProductViewModel> SimilarProducts { get; set; }
+
+        public ProductRequestInputModel ProductRequestModel { get; set; }
     }
 }

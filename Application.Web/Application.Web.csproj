@@ -212,6 +212,7 @@
     <Compile Include="Models\ContactFormInputModel.cs" />
     <Compile Include="Models\ProductAutocompleteViewModel.cs" />
     <Compile Include="Models\ProductDetailsViewModel.cs" />
+    <Compile Include="Models\ProductRequestInputModel.cs" />
     <Compile Include="Models\ProductsViewModel.cs" />
     <Compile Include="Models\LayoutModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
