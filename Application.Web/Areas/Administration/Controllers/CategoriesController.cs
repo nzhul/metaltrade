@@ -15,13 +15,14 @@ namespace Application.Web.Areas.Administration.Controllers
         public ActionResult Index()
         {
             var categoriesList = this.Data.Categories.All()
-                .OrderByDescending(x => x.DateAdded)
+                .OrderBy(x => x.DisplayOrder)
                 .AsEnumerable()
                 .Select(x => new CategoryViewModel
                 {
                     Id = x.Id,
                     Name = x.Name,
                     Description = x.Description,
+                    DisplayOrder = x.DisplayOrder,
                     SubCategories = this.Data.SubCategories
                         .All()
                         .OrderBy(y => y.DateAdded)
@@ -78,7 +79,8 @@ namespace Application.Web.Areas.Administration.Controllers
                 {
                     Name = categoryModel.Name,
                     Description = categoryModel.Description,
-                    DateAdded = DateTime.Now
+                    DateAdded = DateTime.Now,
+                    DisplayOrder = categoryModel.DisplayOrder
                 };
                 this.Data.Categories.Add(newCategory);
                 this.Data.SaveChanges();
@@ -87,7 +89,8 @@ namespace Application.Web.Areas.Administration.Controllers
                 {
                     Id = newCategory.Id,
                     Name = newCategory.Name,
-                    Description = newCategory.Description
+                    Description = newCategory.Description,
+                    DisplayOrder = newCategory.DisplayOrder,
                 };
                 return PartialView("_CategoryPartial", viewModel);
             }
@@ -129,6 +132,7 @@ namespace Application.Web.Areas.Administration.Controllers
                 var theCategory = this.Data.Categories.Find(categoryModel.Id);
                 theCategory.Name = categoryModel.Name;
                 theCategory.Description = categoryModel.Description;
+                theCategory.DisplayOrder = categoryModel.DisplayOrder;
                 this.Data.SaveChanges();
 
                 var contentToReturn = "<span id='" + "category-span-" + categoryModel.Id + "'>" + categoryModel.Name + "</span>";

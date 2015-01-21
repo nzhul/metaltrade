@@ -18,6 +18,7 @@ namespace Application.Web.Areas.Administration.Models.ViewModels
         public int LoopCounter { get; set; }
 
         public string Description { get; set; }
+        public int DisplayOrder { get; set; }
 
         public IEnumerable<SubCategoryViewModel> SubCategories
         {

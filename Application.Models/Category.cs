@@ -17,6 +17,7 @@ namespace Application.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime DateAdded { get; set; }
+        public int DisplayOrder { get; set; }
 
         public virtual ICollection<SubCategory> SubCategories
         {

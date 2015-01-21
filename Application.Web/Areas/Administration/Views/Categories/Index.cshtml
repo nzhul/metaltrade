@@ -25,6 +25,8 @@
                     <div class="modal-body">
                         <label for="categoryName">Име</label>
                         <input type="text" class="form-control" name="name" id="categoryName" value="" placeholder="Име на категорията" /><br />
+                        <label for="DisplayOrder">Позиция</label>
+                        <input type="text" class="form-control" name="DisplayOrder" id="DisplayOrder" value="0" placeholder="№" /><br />
                         <label for="categoryDescription">Описание</label>
                         @Html.AntiForgeryToken()
                         <textarea class="form-control" name="description" id="categoryDescription" placeholder="Описание на категорията"></textarea>

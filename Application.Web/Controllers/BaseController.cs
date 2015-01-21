@@ -41,7 +41,7 @@ namespace Application.Web.Controllers
         {
             return this.Data.Categories
                 .All()
-                .OrderBy(x => x.Id)
+                .OrderBy(x => x.DisplayOrder)
                 .AsEnumerable()
                 .Select(x => new CategoryViewModel
                 {

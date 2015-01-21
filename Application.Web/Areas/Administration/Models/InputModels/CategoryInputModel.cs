@@ -15,5 +15,7 @@ namespace Application.Web.Areas.Administration.Models.InputModels
 
         public string Description { get; set; }
 
+        public int DisplayOrder { get; set; }
+
     }
 }
