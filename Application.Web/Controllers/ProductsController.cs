@@ -24,7 +24,7 @@ namespace Application.Web.Controllers
 
             var products = this.Data.Products
                 .All()
-                .OrderBy(x => x.Id)
+                .OrderBy(x => x.DisplayOrder)
                 .Where(x => x.Name.Contains(term) || x.Tags.Any(tag => tag.Name.Contains(term)))
                 .Select(x => new ProductAutocompleteViewModel
                 {
@@ -57,7 +57,7 @@ namespace Application.Web.Controllers
         {
             var productsQuerable = this.Data.Products
                 .All()
-                .OrderBy(x => x.DateAdded)
+                .OrderBy(x => x.DisplayOrder)
                 .Where(x => x.IsActive == true)
                 .AsQueryable();
 
@@ -117,7 +117,7 @@ namespace Application.Web.Controllers
                 TheProduct = product,
                 SimilarProducts = this.Data.Products
                 .All()
-                .OrderBy(x => x.DateAdded)
+                .OrderBy(x => x.DisplayOrder)
                 .Where(x => x.Category.Id == product.Category.Id && x.Id != product.Id)
                 .Take(3)
                 .Select(x => new ProductViewModel

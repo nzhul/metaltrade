@@ -50,7 +50,7 @@ namespace Application.Web.Controllers
                     Description = x.Description,
                     SubCategories = this.Data.SubCategories
                         .All()
-                        .OrderBy(y => y.DateAdded)
+                        .OrderBy(y => y.DisplayOrder)
                         .Where(y => y.CategoryId == x.Id)
                         .Select(y => new SubCategoryViewModel
                         {

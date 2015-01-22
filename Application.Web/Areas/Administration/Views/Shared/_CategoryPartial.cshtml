@@ -72,7 +72,7 @@
                                     <label for="categoryName">Име</label>
                                     <input type="text" class="form-control" name="name" id="categoryName" value="@category.Name" placeholder="Име на категорията" /><br />
                                     <label for="DisplayOrder">Позиция</label>
-                                    <input type="text" class="form-control" name="DisplayOrder" id="DisplayOrder" value="@category.DisplayOrder" placeholder="№" /><br />
+                                    <input type="number" class="form-control" name="DisplayOrder" id="DisplayOrder" value="@category.DisplayOrder" placeholder="№" /><br />
                                     <label for="categoryDescription">Описание</label>
                                     @Html.AntiForgeryToken()
                                     <textarea class="form-control" name="description" id="categoryDescription" placeholder="Описание на категорията">@category.Description</textarea>

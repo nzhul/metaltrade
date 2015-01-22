@@ -25,13 +25,14 @@ namespace Application.Web.Areas.Administration.Controllers
                     DisplayOrder = x.DisplayOrder,
                     SubCategories = this.Data.SubCategories
                         .All()
-                        .OrderBy(y => y.DateAdded)
+                        .OrderBy(y => y.DisplayOrder)
                         .Where(y => y.CategoryId == x.Id)
                         .Select(y => new SubCategoryViewModel
                         {
                             Id = y.Id,
                             Name = y.Name,
-                            Description = y.Description
+                            Description = y.Description,
+                            DisplayOrder = y.DisplayOrder
                         })
                 }).ToList();
             return View(categoriesList);
@@ -48,7 +49,8 @@ namespace Application.Web.Areas.Administration.Controllers
                     CategoryId = subcategoryModel.CategoryId,
                     Name = subcategoryModel.Name,
                     Description = subcategoryModel.Description,
-                    DateAdded = DateTime.Now
+                    DateAdded = DateTime.Now,
+                    DisplayOrder = subcategoryModel.DisplayOrder
                 };
                 this.Data.SubCategories.Add(newSubCategory);
                 this.Data.SaveChanges();
@@ -110,6 +112,7 @@ namespace Application.Web.Areas.Administration.Controllers
                 var theSubCategory = this.Data.SubCategories.Find(subcategoryModel.Id);
                 theSubCategory.Name = subcategoryModel.Name;
                 theSubCategory.Description = subcategoryModel.Description;
+                theSubCategory.DisplayOrder = subcategoryModel.DisplayOrder;
                 this.Data.SaveChanges();
 
                 var contentToReturn = "<span id='" + "subcategory-span-" + subcategoryModel.Id + "'>" + subcategoryModel.Name+ "</span>";

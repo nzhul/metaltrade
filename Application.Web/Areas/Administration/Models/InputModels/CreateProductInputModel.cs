@@ -56,6 +56,9 @@ namespace Application.Web.Areas.Administration.InputModels
         [Display(Name = "Пибличен: ")]
         public bool IsActive { get; set; }
 
+        [Display(Name = "Позиция: ")]
+        public int DisplayOrder { get; set; }
+
         public IEnumerable<Image> Images { get; set; }
 
         public IEnumerable<SubCategory> AvailableSubCategories { get; set; }

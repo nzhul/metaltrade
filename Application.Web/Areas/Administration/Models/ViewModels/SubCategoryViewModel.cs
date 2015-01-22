@@ -14,5 +14,7 @@ namespace Application.Web.Areas.Administration.Models.ViewModels
         public int CategoryId { get; set; }
 
         public string Description { get; set; }
+
+        public int DisplayOrder { get; set; }
     }
 }

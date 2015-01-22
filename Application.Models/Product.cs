@@ -27,6 +27,7 @@ namespace Application.Models
         public bool IsFeatured { get; set; }
         public bool IsActive { get; set; }
         public DateTime DateAdded { get; set; }
+        public int DisplayOrder { get; set; }
 
         public string ApplicationUserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }

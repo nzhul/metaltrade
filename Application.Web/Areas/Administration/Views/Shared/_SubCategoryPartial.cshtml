@@ -4,15 +4,20 @@
     var categoryUiId = "subcategories-list-" + @Model.CategoryId;
     var loadingElementId = "loading-element-" + @categoryUiId;
     var subcategory = Model;
+    
     var subcategoryDeleteUiId = "#deleteModal-" + subcategory.Id;
     var subcategoryDeleteModalId = "deleteModal-" + subcategory.Id;
+
+    var subcategoryEditUiId = "#editModal-" + subcategory.Id;
+    var subCategoryEditModalId = "editModal-" + subcategory.Id;
+    
     var subcategoryUiId = "subcategory-item-" + subcategory.Id;
-    var subcategoryEditUiId = "subcategory-edit-input-" + subcategory.Id;
     var subcategorySpanId = "subcategory-span-" + subcategory.Id;
     <li class="list-group-item" id="@subcategoryUiId">
         <span id="@subcategorySpanId">@subcategory.Name</span>
         <a class="glyphicon glyphicon-ban-circle pull-right text-danger" style="margin-right:-5px;" data-toggle="modal" href="@subcategoryDeleteUiId"> </a>
-        <a href="#" title="Редактирай" style="margin-right:5px;" class="glyphicon glyphicon-edit pull-right"></a>
+        <a href="@subcategoryEditUiId" title="Редактирай" data-toggle="modal" style="margin-right:5px;" class="glyphicon glyphicon-edit pull-right"></a>
+        <!-- Delete Modal - SubCategory -->
         <div class="modal fade" id="@subcategoryDeleteModalId">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -21,7 +26,7 @@
                         <h4 class="modal-title">Моля потвърдете!</h4>
                     </div>
                     <div class="modal-body">
-                        <p>Сигурни ли сте, че искате да изтриете <strong>подкатегория "@subcategory.Name"</strong> ? </p>
+                        <p>Сигурни ли сте, че искате да изтриете <strong>подкатегория"@subcategory.Name"</strong> ? </p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Откажи</button>
@@ -41,8 +46,49 @@
                 </div>
             </div>
         </div>
+        <!--Delete Modal End SubCategory -->
+        <!-- Edit Modal -->
+        <div class="modal fade" id="@subCategoryEditModalId">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Редактиране на подкатегория:</h4>
+                    </div>
+
+                    @using (Ajax.BeginForm("EditSubCategory",
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "Post",
+                                    InsertionMode = InsertionMode.Replace,
+                                    UpdateTargetId = subcategorySpanId,
+                                    OnFailure = "subCategoryEditFailure",
+                                    LoadingElementId = loadingElementId
+                                }))
+                    {
+                        <div class="modal-body">
+                            <label for="categoryName">Име</label>
+                            <input type="text" class="form-control" name="name" id="categoryName" value="@subcategory.Name" placeholder="Име на категорията" /><br />
+                            <label for="DisplayOrder">Позиция</label>
+                            <input type="number" class="form-control" name="DisplayOrder" id="DisplayOrder" value="@subcategory.DisplayOrder" placeholder="№" /><br />
+                            <label for="categoryDescription">Описание</label>
+                            @Html.AntiForgeryToken()
+                            <textarea class="form-control" name="description" id="categoryDescription" placeholder="Описание на категорията">@subcategory.Description</textarea>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Откажи</button>
+                            @Html.Hidden("CategoryId", Model.CategoryId)
+                            @Html.Hidden("Id", subcategory.Id)
+                            <input type="submit" class="btn btn-primary" value="Запиши" />
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <!-- Edit Modal End-->
     </li>
-    <li class="list-group-item" style="display:none;" id="@subcategoryEditUiId">
+    @*<li class="list-group-item" style="display:none;" id="@subcategoryEditUiId">
         @using (Ajax.BeginForm("EditSubCategory",
                                         new AjaxOptions
                                             {
@@ -59,5 +105,5 @@
             <input type="text" name="name" id="editSubCategoryInput" class="form-control" value="@subcategory.Name" style="width:215px;float:left;" />
             <input type="submit" class="btn btn-success subCatSaveBtn" value="Запази" style="margin-left:10px;" />
         }
-    </li>
+    </li>*@
 }

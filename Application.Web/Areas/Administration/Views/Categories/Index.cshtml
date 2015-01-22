@@ -56,21 +56,21 @@
 
 
 @section scripts {
-    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script>
         $(document).ready(function () {
-            $('#event-container').on('click','.glyphicon-edit', function (e) {
-                e.preventDefault();
-                $parent = $(this).parent();
-                $parent.hide();
-                $parent.next().show();
-            })
+            //$('#event-container').on('click','.glyphicon-edit', function (e) {
+            //    e.preventDefault();
+            //    $parent = $(this).parent();
+            //    $parent.hide();
+            //    $parent.next().show();
+            //})
 
-            $('#event-container').on('click', '.subCatSaveBtn', function (e) {
-                $LiElement = $(this).parents('li');
-                $LiElement.hide();
-                $LiElement.prev().show();
-            })
+            //$('#event-container').on('click', '.subCatSaveBtn', function (e) {
+            //    $LiElement = $(this).parents('li');
+            //    $LiElement.hide();
+            //    $LiElement.prev().show();
+            //})
 
             $('#event-container').on('click', '.deleteBtnConfirm', function (e) {
                 $theModalParent = $(this).parents('.modal');
@@ -79,7 +79,7 @@
                 $('.modal-backdrop').remove();
             })
 
-            $('#event-container').on('click', '#category-submit-btn', function (e) {
+            $('#event-container').on('click', 'input[type=submit]', function (e) {
                 $theModalParent = $(this).parents('.modal');
                 $theModalParent.modal('hide');
                 $('body').removeClass('modal-open');

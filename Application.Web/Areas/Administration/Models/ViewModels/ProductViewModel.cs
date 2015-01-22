@@ -17,6 +17,7 @@ namespace Application.Web.Areas.Administration.Models.ViewModels
         public bool IsActive { get; set; }
         public bool IsFeatured { get; set; }
         public Image PrimaryImage { get; set; }
+        public int DisplayOrder { get; set; }
 
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}",

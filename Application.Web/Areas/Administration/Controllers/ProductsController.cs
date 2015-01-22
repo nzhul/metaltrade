@@ -46,7 +46,7 @@ namespace Application.Web.Areas.Administration.Controllers
         {
             int pageNumber = id.GetValueOrDefault(1);
             var productsList = this.Data.Products.All()
-                .OrderByDescending(x => x.DateAdded)
+                .OrderBy(x => x.DisplayOrder)
                 .Skip((pageNumber - 1) * PageSize).Take(PageSize)
                 .AsEnumerable()
                 .Select(x => new ProductViewModel
@@ -58,7 +58,7 @@ namespace Application.Web.Areas.Administration.Controllers
                     IsActive = x.IsActive,
                     IsFeatured = x.IsFeatured,
                     DateAdded = x.DateAdded,
-                    PrimaryImage = x.Images.First(image => image.IsPrimary == true)
+                    PrimaryImage = x.Images.First(image => image.IsPrimary == true),
                 }).ToList();
 
             ViewBag.Pages = Math.Ceiling((double)this.Data.Products.All().Count() / PageSize);
@@ -71,7 +71,7 @@ namespace Application.Web.Areas.Administration.Controllers
             var categoryId = int.Parse(id);
             var subcategories = this.Data.SubCategories
                 .All()
-                .OrderBy(x => x.DateAdded)
+                .OrderBy(x => x.DisplayOrder)
                 .Where(x => x.CategoryId == categoryId)
                 .Select(x => new SelectListItem
                     {
@@ -202,7 +202,8 @@ namespace Application.Web.Areas.Administration.Controllers
                 SelectedCategoryId = productDb.Category.Id,
                 ShortDescription = productDb.ShortDescription,
                 Tags = productDb.Tags.Select(x=>x.Name).ToList(),
-                Images = productDb.Images
+                Images = productDb.Images,
+                DisplayOrder = productDb.DisplayOrder,
             };
 
             model.AvailableSubCategories = InitSubCategories();
@@ -233,6 +234,7 @@ namespace Application.Web.Areas.Administration.Controllers
                 dbProduct.LongDescription = product.LongDescription;
                 dbProduct.Name = product.Name;
                 dbProduct.ShortDescription = product.ShortDescription;
+                dbProduct.DisplayOrder = product.DisplayOrder;
 
                 // Remove all Tags
                 foreach (var tag in dbProduct.Tags.ToList())
