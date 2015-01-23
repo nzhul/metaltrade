@@ -82,13 +82,13 @@
                         <hr />
                         <!-- Available Options Starts -->
                         <div class="options">
-                            <div class="form-group">
-                                Тагове:
+                            <div class="form-group clearfix">
+                                <span style="float:left;position: relative; top: -3px;">Етикети:</span>
                                 @if (theProduct.Tags.Count > 0)
                                 {
                                     foreach (var tag in theProduct.Tags)
                                     {
-                                        @Html.ActionLink(tag.Name, "Tag", new { id = tag.Id }, new { @class = "label label-default", @style="margin-left: 5px;" })
+                                        @Html.ActionLink(tag.Name, "Tag", new { id = tag.Id }, new { @class = "label label-default", @style="margin-left: 5px;float:left;margin-bottom:5px;" })
                                     }
                                 }
                                 else
