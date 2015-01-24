@@ -167,11 +167,11 @@
                                         if (category.SubCategories != null)
                                         {
                                             <li class="menu-item dropdown dropdown-submenu">
-                                                <a href="@Url.Action("Index", "Products", new { Category = category.Id })" class="dropdown-toggle" >@category.Name</a>
+                                                <a href="@Url.Action("Index", "Products", new { categoryId = category.Id, categorySlug = category.Slug })" class="dropdown-toggle" >@category.Name</a>
                                                 <ul class="dropdown-menu">
                                                     @foreach (var subcategory in category.SubCategories)
                                                     {
-                                                        <li class="menu-item "><a href="@Url.Action("Index", "Products", new { Category = category.Id, SubCategory = subcategory.Id })">@subcategory.Name</a></li>
+                                                        <li class="menu-item "><a href="@Url.Action("Index", "Products", new { categoryId = category.Id, categorySlug = category.Slug, subCategoryId = subcategory.Id, subCategorySlug = subcategory.Slug })">@subcategory.Name</a></li>
                                                     }
                                                 </ul>
                                             </li>
@@ -202,6 +202,7 @@
     <!-- Header Section Ends -->
     <div id="main-container" class="container">
         <div class="row">
+            <h3>ТЪРСАЧКАТА НЕ РАБОТИ! // TODO</h3>
             @RenderBody()
         </div>
     </div>

@@ -56,7 +56,8 @@ namespace Application.Web.Controllers
                     Name = x.Name,
                     PrimaryImage = x.Images.First(image => image.IsPrimary),
                     ShortDescription = x.ShortDescription,
-                    Slug = x.Slug
+                    Slug = x.Slug,
+                    CategorySlug = x.Category.Slug
                 }).ToList();
         }
 

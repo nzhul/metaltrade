@@ -30,7 +30,7 @@
                         {
                             isActiveSubCategory = "active";
                         }
-                        <a href="@Url.Action("Index", "Products", new { Category = category.Id, SubCategory = subCategory.Id })" class="list-group-item small @isActiveSubCategory">
+                        <a href="@Url.Action("Index", "Products", new { @categoryId = category.Id, @categorySlug = category.Slug, @subCategoryId = subCategory.Id, @subCategorySlug = subCategory.Slug})" class="list-group-item small @isActiveSubCategory">
                             <span class="glyphicon glyphicon-chevron-right"></span> @subCategory.Name
                         </a>
                     }

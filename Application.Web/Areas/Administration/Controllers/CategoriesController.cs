@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Utilities;
 
 namespace Application.Web.Areas.Administration.Controllers
 {
@@ -23,6 +24,7 @@ namespace Application.Web.Areas.Administration.Controllers
                     Name = x.Name,
                     Description = x.Description,
                     DisplayOrder = x.DisplayOrder,
+                    Slug = x.Slug,
                     SubCategories = this.Data.SubCategories
                         .All()
                         .OrderBy(y => y.DisplayOrder)
@@ -32,7 +34,8 @@ namespace Application.Web.Areas.Administration.Controllers
                             Id = y.Id,
                             Name = y.Name,
                             Description = y.Description,
-                            DisplayOrder = y.DisplayOrder
+                            DisplayOrder = y.DisplayOrder,
+                            Slug = y.Slug
                         })
                 }).ToList();
             return View(categoriesList);
@@ -44,13 +47,15 @@ namespace Application.Web.Areas.Administration.Controllers
         {
             if (ModelState.IsValid)
             {
+                var slug = SlugGenerator.Generate(subcategoryModel.Name);
                 var newSubCategory = new SubCategory()
                 {
                     CategoryId = subcategoryModel.CategoryId,
                     Name = subcategoryModel.Name,
                     Description = subcategoryModel.Description,
                     DateAdded = DateTime.Now,
-                    DisplayOrder = subcategoryModel.DisplayOrder
+                    DisplayOrder = subcategoryModel.DisplayOrder,
+                    Slug = slug
                 };
                 this.Data.SubCategories.Add(newSubCategory);
                 this.Data.SaveChanges();
@@ -60,7 +65,8 @@ namespace Application.Web.Areas.Administration.Controllers
                     Id = newSubCategory.Id,
                     Name = newSubCategory.Name,
                     CategoryId = newSubCategory.CategoryId,
-                    Description = newSubCategory.Description
+                    Description = newSubCategory.Description,
+                    Slug = newSubCategory.Slug
                 };
                 return PartialView("_SubCategoryPartial", viewModel);
             }
@@ -77,12 +83,14 @@ namespace Application.Web.Areas.Administration.Controllers
         {
             if (ModelState.IsValid)
             {
+                var slug = SlugGenerator.Generate(categoryModel.Name);
                 var newCategory = new Category()
                 {
                     Name = categoryModel.Name,
                     Description = categoryModel.Description,
                     DateAdded = DateTime.Now,
-                    DisplayOrder = categoryModel.DisplayOrder
+                    DisplayOrder = categoryModel.DisplayOrder,
+                    Slug = slug
                 };
                 this.Data.Categories.Add(newCategory);
                 this.Data.SaveChanges();
@@ -93,6 +101,7 @@ namespace Application.Web.Areas.Administration.Controllers
                     Name = newCategory.Name,
                     Description = newCategory.Description,
                     DisplayOrder = newCategory.DisplayOrder,
+                    Slug = newCategory.Slug
                 };
                 return PartialView("_CategoryPartial", viewModel);
             }
@@ -113,6 +122,7 @@ namespace Application.Web.Areas.Administration.Controllers
                 theSubCategory.Name = subcategoryModel.Name;
                 theSubCategory.Description = subcategoryModel.Description;
                 theSubCategory.DisplayOrder = subcategoryModel.DisplayOrder;
+                theSubCategory.Slug = subcategoryModel.Slug;
                 this.Data.SaveChanges();
 
                 var contentToReturn = "<span id='" + "subcategory-span-" + subcategoryModel.Id + "'>" + subcategoryModel.Name+ "</span>";
@@ -136,6 +146,7 @@ namespace Application.Web.Areas.Administration.Controllers
                 theCategory.Name = categoryModel.Name;
                 theCategory.Description = categoryModel.Description;
                 theCategory.DisplayOrder = categoryModel.DisplayOrder;
+                theCategory.Slug = categoryModel.Slug;
                 this.Data.SaveChanges();
 
                 var contentToReturn = "<span id='" + "category-span-" + categoryModel.Id + "'>" + categoryModel.Name + "</span>";

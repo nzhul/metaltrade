@@ -69,6 +69,7 @@ namespace Application.Web.Controllers
                     Id = x.Id,
                     Name = x.Name,
                     Description = x.Description,
+                    Slug = x.Slug,
                     SubCategories = this.Data.SubCategories
                         .All()
                         .OrderBy(y => y.DisplayOrder)
@@ -77,7 +78,8 @@ namespace Application.Web.Controllers
                         {
                             Id = y.Id,
                             Name = y.Name,
-                            Description = y.Description
+                            Description = y.Description,
+                            Slug = y.Slug
                         })
                 }).ToList();
 

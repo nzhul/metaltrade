@@ -41,6 +41,7 @@ namespace Application.Web.Controllers
         }
 
         // GET: Products
+
         public ActionResult Index(int? category, int? subCategory, int? page)
         {
             var model = new ProductsViewModel();

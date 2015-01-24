@@ -16,7 +16,7 @@
                     @Html.Raw(product.ShortDescription)
                 </div>
                 <div class="cart-button button-group" style="margin-top:-15px;">
-                    <a href="@Url.Action("Index", "Products", new { @Category = product.CategoryId })" class="btn btn-wishlist" data-toggle="tooltip" data-original-title="Кагегория: @product.CategoryName">
+                    <a href="@Url.Action("Index", "Products", new { @categoryId = product.CategoryId, @categorySlug = product.CategorySlug })" class="btn btn-wishlist" data-toggle="tooltip" data-original-title="Кагегория: @product.CategoryName">
                         <i class="glyphicon glyphicon-th-large"></i>
                     </a>
                     <a href="@Url.Action("Details", "Products", new { @Slug = product.Slug, @Id = product.Id })" type="button" class="btn btn-cart">

@@ -70,7 +70,9 @@
                             {
                                 <div class="modal-body">
                                     <label for="categoryName">Име</label>
-                                    <input type="text" class="form-control" name="name" id="categoryName" value="@category.Name" placeholder="Име на категорията" /><br />
+                                    <input type="text" class="form-control" name="name" id="categoryName" value="@category.Name" /><br />
+                                    <label for="categorySlug">Slug</label>
+                                    <input type="text" class="form-control" name="Slug" id="categorySlug" value="@category.Slug" /><br />
                                     <label for="DisplayOrder">Позиция</label>
                                     <input type="number" class="form-control" name="DisplayOrder" id="DisplayOrder" value="@category.DisplayOrder" placeholder="№" /><br />
                                     <label for="categoryDescription">Описание</label>
@@ -113,6 +115,7 @@
                     @Html.Hidden("CategoryId", category.Id)
                     @Html.AntiForgeryToken()
                     <input type="text" name="name" id="subcategoryInput" placeholder=" Подкатегория" class="form-control" />
+                    <input type="hidden" name="Slug" value="SomeValueToPassModelValidation" />
                     <textarea name="description" placeholder=" Кратко описание на категорията" class="form-control" style="margin-top:10px;"></textarea>
                     <input type="submit" class="btn btn-success" value="Добави Подкатегория" style="margin-top:10px;" />
                 }

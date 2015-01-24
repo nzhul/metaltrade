@@ -13,7 +13,7 @@ namespace Application.Web.Areas.Administration.Models.InputModels
         [Required]
         public string Name { get; set; }
 
-        public int Slug { get; set; }
+        public string Slug { get; set; }
 
         [Required]
         public int CategoryId { get; set; }
