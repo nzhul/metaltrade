@@ -1,7 +1,8 @@
 ﻿@model Application.Web.Models.ProductDetailsViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = @Model.TheProduct.Name;
+    ViewBag.MetaDescription = @Model.TheProduct.ShortDescription;
     var theProduct = Model.TheProduct;
 }
 
@@ -21,6 +22,8 @@
                 <!-- Product Info Starts -->
                 <div class="row product-info">
                     <!-- Left Starts -->
+                    <h4 class="onlyprint">Сайт: http://onlinesapani.com/ <br />Email: manager@onlinesapani.com <br />GSM: 0896 893 295</h4>
+
                     <div class="col-sm-5 images-block">
                         <p class="product-gallery-box">
                             @foreach (var thumbnail in @theProduct.Images)
@@ -104,7 +107,7 @@
                                     </a>
 
                                     <a data-toggle="modal" href="#request-modal" class="btn btn-cart">
-                                        Поръчай
+                                        Поискай оферта
                                         <i class="fa fa-shopping-cart"></i>
                                     </a>
                                 <!-- Delete Modal -->
@@ -113,7 +116,7 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                <h4 class="modal-title">Поръчка за @theProduct.Name</h4>
+                                                <h4 class="modal-title">Запитване за @theProduct.Name</h4>
                                             </div>
                                             @using (Ajax.BeginForm("SendProductRequest", "Products", null, new AjaxOptions { UpdateTargetId = "modal-request-result", LoadingElementId = "loadingElement" },
                                                                         new { @class = "form-horizontal", @id = "result" }))            {
@@ -177,6 +180,13 @@
                                                         </div>
                                                         <div class="col-sm-2"><input type="text" name="ProductRequestModel.Length" class="form-control" style="width: 70px;text-align:center;" id="range-input-lenght" value=""></div>
                                                     </div>
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(m => m.ProductRequestModel.Count, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                        <div class="col-sm-8">
+                                                            <input id="slider2" class="form-control" type="range" onchange="updateTextInputCount(this.value);" min="1" max="100" step="1" value="1" />
+                                                        </div>
+                                                        <div class="col-sm-2"><input type="text" name="ProductRequestModel.Count" class="form-control" style="width: 70px;text-align:center;" id="range-input-count" value=""></div>
+                                                    </div>
 
                                                 </div>
                                                 <div class="modal-footer">
@@ -228,33 +238,8 @@
                 }
                 <!-- Categories Links Ends -->
                 <!-- Bestsellers Links Starts -->
-                <h3 class="side-heading">Най-продавани</h3>
-                <div class="product-col">
-                    <div class="image">
-                        <img src="~/Content/images/products/hook-1.jpg" alt="продукт" class="img-responsive" />
-                    </div>
-                    <div class="caption">
-                        <h4>
-                            <a href="product-full.html">Сапан с 2 куки Ф 20</a>
-                        </h4>
-                        <div class="description">
-                            Описание на сапана и някаква допълнителна информация
-                        </div>
-                        <div class="price">
-                            <span class="price-new">$199.50</span>
-                            <span class="price-old">$249.50</span>
-                        </div>
-                        <div class="cart-button button-group">
-                            <button type="button" title="Wishlist" class="btn btn-wishlist">
-                                <i class="fa fa-heart"></i>
-                            </button>
-                            <button type="button" class="btn btn-cart">
-                                Поръчай
-                                <i class="fa fa-shopping-cart"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <h3 class="side-heading">Популярни Продукти</h3>
+                @Html.Partial("_PopularProduct", (Application.Web.Areas.Administration.Models.ViewModels.ProductViewModel)ViewBag.LayoutModel.PopularProduct)
                 <!-- Bestsellers Links Ends -->
             </div>
             <!-- Sidebar Ends -->
@@ -276,6 +261,9 @@
         }
         function updateTextInputLenght(val) {
             document.getElementById('range-input-lenght').value = val;
+        }
+        function updateTextInputCount(val) {
+            document.getElementById('range-input-count').value = val;
         }
     </script>
 

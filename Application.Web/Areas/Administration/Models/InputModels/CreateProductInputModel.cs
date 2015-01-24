@@ -24,6 +24,11 @@ namespace Application.Web.Areas.Administration.InputModels
         [Display(Name = "Наименование на продукта:")]
         public string Name { get; set; }
 
+        [Required(ErrorMessage = "Слъг-а е задължителен! Без него линка към сайта няма да работи!")]
+        [StringLength(250, MinimumLength = 3, ErrorMessage = "Невалиден слъг - Максимална дължина 80 символа, минимална 3")]
+        [Display(Name = "Slug:")]
+        public string Slug { get; set; }
+
         [Required(ErrorMessage = "Краткото описание е задължително!")]
         [AllowHtml]
         [Display(Name = "Кратко описание:")]

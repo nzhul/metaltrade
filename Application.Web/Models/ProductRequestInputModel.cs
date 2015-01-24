@@ -37,7 +37,7 @@ namespace Application.Web.Models
 
 
 
-        [Display(Name = "Диаметър(Ф):")]
+        [Display(Name = "Диаметър(мм):")]
         public string Width { get; set; }
 
         [Display(Name = "Тонаж(т):")]
@@ -45,5 +45,8 @@ namespace Application.Web.Models
 
         [Display(Name = "Дължина(м):")]
         public string Length { get; set; }
+
+        [Display(Name = "Брой:")]
+        public string Count { get; set; }
     }
 }

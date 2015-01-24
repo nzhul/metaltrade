@@ -16,6 +16,8 @@
                         var activeCategory = categories.First(x => x.Id == categoryId);
                         ViewBag.CategoryName = activeCategory.Name;
                         ViewBag.CategoryDescription = activeCategory.Description;
+                        ViewBag.MetaDescription = activeCategory.Description;
+                        ViewBag.Title = activeCategory.Name;
                         <li><a href="@Url.Action("Index", new { Category = activeCategory.Id })">@activeCategory.Name</a></li>
 
                         if (Request.QueryString["SubCategory"] != null)
@@ -24,6 +26,8 @@
                             var activeSubCategory = activeCategory.SubCategories.First(x => x.Id == subCategoryId);
                             ViewBag.SubCategoryName = activeSubCategory.Name;
                             ViewBag.SubCategoryDescription = activeSubCategory.Description;
+                            ViewBag.MetaDescription = activeSubCategory.Description;
+                            ViewBag.Title = activeSubCategory.Name;
                             <li class="active">@activeSubCategory.Name</li>
                         }
                     }
@@ -33,10 +37,13 @@
             <!-- Breadcrumb Ends -->
             <!-- Main Heading Starts -->
             <h2 class="main-heading2">
-                @ViewBag.CategoryName
                 @if (ViewBag.SubCategoryName != null)
                 {
-                    <span class="fa fa-angle-right"></span> @ViewBag.SubCategoryName
+                    @ViewBag.SubCategoryName
+                }
+                else
+                {
+                    @ViewBag.CategoryName
                 }
             </h2>
             <!-- Main Heading Ends -->
@@ -60,7 +67,8 @@
                         }
                         else
                         {
-                            <p>Общо описание на всички продукти <br/> <small>hint: hardcoded in index view</small></p>
+                            <p>Onlinesapani.com е сред най-големите доставчици в страната, които осъществяват дистрибуция на стоманени въжета, сапани, стоманени телове, такелаж и товарозахватни съоръжения,  оградни мрежи. <br/>
+Ние ви предоставяме над 1000 продукта, като за всеки един от тях ще откриете точната техническа характеристика за да можете да направите правилния избор.</p>
                         }
                     </p>
                 </div>
@@ -69,7 +77,7 @@
             <!-- Product Filter Starts -->
             <div class="product-filter">
                 <div class="row">
-                    <a href="@Url.Action("Contact", "Home")#form-anchor" class="btn btn-default col-md-2  pull-right" style="margin: 0 15px 0 15px;"><span class="glyphicon glyphicon-earphone" style="margin-left:-10px;margin-right:5px;"></span> 0883 23 84 91</a>
+                    <a href="@Url.Action("Contact", "Home")#form-anchor" class="btn btn-default col-md-2  pull-right" style="margin: 0 15px 0 15px;"><span class="glyphicon glyphicon-earphone" style="margin-left:-10px;margin-right:5px;"></span> 0896 893 295</a>
                     <a href="@Url.Action("Contact", "Home")#form-anchor" class="btn btn-default col-md-2 pull-right"><span class="glyphicon glyphicon-envelope" style="margin-left:-15px;margin-right:15px;"></span>ЗАПИТВАНЕ</a>
                 </div>
             </div>
@@ -90,36 +98,8 @@
             }
             <!-- Categories Links Ends -->
             <!-- Bestsellers Links Starts -->
-            <h3 class="side-heading">Най-Продавано</h3>
-            <div class="product-col">
-                <div class="image">
-                    <img src="images/product-images/pimg1.jpg" alt="product" class="img-responsive" />
-                </div>
-                <div class="caption">
-                    <h4>
-                        <a href="product-full.html">Simply Organic Seeds</a>
-                    </h4>
-                    <div class="description">
-                        We are so lucky living in such a wonderful time. Our almost unlimited ...
-                    </div>
-                    <div class="price">
-                        <span class="price-new">$199.50</span>
-                        <span class="price-old">$249.50</span>
-                    </div>
-                    <div class="cart-button button-group">
-                        <button type="button" title="Wishlist" class="btn btn-wishlist">
-                            <i class="fa fa-heart"></i>
-                        </button>
-                        <button type="button" title="Compare" class="btn btn-compare">
-                            <i class="fa fa-bar-chart-o"></i>
-                        </button>
-                        <button type="button" class="btn btn-cart">
-                            Add to cart
-                            <i class="fa fa-shopping-cart"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <h3 class="side-heading">Популярни Продукти</h3>
+            @Html.Partial("_PopularProduct", (Application.Web.Areas.Administration.Models.ViewModels.ProductViewModel)ViewBag.LayoutModel.PopularProduct)
             <!-- Bestsellers Links Ends -->
         </div>
         <!-- Sidebar Ends -->

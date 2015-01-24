@@ -30,11 +30,32 @@ namespace Application.Web.Controllers
                     Title = x.Title
                 })
                 .ToList();
-            ViewBag.LayoutModel = model;
+            //ViewBag.LayoutModel = model;
 
             // Populate Categories - TODO: use Cache
+            model.PopularProduct = GetRandomFeaturedProduct();
             model.Categories = GetAllCategories();
             ViewBag.LayoutModel = model;
+        }
+
+        private ProductViewModel GetRandomFeaturedProduct()
+        {
+            return this.Data.Products
+                .All()
+                .Where(x => x.IsFeatured == true)
+                .OrderBy(x => Guid.NewGuid())
+                .ToList()
+                .Select(x => new ProductViewModel
+                {
+                    CategoryId = x.Category.Id,
+                    CategoryName = x.Category.Name,
+                    DateAdded = x.DateAdded,
+                    Id = x.Id,
+                    Name = x.Name,
+                    PrimaryImage = x.Images.First(image => image.IsPrimary),
+                    ShortDescription = x.ShortDescription,
+                    Slug = x.Slug
+                }).FirstOrDefault();
         }
 
         private IEnumerable<CategoryViewModel> GetAllCategories()

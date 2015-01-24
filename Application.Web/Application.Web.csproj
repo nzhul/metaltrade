@@ -55,6 +55,9 @@
       <HintPath>..\packages\ImageResizer.Plugins.SimpleFilters.3.4.3\lib\ImageResizer.Plugins.SimpleFilters.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="RiaLibrary.Web">
+      <HintPath>ExternalLibraries\RiaLibrary.Web.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -612,6 +615,7 @@
     <Content Include="Views\Shared\Home\_Articles.cshtml" />
     <Content Include="Views\Articles\Details.cshtml" />
     <Content Include="Views\Articles\Index.cshtml" />
+    <Content Include="Views\Shared\_PopularProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -632,6 +636,10 @@
     <ProjectReference Include="..\Application.Models\Application.Models.csproj">
       <Project>{69707f64-8b96-4e4d-bd20-243cea4209b0}</Project>
       <Name>Application.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{3645d2a6-2d3c-491e-bc02-9627946b89c8}</Project>
+      <Name>Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

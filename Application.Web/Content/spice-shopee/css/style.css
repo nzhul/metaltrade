@@ -746,7 +746,7 @@ hr{
 			border-left:1px solid #e8e8e8;
 		}
 		.product-info-box .content{
-			color:#8b8b8b;
+			color:#555;
 			font-size:13px;
 		}
 		
@@ -847,7 +847,7 @@ hr{
 /* Page Content Styles Starts */
 
 	.page-box{
-		color:#8b8b8b;
+		color:#555;
 		font-size:13px;
 		margin-bottom:40px;
 	}

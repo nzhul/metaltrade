@@ -10,10 +10,18 @@ namespace Application.Web.Models
     {
         private IEnumerable<PageViewModel> pages;
         private IEnumerable<CategoryViewModel> categories;
+        private ProductViewModel popularProduct;
         public LayoutModel()
         {
             this.pages = new List<PageViewModel>();
             this.categories = new List<CategoryViewModel>();
+            this.popularProduct = new ProductViewModel();
+        }
+
+        public ProductViewModel PopularProduct 
+        {
+            get { return this.popularProduct; }
+            set { this.popularProduct = value; } 
         }
 
         public IEnumerable<PageViewModel> Pages

@@ -5,21 +5,21 @@
     var productThumbnail = product.PrimaryImage.ImagePath + "_indexThumb.jpg";
     <div class="col-md-4">
         <div class="product-col">
-            <a href="@Url.Action("Details", "Products", new { id = product.Id })">
+            <a href="@Url.Action("Details", "Products", new { @Slug = product.Slug, @Id = product.Id })">
                 <img src="\@productThumbnail" class="image" alt="Alternate Text" />
             </a>
             <div class="caption">
                 <h4>
-                    @Html.ActionLink(product.Name, "Details", "Products", new { id = product.Id }, null)
+                    @Html.ActionLink(product.Name, "Details", "Products", new { @Slug = product.Slug, @Id = product.Id }, null)
                 </h4>
                 <div class="description">
                     @Html.Raw(product.ShortDescription)
                 </div>
                 <div class="cart-button button-group" style="margin-top:-15px;">
-                    <a href="Products/?Category=@product.CategoryId" class="btn btn-wishlist" data-toggle="tooltip" data-original-title="Кагегория: @product.CategoryName">
+                    <a href="@Url.Action("Index", "Products", new { @Category = product.CategoryId })" class="btn btn-wishlist" data-toggle="tooltip" data-original-title="Кагегория: @product.CategoryName">
                         <i class="glyphicon glyphicon-th-large"></i>
                     </a>
-                    <a href="Products/Details/@product.Id" type="button" class="btn btn-cart">
+                    <a href="@Url.Action("Details", "Products", new { @Slug = product.Slug, @Id = product.Id })" type="button" class="btn btn-cart">
                         Детайли
                         <i class="fa fa-arrow-circle-right"></i>
                     </a>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using RiaLibrary.Web;
 
 namespace Application.Web
 {
@@ -13,11 +14,20 @@ namespace Application.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapRoutes();
+
             routes.MapRoute(
                 name: "Pages",
                 url: "Pages/{id}",
                 defaults: new { controller = "Pages", action = "Index", id = UrlParameter.Optional },
                 namespaces: new[] { "Application.Web.Controllers" });
+
+                routes.MapRoute(
+                name: "Products",
+                url: "{Slug}-{Id}",
+                defaults: new { controller = "Products", action = "Details" },
+                namespaces: new[] { "Application.Web.Controllers" }
+                );
 
             routes.MapRoute(
                 name: "Default",

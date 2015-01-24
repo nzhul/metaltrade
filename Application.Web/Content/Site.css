@@ -297,3 +297,7 @@ table tbody tr:hover td
     border-radius:6px 0 6px 6px;
 }
 /* Dropdown SubMenu End*/
+
+.onlyprint {
+    display:none;
+}

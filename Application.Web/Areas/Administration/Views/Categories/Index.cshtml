@@ -59,19 +59,6 @@
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script>
         $(document).ready(function () {
-            //$('#event-container').on('click','.glyphicon-edit', function (e) {
-            //    e.preventDefault();
-            //    $parent = $(this).parent();
-            //    $parent.hide();
-            //    $parent.next().show();
-            //})
-
-            //$('#event-container').on('click', '.subCatSaveBtn', function (e) {
-            //    $LiElement = $(this).parents('li');
-            //    $LiElement.hide();
-            //    $LiElement.prev().show();
-            //})
-
             $('#event-container').on('click', '.deleteBtnConfirm', function (e) {
                 $theModalParent = $(this).parents('.modal');
                 $theModalParent.modal('hide');

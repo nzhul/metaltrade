@@ -13,6 +13,8 @@ namespace Application.Web.Areas.Administration.Models.InputModels
         [Required]
         public string Name { get; set; }
 
+        public int Slug { get; set; }
+
         [Required]
         public int CategoryId { get; set; }
 

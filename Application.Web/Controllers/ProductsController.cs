@@ -12,6 +12,7 @@ using Application.Web.Areas.Administration.Models.ViewModels;
 using Application.Web.Models;
 using System.Net.Mail;
 using System.Configuration;
+using RiaLibrary.Web;
 
 namespace Application.Web.Controllers
 {
@@ -32,7 +33,8 @@ namespace Application.Web.Controllers
                     Name = x.Name,
                     value = x.Name,
                     Description = x.ShortDescription,
-                    IconUrl = x.Images.FirstOrDefault(image => image.IsPrimary).ImagePath + "_detailsSmallThumb.jpg"
+                    IconUrl = x.Images.FirstOrDefault(image => image.IsPrimary).ImagePath + "_detailsSmallThumb.jpg",
+                    Slug = x.Slug
                 }).ToList();
 
             return Json(products, JsonRequestBehavior.AllowGet);
@@ -89,13 +91,15 @@ namespace Application.Web.Controllers
                     Id = x.Id,
                     Name = x.Name,
                     PrimaryImage = x.Images.First(image => image.IsPrimary),
-                    ShortDescription = x.ShortDescription
+                    ShortDescription = x.ShortDescription,
+                    Slug = x.Slug
                 });
 
             return products;
         }
 
         // GET: Products/Details/5
+       
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -128,7 +132,8 @@ namespace Application.Web.Controllers
                     Id = x.Id,
                     Name = x.Name,
                     PrimaryImage = x.Images.FirstOrDefault(image => image.IsPrimary),
-                    ShortDescription = x.ShortDescription
+                    ShortDescription = x.ShortDescription,
+                    Slug = x.Slug
                 }).ToList()
             };
 
@@ -150,7 +155,8 @@ namespace Application.Web.Controllers
                                "Телефон: " + requestData.ProductRequestModel.Phone + "<br/><br/>" +
                                "Диаметър(Ф): " + (requestData.ProductRequestModel.Width != null ? requestData.ProductRequestModel.Width : "--липсва--") + "<br/>" +
                                "Тонаж(т): " + (requestData.ProductRequestModel.Weight != null ? requestData.ProductRequestModel.Weight : "--липсва--") +"<br/>" +
-                               "Дължина(м): " + (requestData.ProductRequestModel.Length != null ? requestData.ProductRequestModel.Length : "--липсва--")  + "<br/><br/>" +
+                               "Дължина(м): " + (requestData.ProductRequestModel.Length != null ? requestData.ProductRequestModel.Length : "--липсва--") + "<br/><br/>" +
+                               "Брой: " + (requestData.ProductRequestModel.Count != null ? requestData.ProductRequestModel.Count : "--липсва--") + "<br/><br/>" +
                                "Запитване: <br/>" + requestData.ProductRequestModel.Content;
 
             SmtpClient smtpClient = new SmtpClient();

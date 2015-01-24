@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Net.Mail;
 using System.Web.Mvc;
+using RiaLibrary.Web;
 
 namespace Application.Web.Controllers
 {
@@ -54,7 +55,8 @@ namespace Application.Web.Controllers
                     Id = x.Id,
                     Name = x.Name,
                     PrimaryImage = x.Images.First(image => image.IsPrimary),
-                    ShortDescription = x.ShortDescription
+                    ShortDescription = x.ShortDescription,
+                    Slug = x.Slug
                 }).ToList();
         }
 

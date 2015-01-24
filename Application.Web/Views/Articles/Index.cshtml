@@ -32,33 +32,8 @@
             }
             <!-- Categories Links Ends -->
             <!-- Bestsellers Links Starts -->
-            <h3 class="side-heading">Най-продавани</h3>
-            <div class="product-col">
-                <div class="image">
-                    <img src="~/Content/images/products/hook-1.jpg" alt="продукт" class="img-responsive" />
-                </div>
-                <div class="caption">
-                    <h4>
-                        <a href="product-full.html">Сапан с 2 куки Ф 20</a>
-                    </h4>
-                    <div class="description">
-                        Описание на сапана и някаква допълнителна информация
-                    </div>
-                    <div class="price">
-                        <span class="price-new">$199.50</span>
-                        <span class="price-old">$249.50</span>
-                    </div>
-                    <div class="cart-button button-group">
-                        <button type="button" title="Wishlist" class="btn btn-wishlist">
-                            <i class="fa fa-heart"></i>
-                        </button>
-                        <button type="button" class="btn btn-cart">
-                            Поръчай
-                            <i class="fa fa-shopping-cart"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <h3 class="side-heading">Популярни Продукти</h3>
+            @Html.Partial("_PopularProduct", (Application.Web.Areas.Administration.Models.ViewModels.ProductViewModel)ViewBag.LayoutModel.PopularProduct)
             <!-- Bestsellers Links Ends -->
         </div>
         <!-- Sidebar Ends -->

@@ -11,6 +11,7 @@ using System.Net;
 using System.IO;
 using ImageResizer;
 using Application.Web.Areas.Administration.Models.InputModels;
+using Utilities;
 
 namespace Application.Web.Areas.Administration.Controllers
 {
@@ -59,6 +60,7 @@ namespace Application.Web.Areas.Administration.Controllers
                     IsFeatured = x.IsFeatured,
                     DateAdded = x.DateAdded,
                     PrimaryImage = x.Images.First(image => image.IsPrimary == true),
+                    Slug = x.Slug
                 }).ToList();
 
             ViewBag.Pages = Math.Ceiling((double)this.Data.Products.All().Count() / PageSize);
@@ -110,6 +112,7 @@ namespace Application.Web.Areas.Administration.Controllers
             {
                 var currentUserId = this.User.Identity.GetUserId();
                 var selectedCategory = this.Data.Categories.Find(product.SelectedCategoryId);
+                string slug = SlugGenerator.Generate(product.Name);
                 var newProduct = new Product
                 {
                     ApplicationUserId = currentUserId,
@@ -121,6 +124,7 @@ namespace Application.Web.Areas.Administration.Controllers
                     Name = product.Name,
                     ShortDescription = product.ShortDescription,
                     Category = selectedCategory,
+                    Slug = slug
                 };
 
                 // Add the tags
@@ -204,6 +208,7 @@ namespace Application.Web.Areas.Administration.Controllers
                 Tags = productDb.Tags.Select(x=>x.Name).ToList(),
                 Images = productDb.Images,
                 DisplayOrder = productDb.DisplayOrder,
+                Slug = productDb.Slug
             };
 
             model.AvailableSubCategories = InitSubCategories();
@@ -235,6 +240,7 @@ namespace Application.Web.Areas.Administration.Controllers
                 dbProduct.Name = product.Name;
                 dbProduct.ShortDescription = product.ShortDescription;
                 dbProduct.DisplayOrder = product.DisplayOrder;
+                dbProduct.Slug = product.Slug;
 
                 // Remove all Tags
                 foreach (var tag in dbProduct.Tags.ToList())
