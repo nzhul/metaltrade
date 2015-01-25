@@ -16,36 +16,36 @@ namespace Application.Web
 
             routes.MapMvcAttributeRoutes();
 
-            routes.MapRoute(
-                name: "Pages",
-                url: "Pages/{id}",
-                defaults: new { controller = "Pages", action = "Index", id = UrlParameter.Optional },
-                namespaces: new[] { "Application.Web.Controllers" });
+                routes.MapRoute(
+                    name: "Pages",
+                    url: "Pages/{id}",
+                    defaults: new { controller = "Pages", action = "Index", id = UrlParameter.Optional },
+                    namespaces: new[] { "Application.Web.Controllers" });
 
-            routes.MapRoute(
-            name: "Home",
-            url: "Home/{action}",
-            defaults: new { controller = "Home", action = "Index" },
-            namespaces: new[] { "Application.Web.Controllers" }
-            );
+                routes.MapRoute(
+                name: "Home",
+                url: "Home/{action}",
+                defaults: new { controller = "Home", action = "Index" },
+                namespaces: new[] { "Application.Web.Controllers" }
+                );
 
                 routes.MapRoute(
                 name: "Products",
-                url: "{Slug}-{Id}",
+                url: "Products/{Slug}-{Id}",
                 defaults: new { controller = "Products", action = "Details" },
                 namespaces: new[] { "Application.Web.Controllers" }
                 );
 
                 routes.MapRoute(
                 name: "SubCategories",
-                url: "{CategoryId}/{CategorySlug}/{SubCategoryId}/{SubCategorySlug}",
+                url: "Category/{CategoryId}/{CategorySlug}/{SubCategoryId}/{SubCategorySlug}",
                 defaults: new { controller = "Products", action = "Index" },
                 namespaces: new[] { "Application.Web.Controllers" }
                 );
 
                 routes.MapRoute(
                 name: "Categories",
-                url: "{CategoryId}/{CategorySlug}",
+                url: "Category/{CategoryId}/{CategorySlug}",
                 defaults: new { controller = "Products", action = "Index" },
                 namespaces: new[] { "Application.Web.Controllers" }
                 );

@@ -42,10 +42,10 @@ namespace Application.Web.Controllers
 
         // GET: Products
 
-        public ActionResult Index(int? category, int? subCategory, int? page)
+        public ActionResult Index(int? categoryId, int? subCategoryId, int? page)
         {
             var model = new ProductsViewModel();
-            model.Products = GetProducts(category, subCategory, page, null);
+            model.Products = GetProducts(categoryId, subCategoryId, page, null);
             return View(model);
         }
 
