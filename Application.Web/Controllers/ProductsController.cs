@@ -45,6 +45,26 @@ namespace Application.Web.Controllers
         public ActionResult Index(int? categoryId, int? subCategoryId, int? page)
         {
             var model = new ProductsViewModel();
+            if (categoryId != null)
+            {
+                Category categoryDb = this.Data.Categories.Find(categoryId);
+                CategoryViewModel activeCategory = new CategoryViewModel();
+                activeCategory.Name = categoryDb.Name;
+                activeCategory.Slug = categoryDb.Slug;
+                activeCategory.Description = categoryDb.Description;
+                activeCategory.Id = categoryDb.Id;
+                model.Category = activeCategory;
+            }
+            if (subCategoryId != null)
+            {
+                SubCategory subCategoryDb = this.Data.SubCategories.Find(subCategoryId);
+                SubCategoryViewModel activeSubCategory = new SubCategoryViewModel();
+                activeSubCategory.Name = subCategoryDb.Name;
+                activeSubCategory.Slug = subCategoryDb.Slug;
+                activeSubCategory.Description = subCategoryDb.Description;
+                activeSubCategory.Id = subCategoryDb.Id;
+                model.SubCategory = activeSubCategory;
+            }
             model.Products = GetProducts(categoryId, subCategoryId, page, null);
             return View(model);
         }

@@ -10,6 +10,8 @@ namespace Application.Web.Models
     {
         private IEnumerable<ProductViewModel> products;
         private IEnumerable<ArticleViewModel> articles;
+        public CategoryViewModel Category { get; set; }
+        public SubCategoryViewModel SubCategory { get; set; }
         public ProductsViewModel()
         {
             this.products = new List<ProductViewModel>();

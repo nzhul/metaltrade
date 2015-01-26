@@ -14,8 +14,8 @@
                 <!-- Breadcrumb Starts -->
                 <ol class="breadcrumb">
                     <li><a href="/">Начало</a></li>
-                    <li><a href="/Products">Продукти</a></li>
-                    <li><a href="/Products?Category=@theProduct.Category.Id">@theProduct.Category.Name</a></li>
+                    <li><a href="/products">Продукти</a></li>
+                    <li><a href="@Url.Action("Index", new { categoryId = theProduct.Category.Id, categorySlug = theProduct.Category.Slug })">@theProduct.Category.Name</a></li>
                     <li class="active">@theProduct.Name</li>
                 </ol>
                 <!-- Breadcrumb Ends -->

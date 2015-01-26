@@ -8,14 +8,19 @@
             var target = "#group-" + category.Id;
             var targetId = "group-" + category.Id;
             var collapsed = "collapse";
-            if (Request.QueryString["Category"] == category.Id.ToString())
+            var isActiveCategory = "";
+            if (ViewData["activeCategoryId"] != null)
             {
-                collapsed = "";
+                if (ViewData["activeCategoryId"].ToString() == category.Id.ToString())
+                {
+                    collapsed = "";
+                    isActiveCategory = "active active-category";
+                }
             }
-            <a class="list-group-item"
+            <a class="list-group-item @isActiveCategory"
                data-toggle="collapse"
                data-target="@target"
-               data-parent="#menu">
+               data-parent="#menu" style="cursor:pointer;">
                 @category.Name
                 <span class="glyphicon glyphicon-th-large pull-right"></span>
             </a>
@@ -26,10 +31,18 @@
                     {
                         var subCategory = category.SubCategories.ElementAt(j);
                         var isActiveSubCategory = "";
-                        if (Request.QueryString["SubCategory"] == subCategory.Id.ToString())
+
+                        if (ViewData["activeSubCategoryId"] != null)
                         {
-                            isActiveSubCategory = "active";
+                            if (ViewData["activeSubCategoryId"].ToString() == subCategory.Id.ToString())
+                            {
+                                isActiveSubCategory = "active";
+                            }
                         }
+                        //if (Request.QueryString["SubCategory"] == subCategory.Id.ToString())
+                        //{
+                        //    isActiveSubCategory = "active";
+                        //}
                         <a href="@Url.Action("Index", "Products", new { @categoryId = category.Id, @categorySlug = category.Slug, @subCategoryId = subCategory.Id, @subCategorySlug = subCategory.Slug})" class="list-group-item small @isActiveSubCategory">
                             <span class="glyphicon glyphicon-chevron-right"></span> @subCategory.Name
                         </a>

@@ -18,7 +18,7 @@ namespace Application.Web
 
                 routes.MapRoute(
                     name: "Pages",
-                    url: "Pages/{id}",
+                    url: "pages/{id}",
                     defaults: new { controller = "Pages", action = "Index", id = UrlParameter.Optional },
                     namespaces: new[] { "Application.Web.Controllers" });
 
@@ -31,24 +31,25 @@ namespace Application.Web
 
                 routes.MapRoute(
                 name: "Products",
-                url: "Products/{Slug}-{Id}",
+                url: "products/{Slug}-{Id}",
                 defaults: new { controller = "Products", action = "Details" },
                 namespaces: new[] { "Application.Web.Controllers" }
                 );
 
                 routes.MapRoute(
                 name: "SubCategories",
-                url: "Category/{CategoryId}/{CategorySlug}/{SubCategoryId}/{SubCategorySlug}",
+                url: "category/{CategoryId}/{CategorySlug}/{SubCategoryId}/{SubCategorySlug}",
                 defaults: new { controller = "Products", action = "Index" },
                 namespaces: new[] { "Application.Web.Controllers" }
                 );
 
                 routes.MapRoute(
                 name: "Categories",
-                url: "Category/{CategoryId}/{CategorySlug}",
+                url: "category/{CategoryId}/{CategorySlug}",
                 defaults: new { controller = "Products", action = "Index" },
                 namespaces: new[] { "Application.Web.Controllers" }
                 );
+
 
             routes.MapRoute(
                 name: "Default",

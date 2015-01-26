@@ -6,30 +6,13 @@
             <!-- Breadcrumb Starts -->
             <ol class="breadcrumb">
                 <li><a href="/">Начало</a></li>
-                <li class="active"> <a href="/Products">Продукти</a></li>
-                @if (Request.QueryString["Category"] != null)
+                <li class="active"> <a href="/products">Продукти</a></li>
+                @if (Model.Category != null)
                 {
-                    if (ViewBag.LayoutModel.Categories != null)
+                    <li><a href="@Url.Action("Index", new { categoryId = Model.Category.Id, categorySlug = Model.Category.Slug })">@Model.Category.Name</a></li>
+                    if (Model.SubCategory != null)
                     {
-                        var categories = (List<Application.Web.Areas.Administration.Models.ViewModels.CategoryViewModel>)ViewBag.LayoutModel.Categories;
-                        var categoryId = int.Parse(Request.QueryString["Category"]);
-                        var activeCategory = categories.First(x => x.Id == categoryId);
-                        ViewBag.CategoryName = activeCategory.Name;
-                        ViewBag.CategoryDescription = activeCategory.Description;
-                        ViewBag.MetaDescription = activeCategory.Description;
-                        ViewBag.Title = activeCategory.Name;
-                        <li><a href="@Url.Action("Index", new { Category = activeCategory.Id })">@activeCategory.Name</a></li>
-
-                        if (Request.QueryString["SubCategory"] != null)
-                        {
-                            var subCategoryId = int.Parse(Request.QueryString["SubCategory"]);
-                            var activeSubCategory = activeCategory.SubCategories.First(x => x.Id == subCategoryId);
-                            ViewBag.SubCategoryName = activeSubCategory.Name;
-                            ViewBag.SubCategoryDescription = activeSubCategory.Description;
-                            ViewBag.MetaDescription = activeSubCategory.Description;
-                            ViewBag.Title = activeSubCategory.Name;
-                            <li class="active">@activeSubCategory.Name</li>
-                        }
+                        <li class="active">@Model.SubCategory.Name</li>
                     }
                 }
 
@@ -37,13 +20,17 @@
             <!-- Breadcrumb Ends -->
             <!-- Main Heading Starts -->
             <h2 class="main-heading2">
-                @if (ViewBag.SubCategoryName != null)
+                @if (Model.SubCategory != null)
                 {
-                    @ViewBag.SubCategoryName
+                    @Model.SubCategory.Name
                 }
-                else
+                
+                @if (Model.Category != null)
                 {
-                    @ViewBag.CategoryName
+                    if (Model.SubCategory == null)
+                    {
+                        @Model.Category.Name
+                    }
                 }
             </h2>
             <!-- Main Heading Ends -->
@@ -54,15 +41,15 @@
                 </div>*@
                 <div class="col-sm-12 cat-body" style="margin-left:10px;">
                     <p>
-                        @if (ViewBag.CategoryName != null)
+                        @if (Model.Category != null)
                         {
-                            if (ViewBag.SubCategoryDescription != null)
+                            if (Model.SubCategory != null)
                             {
-                                @Html.Raw(ViewBag.SubCategoryDescription)
+                                @Html.Raw(Model.SubCategory.Description)
                             }
                             else
                             {
-                                @Html.Raw(ViewBag.CategoryDescription)
+                                @Html.Raw(Model.Category.Description)
                             }
                         }
                         else
@@ -94,7 +81,8 @@
             <!-- Categories Links Starts -->
             @if (ViewBag.LayoutModel.Categories != null)
             {
-                @Html.Partial("_Categories", (List<Application.Web.Areas.Administration.Models.ViewModels.CategoryViewModel>)ViewBag.LayoutModel.Categories)
+                
+                @Html.Partial("_Categories", (List<Application.Web.Areas.Administration.Models.ViewModels.CategoryViewModel>)ViewBag.LayoutModel.Categories, new ViewDataDictionary { { "activeSubCategoryId", Model.SubCategory != null ? Model.SubCategory.Id : 0 }, { "activeCategoryId", Model.Category != null ? Model.Category.Id : 0 } })
             }
             <!-- Categories Links Ends -->
             <!-- Bestsellers Links Starts -->
