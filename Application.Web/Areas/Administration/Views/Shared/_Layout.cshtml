@@ -1,9 +1,40 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="container">@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", new {area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
 
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink(" Администрация", "Index", "Products", new { area = "Administration" }, new { @class = "fa fa-cog" })
+            </li>
+            <li>
+                @Html.ActionLink("Здравей " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Излез</a></li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav pull-right">
+        <li><a href="#" class="fa fa-facebook-square"> Facebook</a></li>
+        <li><a href="#" class="fa fa-twitter-square"> Twitter</a></li>
+        <li><a href="#" class="fa fa-google-plus-square"> Goolge+</a></li>
+        <li>
+            @Html.ActionLink(" Регистрация", "Register", "Account", new { area = "" }, new { @class = "fa fa-unlock" })
+        </li>
+        <li>
+            @Html.ActionLink(" Влез", "Login", "Account", new { area = "" }, new { @class = "fa fa-lock" })
+
+        </li>
+    </ul>
+}</div>
 <div class="container">
-
     <div class="navbar navbar-inverse">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">

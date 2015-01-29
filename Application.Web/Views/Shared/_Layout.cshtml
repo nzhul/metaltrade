@@ -49,7 +49,11 @@
                 <!-- Header Links Starts -->
                 <div class="col-md-12">
                     <div class="header-links">
-                        @using Microsoft.AspNet.Identity
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="@Url.Action("Index", "Home", new {area = "" })" class="fa fa-home"> Стоманени въжета, сапани, вериги, оградни мрежи, такелаж</a></li>
+                            <li><a href="@Url.Action("Contact", "Home", new { area = "" })" class="fa fa-phone"> |  0896 893 295</a></li>
+                        </ul>
+                        @*@using Microsoft.AspNet.Identity
                         @if (Request.IsAuthenticated)
                         {
                             using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
@@ -84,7 +88,7 @@
 
                                 </li>
                             </ul>
-                        }
+                        }*@
 
                     </div>
                 </div>
