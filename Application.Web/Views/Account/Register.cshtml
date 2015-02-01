@@ -8,7 +8,12 @@
 
     <h2>@ViewBag.Title.</h2>
 
-    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    <div class="alert alert-dismissable alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        Регистрацията е деактивирана - Моля свържете се с администратор!
+    </div>
+
+    @*@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         @Html.AntiForgeryToken()
         <h4>Създай нов сайт мениджър.</h4>
@@ -38,7 +43,7 @@
             </div>
         </div>
 
-    }
+    }*@
 </div>
 
 @section Scripts {

@@ -177,7 +177,7 @@ table
 }
 table th
 {
-	padding: 12px 17px 12px 17px;
+	padding: 8px;
 	font-weight: bold;
 	font-size: 14px;
 	color: gray;
@@ -187,7 +187,7 @@ table th
 }
 table td
 {
-	padding: 7px 17px 7px 17px;
+	padding: 5px 5px 5px 5px;
 	color: gray;
 }
 table tbody tr:hover td
