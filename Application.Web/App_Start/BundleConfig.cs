@@ -23,7 +23,8 @@ namespace Application.Web
           "~/Content/spice-shopee/font-awesome/css/font-awesome.min.css",
           "~/Content/spice-shopee/css/style.css",
           "~/Content/spice-shopee/css/responsive.css",
-          "~/Content/site.css"));
+          "~/Content/site.css",
+          "~/Content/dark-theme.css"));
         }
 
         private static void RegisterScriptBundles(BundleCollection bundles)

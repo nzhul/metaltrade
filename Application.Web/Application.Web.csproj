@@ -225,6 +225,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\dark-theme.css" />
+    <Content Include="Content\images\dark-theme\dark-texture.jpg" />
     <Content Include="Content\images\gif-load.gif" />
     <Content Include="Content\images\logo.jpg" />
     <Content Include="Content\images\manager.jpg" />
