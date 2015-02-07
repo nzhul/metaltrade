@@ -6,7 +6,7 @@
         <div class="col-sm-12">
             <h6 class="pull-right text-right" style="margin-bottom: -15px;">
                 <a href="@Url.Action("Details", "Articles", new { id = @Article.Id })">@Article.Title</a><br />
-                <small class="pull-right">21/12/2014</small>
+                <small class="pull-right">@Html.DisplayFor( x => Article.DateCreated)</small>
             </h6>
             <div style="clear:both;">&nbsp;</div>
             <div class="news-short-description">@Html.Raw(Article.ShortDescription)</div>

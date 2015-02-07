@@ -1,4 +1,31 @@
 ﻿@model Application.Web.Models.ProductsViewModel
+
+@{
+    if (@Model.Category!= null)
+    {
+        if (@Model.SubCategory != null)
+        {
+            ViewBag.Title = @Model.SubCategory.Name;
+            ViewBag.MetaDescription = @Model.SubCategory.Description;
+            //ViewBag.Category = @Model.Category;
+            //ViewBag.SubCategory = @Model.SubCategory;
+        }
+        else
+        {
+            ViewBag.Title = @Model.Category.Name;
+            ViewBag.MetaDescription = @Model.Category.Description;
+            //ViewBag.Category = @Model.Category;
+        }
+    }
+    else
+    {
+        ViewBag.Title = "Продукти";
+        ViewBag.MetaDescription = @"Onlinesapani.com е сред най-големите доставчици в страната, които осъществяват дистрибуция на стоманени въжета, сапани, стоманени телове, такелаж и товарозахватни съоръжения, оградни мрежи. 
+Ние ви предоставяме над 1000 продукта, като за всеки един от тях ще откриете точната техническа характеристика за да можете да направите правилния избор.";
+    }
+
+}
+
 <div class="container">
     <div class="row">
         <!-- Primary Content Starts -->
@@ -24,6 +51,12 @@
             <!-- Category Intro Content Starts -->
             <div class="dark-container dark-categories">
                 <h2 class="main-heading2">
+
+                    @if (Model.Category == null)
+                    {
+                        @:Продукти
+                    }
+
                     @if (Model.SubCategory != null)
                     {
                         @Model.SubCategory.Name
@@ -53,7 +86,7 @@
                             }
                             else
                             {
-                            <p>
+                            <p style="margin-top:-10px;">
                                 Onlinesapani.com е сред най-големите доставчици в страната, които осъществяват дистрибуция на стоманени въжета, сапани, стоманени телове, такелаж и товарозахватни съоръжения,  оградни мрежи. <br />
                                 Ние ви предоставяме над 1000 продукта, като за всеки един от тях ще откриете точната техническа характеристика за да можете да направите правилния избор.
                             </p>
@@ -62,14 +95,16 @@
                         </div>
                     </div>
                     <div class="row">
-                        <a href="@Url.Action("Contact", "Home")#form-anchor" class="btn btn-default col-md-2  pull-right" style="margin: 0 15px 0 15px;"><span class="glyphicon glyphicon-earphone" style="margin-left:-10px;margin-right:5px;"></span> 0896 893 295</a>
-                        <a href="@Url.Action("Contact", "Home")#form-anchor" class="btn btn-default col-md-2 pull-right"><span class="glyphicon glyphicon-envelope" style="margin-left:-15px;margin-right:15px;"></span>ЗАПИТВАНЕ</a>
+                        <a href="@Url.Action("Contact", "Home")#form-anchor" class="btn btn-default col-md-2 pull-right request-button" style="margin: 0 15px 0 15px;"><i class="fa fa-phone" style="margin-left:-5px;margin-right: 8px;"></i> 0896 893 295</a>
+                        <a href="@Url.Action("Contact", "Home")#form-anchor" class="btn btn-default col-md-2 pull-right request-button"><i class="fa fa-envelope" style="margin-left:-5px;margin-right: 8px;"></i> ЗАПИТВАНЕ</a>
                     </div>
                 </div>
                     <!-- Category Intro Content Ends -->
                     <!-- Product Grid Display Starts -->
                     <div class="row">
                         @Html.Partial("Home/_Products", Model.Products)
+                        @*@Html.Partial("_Pagination") -- TODO: I Must Pass the Category and SubCategory from the ViewBag in order to make the Pretty Urls Work.*@
+                        @* Also i must check the Route.config file to make the new routes work with pages. *@
                     </div>
                     <!-- Product Grid Display Ends -->
                 </div>

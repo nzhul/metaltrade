@@ -1,0 +1,35 @@
+﻿<ul class="pagination pull-right">
+    @if (ViewBag.CurrentPage != 1)
+    {
+        <li>
+            <a href="@Url.Action("Index", new { page = 1 })" class="fa fa-angle-double-left"></a>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1 })" class="fa fa-angle-left"></a>
+        </li>
+    }
+    @for (int i = 1; i <= ViewBag.Pages; i++)
+    {
+        if (ViewBag.CurrentPage == i)
+        {
+            <li class="active">
+                <a href="@Url.Action("Index", new { page = i })">@i</a>
+            </li>
+        }
+        else
+        {
+            <li>
+                <a href="@Url.Action("Index", new { page = i })">@i</a>
+            </li>
+        }
+    }
+    @if (ViewBag.CurrentPage != ViewBag.Pages)
+    {
+        <li>
+            <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1 })" class="fa fa-angle-right"></a>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", new { page = ViewBag.Pages })" class="fa fa-angle-double-right"></a>
+        </li>
+    }
+</ul>

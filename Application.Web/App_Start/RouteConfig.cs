@@ -36,6 +36,13 @@ namespace Application.Web
                 namespaces: new[] { "Application.Web.Controllers" }
                 );
 
+                //routes.MapRoute(
+                //name: "SubCategoriesWithPages",
+                //url: "category/{CategoryId}/{CategorySlug}/{SubCategoryId}/{SubCategorySlug}/page/{page}",
+                //defaults: new { controller = "Products", action = "Index" },
+                //namespaces: new[] { "Application.Web.Controllers" }
+                //);
+
                 routes.MapRoute(
                 name: "SubCategories",
                 url: "category/{CategoryId}/{CategorySlug}/{SubCategoryId}/{SubCategorySlug}",

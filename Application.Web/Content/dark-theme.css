@@ -2,6 +2,11 @@
     background: rgb(47, 53, 59);
 }
 
+a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
 .product-col {
     background: #50575F;
     color: #b2b2b2;
@@ -244,4 +249,11 @@ margin-top: 0px;
 .label {
     font-size: 85%;
     font-weight: normal;
+}
+
+.request-button {
+    border-radius: 0;
+    background-color: #ccc;
+    color: #333;
+    border: 1px solid #A1A1A1;
 }

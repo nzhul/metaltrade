@@ -22,7 +22,8 @@ namespace Application.Web.Controllers
                 {
                     Id = x.Id,
                     Title = x.Title,
-                    ShortDescription = x.ShortDescription
+                    ShortDescription = x.ShortDescription,
+                    DateCreated = x.DateCreated
                 }).ToList();
             return View(model);
         }

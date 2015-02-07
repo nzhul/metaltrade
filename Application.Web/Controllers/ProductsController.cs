@@ -19,6 +19,8 @@ namespace Application.Web.Controllers
     public class ProductsController : BaseController
     {
 
+        const int PageSize = 10;
+
         // Autocomplete
         public JsonResult GetAutocomplete(string term)
         {
@@ -66,6 +68,9 @@ namespace Application.Web.Controllers
                 model.SubCategory = activeSubCategory;
             }
             model.Products = GetProducts(categoryId, subCategoryId, page, null);
+
+            ViewBag.Pages = Math.Ceiling((double)this.Data.Products.All().Count() / PageSize);
+            ViewBag.CurrentPage = page;
             return View(model);
         }
 
@@ -100,6 +105,8 @@ namespace Application.Web.Controllers
             if (page != null)
             {
                 // TODO;
+                int pageNumber = page.GetValueOrDefault(1);
+                productsQuerable = productsQuerable.Skip((pageNumber - 1) * PageSize).Take(PageSize);
             }
 
             var products = productsQuerable
