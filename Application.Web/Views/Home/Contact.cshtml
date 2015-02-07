@@ -16,7 +16,7 @@
         </h2>
         <!-- Main Heading Ends -->
         <!-- Google Map Starts -->
-        <div id="map-wrapper">
+        <div id="map-wrapper" class="dark-container" style="border-color: #6e6d6d;">
             <div id="map-block">@*<img src="~/Content/images/map-sample.jpg" alt="Alternate Text" />*@</div>
         </div>
         <!-- Google Map Ends -->
@@ -24,7 +24,7 @@
         <div class="row">
             <!-- Contact Details Starts -->
             <div class="col-sm-4">
-                <div class="panel panel-smart">
+                <div class="panel panel-smart dark-container">
                     <div class="panel-heading">
                         <h3 class="panel-title">Контакти</h3>
                     </div>
@@ -57,20 +57,20 @@
             <!-- Contact Details Ends -->
             <!-- Contact Form Starts -->
             <div class="col-sm-8">
-                <div class="panel panel-smart" id="form-anchor">
+                <div class="panel panel-smart dark-container" id="form-anchor">
                     <div class="panel-heading">
                         <h3 class="panel-title">Изпратете ни съобщение</h3>
                     </div>
                     <div class="panel-body">
                         @using (Ajax.BeginForm("Contact", "Home", null, new AjaxOptions { UpdateTargetId = "result" },
-                            new { @class = "form-horizontal", @id="result" }))
+                            new { @class = "form-horizontal", @id = "result" }))
                         {
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                             <div class="form-group">
                                 @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
                                 <div class="col-sm-10">
-                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder="Име" } })
+                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Име" } })
                                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                                 </div>
                             </div>

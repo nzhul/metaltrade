@@ -20,7 +20,7 @@
                 </ol>
                 <!-- Breadcrumb Ends -->
                 <!-- Product Info Starts -->
-                <div class="row product-info">
+                <div class="row product-info dark-container dark-product">
                     <!-- Left Starts -->
                     <h4 class="onlyprint">Сайт: http://onlinesapani.com/ <br />Email: manager@onlinesapani.com <br />GSM: 0896 893 295</h4>
 
@@ -39,7 +39,7 @@
                                 {
                                     isPrimaryString = "data-primary=primary";
                                 }
-                                <a href="@imageUrlBigNext" id="big-thumbnail-@thumbnail.Id" @isPrimaryString data-lightbox="product-images" style="display:none;"  data-title="@theProduct.Name"><img src="@thumbnailUrl" alt="Image" class="img-responsive thumbnail" /></a>
+                                <a href="@imageUrlBigNext" id="big-thumbnail-@thumbnail.Id" @isPrimaryString data-lightbox="product-images" style="display:none;" data-title="@theProduct.Name"><img src="@thumbnailUrl" alt="Image" class="img-responsive thumbnail" /></a>
                             }
                         </p>
                         <ul class="list-unstyled list-inline">
@@ -67,20 +67,20 @@
                         <div class="print-bullets">
                             @Html.Raw(theProduct.BulletsText)
                         </div>
-                        
+
                         @*<ul class="list-unstyled manufacturer">
-                            <li>
-                                <span class="emptyClassHack">Производител:</span> Metal Company LTD
-                            </li>
-                            <li><span class="emptyClassHack">Ширина на четката:</span> от 1200 до 2400 мм. (в зависимост от модела)</li>
-                            <li><span class="emptyClassHack">Диаметър:</span> 600 мм</li>
-                            <li><span class="emptyClassHack">Товароподемност:</span> 2,00 тона (в зависимост от модела)</li>
-                            <li><span class="emptyClassHack">Дължина:</span> 2 метра</li>
-                            <li><span class="emptyClassHack">Тегло:</span> 5 гр</li>
-                            <li>
-                                <span class="emptyClassHack">Налични:</span> <strong class="label label-success">На склад</strong>
-                            </li>
-                        </ul>*@
+                    <li>
+                        <span class="emptyClassHack">Производител:</span> Metal Company LTD
+                    </li>
+                    <li><span class="emptyClassHack">Ширина на четката:</span> от 1200 до 2400 мм. (в зависимост от модела)</li>
+                    <li><span class="emptyClassHack">Диаметър:</span> 600 мм</li>
+                    <li><span class="emptyClassHack">Товароподемност:</span> 2,00 тона (в зависимост от модела)</li>
+                    <li><span class="emptyClassHack">Дължина:</span> 2 метра</li>
+                    <li><span class="emptyClassHack">Тегло:</span> 5 гр</li>
+                    <li>
+                        <span class="emptyClassHack">Налични:</span> <strong class="label label-success">На склад</strong>
+                    </li>
+                </ul>*@
                         <!-- Manufacturer Ends -->
                         <hr />
                         <!-- Available Options Starts -->
@@ -91,7 +91,7 @@
                                 {
                                     foreach (var tag in theProduct.Tags)
                                     {
-                                        @Html.ActionLink(tag.Name, "Tag", new { id = tag.Id }, new { @class = "label label-default", @style="margin-left: 5px;float:left;margin-bottom:5px;" })
+                                        @Html.ActionLink(tag.Name, "Tag", new { id = tag.Id }, new { @class = "label label-default", @style = "margin-left: 5px;float:left;margin-bottom:5px;" })
                                     }
                                 }
                                 else
@@ -102,14 +102,14 @@
 
                             <div class="cart-button button-group print-buttons">
                                 <hr />
-                                    <a href="javascript:window.print()" data-toggle="tooltip" title="Принтирай!" class="btn btn-compare">
-                                        <i class="fa fa-print"></i>
-                                    </a>
+                                <a href="javascript:window.print()" data-toggle="tooltip" title="Принтирай!" class="btn btn-compare">
+                                    <i class="fa fa-print"></i>
+                                </a>
 
-                                    <a data-toggle="modal" href="#request-modal" class="btn btn-cart">
-                                        Поискай оферта
-                                        <i class="fa fa-shopping-cart"></i>
-                                    </a>
+                                <a data-toggle="modal" href="#request-modal" class="btn btn-cart">
+                                    Поискай оферта
+                                    <i class="fa fa-shopping-cart"></i>
+                                </a>
                                 <!-- Delete Modal -->
                                 <div class="modal fade" id="request-modal">
                                     <div class="modal-dialog">
@@ -119,83 +119,84 @@
                                                 <h4 class="modal-title">Запитване за @theProduct.Name</h4>
                                             </div>
                                             @using (Ajax.BeginForm("SendProductRequest", "Products", null, new AjaxOptions { UpdateTargetId = "modal-request-result", LoadingElementId = "loadingElement" },
-                                                                        new { @class = "form-horizontal", @id = "result" }))            {
+                                                                        new { @class = "form-horizontal", @id = "result" }))
+                                            {
                                                 @Html.AntiForgeryToken()
                                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                            <div id="modal-request-result">
-                                                <div class="modal-body">
-                                                    <div class="form-group">
-                                                        @Html.LabelFor(m => m.ProductRequestModel.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                        <div class="col-sm-10">
-                                                            @Html.EditorFor(m => m.ProductRequestModel.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Име" } })
-                                                            @Html.ValidationMessageFor(m => m.ProductRequestModel.Name, "", new { @class = "text-danger" })
+                                                <div id="modal-request-result">
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(m => m.ProductRequestModel.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                            <div class="col-sm-10">
+                                                                @Html.EditorFor(m => m.ProductRequestModel.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Име" } })
+                                                                @Html.ValidationMessageFor(m => m.ProductRequestModel.Name, "", new { @class = "text-danger" })
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        @Html.LabelFor(m => m.ProductRequestModel.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                        <div class="col-sm-10">
-                                                            @Html.EditorFor(m => m.ProductRequestModel.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email" } })
-                                                            @Html.ValidationMessageFor(m => m.ProductRequestModel.Email, "", new { @class = "text-danger" })
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(m => m.ProductRequestModel.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                            <div class="col-sm-10">
+                                                                @Html.EditorFor(m => m.ProductRequestModel.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email" } })
+                                                                @Html.ValidationMessageFor(m => m.ProductRequestModel.Email, "", new { @class = "text-danger" })
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        @Html.LabelFor(m => m.ProductRequestModel.Company, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                        <div class="col-sm-10">
-                                                            @Html.EditorFor(m => m.ProductRequestModel.Company, new { htmlAttributes = new { @class = "form-control", @placeholder = "Фирма" } })
-                                                            @Html.ValidationMessageFor(m => m.ProductRequestModel.Company, "", new { @class = "text-danger" })
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(m => m.ProductRequestModel.Company, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                            <div class="col-sm-10">
+                                                                @Html.EditorFor(m => m.ProductRequestModel.Company, new { htmlAttributes = new { @class = "form-control", @placeholder = "Фирма" } })
+                                                                @Html.ValidationMessageFor(m => m.ProductRequestModel.Company, "", new { @class = "text-danger" })
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        @Html.LabelFor(m => m.ProductRequestModel.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                        <div class="col-sm-10">
-                                                            @Html.EditorFor(m => m.ProductRequestModel.Phone, new { htmlAttributes = new { @class = "form-control", @placeholder = "Телефон" } })
-                                                            @Html.ValidationMessageFor(m => m.ProductRequestModel.Phone, "", new { @class = "text-danger" })
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(m => m.ProductRequestModel.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                            <div class="col-sm-10">
+                                                                @Html.EditorFor(m => m.ProductRequestModel.Phone, new { htmlAttributes = new { @class = "form-control", @placeholder = "Телефон" } })
+                                                                @Html.ValidationMessageFor(m => m.ProductRequestModel.Phone, "", new { @class = "text-danger" })
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        @Html.LabelFor(m => m.ProductRequestModel.Content, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                        <div class="col-sm-10">
-                                                            @Html.EditorFor(m => m.ProductRequestModel.Content, new { htmlAttributes = new { @class = "form-control", @placeholder = "Съдържание" } })
-                                                            @Html.ValidationMessageFor(m => m.ProductRequestModel.Content, "", new { @class = "text-danger" })
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(m => m.ProductRequestModel.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                            <div class="col-sm-10">
+                                                                @Html.EditorFor(m => m.ProductRequestModel.Content, new { htmlAttributes = new { @class = "form-control", @placeholder = "Съдържание" } })
+                                                                @Html.ValidationMessageFor(m => m.ProductRequestModel.Content, "", new { @class = "text-danger" })
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        @Html.LabelFor(m => m.ProductRequestModel.Width, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                        <div class="col-sm-8">
-                                                            <input id="slider2" class="form-control" type="range" onchange="updateTextInputWidth(this.value);" min="1" max="72" step="1" value="1" />
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(m => m.ProductRequestModel.Width, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                            <div class="col-sm-8">
+                                                                <input id="slider2" class="form-control" type="range" onchange="updateTextInputWidth(this.value);" min="1" max="72" step="1" value="1" />
+                                                            </div>
+                                                            <div class="col-sm-2"><input type="text" name="ProductRequestModel.Width" class="form-control" style="width: 70px;text-align:center;" id="range-input-width" value=""></div>
                                                         </div>
-                                                        <div class="col-sm-2"><input type="text" name="ProductRequestModel.Width" class="form-control" style="width: 70px;text-align:center;" id="range-input-width" value=""></div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        @Html.LabelFor(m => m.ProductRequestModel.Weight, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                        <div class="col-sm-8">
-                                                            <input id="slider2" class="form-control" type="range" onchange="updateTextInputWeight(this.value);" min="1" max="100" step="1" value="1" />
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(m => m.ProductRequestModel.Weight, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                            <div class="col-sm-8">
+                                                                <input id="slider2" class="form-control" type="range" onchange="updateTextInputWeight(this.value);" min="1" max="100" step="1" value="1" />
+                                                            </div>
+                                                            <div class="col-sm-2"><input type="text" name="ProductRequestModel.Weight" class="form-control" style="width: 70px;text-align:center;" id="range-input-weight" value=""></div>
                                                         </div>
-                                                        <div class="col-sm-2"><input type="text" name="ProductRequestModel.Weight" class="form-control" style="width: 70px;text-align:center;" id="range-input-weight" value=""></div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        @Html.LabelFor(m => m.ProductRequestModel.Length, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                        <div class="col-sm-8">
-                                                            <input id="slider2" class="form-control" type="range" onchange="updateTextInputLenght(this.value);" min="50" max="50000" step="50" value="1" />
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(m => m.ProductRequestModel.Length, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                            <div class="col-sm-8">
+                                                                <input id="slider2" class="form-control" type="range" onchange="updateTextInputLenght(this.value);" min="50" max="50000" step="50" value="1" />
+                                                            </div>
+                                                            <div class="col-sm-2"><input type="text" name="ProductRequestModel.Length" class="form-control" style="width: 70px;text-align:center;" id="range-input-lenght" value=""></div>
                                                         </div>
-                                                        <div class="col-sm-2"><input type="text" name="ProductRequestModel.Length" class="form-control" style="width: 70px;text-align:center;" id="range-input-lenght" value=""></div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        @Html.LabelFor(m => m.ProductRequestModel.Count, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                        <div class="col-sm-8">
-                                                            <input id="slider2" class="form-control" type="range" onchange="updateTextInputCount(this.value);" min="1" max="100" step="1" value="1" />
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(m => m.ProductRequestModel.Count, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                            <div class="col-sm-8">
+                                                                <input id="slider2" class="form-control" type="range" onchange="updateTextInputCount(this.value);" min="1" max="100" step="1" value="1" />
+                                                            </div>
+                                                            <div class="col-sm-2"><input type="text" name="ProductRequestModel.Count" class="form-control" style="width: 70px;text-align:center;" id="range-input-count" value=""></div>
                                                         </div>
-                                                        <div class="col-sm-2"><input type="text" name="ProductRequestModel.Count" class="form-control" style="width: 70px;text-align:center;" id="range-input-count" value=""></div>
-                                                    </div>
 
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <img style="display:none;" id="loadingElement" src="~/Content/images/gif-load.gif" />
-                                                    <input type="hidden" name="ProductRequestModel.ProductName" value="@theProduct.Name" />
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Откажи</button>
-                                                    <button type="submit" class="btn btn-warning">Изпрати</button>
-                                                </div>
-                                            </div>}
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <img style="display:none;" id="loadingElement" src="~/Content/images/gif-load.gif" />
+                                                        <input type="hidden" name="ProductRequestModel.ProductName" value="@theProduct.Name" />
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Откажи</button>
+                                                        <button type="submit" class="btn btn-warning">Изпрати</button>
+                                                    </div>
+                                                </div>}
                                         </div>
                                     </div>
                                 </div>
@@ -210,7 +211,7 @@
                 </div>
                 <!-- product Info Ends -->
                 <!-- Additional Information Starts -->
-                <div class="product-info-box">
+                <div class="product-info-box dark-container">
                     <h4 class="heading">Допълнителна информация</h4>
                     <div class="content panel-smart">
                         @Html.Raw(theProduct.LongDescription)
@@ -219,7 +220,7 @@
                 <!-- Additional Information Ends -->
                 <!-- Related Products Starts -->
                 <div class="product-info-box print-similarproducts">
-                    <h4 class="heading">Подобни продукти</h4>
+                    <h4 class="heading dark-heading">Подобни продукти</h4>
                     <!-- Products Row Starts -->
                     <div class="row">
                         @Html.Partial("Home/_Products", Model.SimilarProducts)

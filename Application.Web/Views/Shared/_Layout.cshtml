@@ -193,7 +193,7 @@
                                 <li>@Html.ActionLink((string)page.Title, (string)pageId, "Pages", new { area = string.Empty }, null)</li>
                             }
                         }
-                        <li>@Html.ActionLink("За Нас", "About", "Home", new { area = string.Empty }, null)</li>
+                        @*<li>@Html.ActionLink("За Нас", "About", "Home", new { area = string.Empty }, null)</li>*@
                         <li>@Html.ActionLink("Контакти", "Contact", "Home", new { area = string.Empty }, null)</li>
                     </ul>
                 </div>
@@ -262,16 +262,13 @@
                         <div class="col-md-4 col-sm-12 last">
                             <h5>Свържете се с нас</h5>
                             <ul>
-                                <li>Метал Трейд</li>
+                                <li>Online Сапани</li>
                                 <li>
-                                    1247 София, бул. Г.М. Димитров № 55
-                                </li>
-                                <li>
-                                    Email: <a href="#">info@metaltrade.com</a>
+                                    Email: <a href="#">manager@onlinesapani.com</a>
                                 </li>
                             </ul>
                             <h4 class="lead">
-                                Тел: <span> (+359 ) / 658 954</span>
+                                Тел: <span> (+359 ) / 896 893 295</span>
                             </h4>
                         </div>
                         <!-- Contact Us Ends -->
@@ -285,7 +282,7 @@
                     <div class="container">
                         <!-- Starts -->
                         <p class="pull-left">
-                            &nbsp; @DateTime.Now.Year Метал Трейд. Всички права запазени. Разработено от <a href="https://www.facebook.com/nzhul">nzhul</a>
+                            &nbsp; @DateTime.Now.Year Online Сапани. Всички права запазени. Разработено от <a href="https://www.facebook.com/nzhul">nzhul</a>
                         </p>
                         <!-- Ends -->
                     </div>
@@ -305,7 +302,7 @@
     <script>
     $(function () {
         $("#searchbox").autocomplete({
-            minLength: 2,
+            minLength: 3,
             source: '@Url.Action("GetAutocomplete", "Products", new { Area = "" })',
         }).autocomplete("instance")._renderItem = function (ul, item) {
             console.log(item)

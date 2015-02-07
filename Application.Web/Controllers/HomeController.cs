@@ -61,12 +61,12 @@ namespace Application.Web.Controllers
                 }).ToList();
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
+        //public ActionResult About()
+        //{
+        //    ViewBag.Message = "Your application description page.";
 
-            return View();
-        }
+        //    return View();
+        //}
 
         [HttpGet]
         public ActionResult Contact()

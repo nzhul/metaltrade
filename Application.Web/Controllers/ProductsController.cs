@@ -26,7 +26,7 @@ namespace Application.Web.Controllers
             var products = this.Data.Products
                 .All()
                 .OrderBy(x => x.DisplayOrder)
-                .Where(x => x.Name.Contains(term) || x.Tags.Any(tag => tag.Name.Contains(term)))
+                .Where(x => x.Name.Contains(term)) // || x.Tags.Any(tag => tag.Name.Contains(term))
                 .Select(x => new ProductAutocompleteViewModel
                 {
                     Id = x.Id,
@@ -35,7 +35,7 @@ namespace Application.Web.Controllers
                     Description = x.ShortDescription,
                     IconUrl = x.Images.FirstOrDefault(image => image.IsPrimary).ImagePath + "_detailsSmallThumb.jpg",
                     Slug = x.Slug
-                }).ToList();
+                }).Take(7).ToList();
 
             return Json(products, JsonRequestBehavior.AllowGet);
         }

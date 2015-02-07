@@ -6,6 +6,9 @@
 *.user
 *.sln.docstates
 
+# nzhul custom
+Application.Web/Uploads/
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
