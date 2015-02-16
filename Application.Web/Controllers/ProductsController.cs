@@ -149,7 +149,7 @@ namespace Application.Web.Controllers
                 TheProduct = product,
                 SimilarProducts = this.Data.Products
                 .All()
-                .OrderBy(x => x.DisplayOrder)
+                .OrderBy(x => Guid.NewGuid())
                 .Where(x => x.Category.Id == product.Category.Id && x.Id != product.Id)
                 .Take(3)
                 .Select(x => new ProductViewModel
