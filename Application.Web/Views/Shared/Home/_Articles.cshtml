@@ -5,13 +5,13 @@
     <div class="row news-row">
         <div class="col-sm-12">
             <h6 class="pull-right text-right" style="margin-bottom: -15px;">
-                <a href="@Url.Action("Details", "Articles", new { id = @Article.Id })">@Article.Title</a><br />
+                <a href="@Url.Action("Details", "Articles", new { @Slug = Article.Slug, @Id = Article.Id })">@Article.Title</a><br />
                 <small class="pull-right">@Html.DisplayFor( x => Article.DateCreated)</small>
             </h6>
             <div style="clear:both;">&nbsp;</div>
             <div class="news-short-description">@Html.Raw(Article.ShortDescription)</div>
-            <a href="@Url.Action("Details", "Articles", new { id = @Article.Id })" type="button" class="btn btn-cart news-more pull-right">
-                Процети цялата статия
+            <a href="@Url.Action("Details", "Articles", new { @Slug = Article.Slug, @Id = Article.Id })" type="button" class="btn btn-cart news-more pull-right">
+                Прочети цялата статия
                 <i class="fa fa-arrow-circle-right"></i>
             </a>
         </div>

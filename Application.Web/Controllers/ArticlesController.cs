@@ -23,7 +23,8 @@ namespace Application.Web.Controllers
                     Id = x.Id,
                     Title = x.Title,
                     ShortDescription = x.ShortDescription,
-                    DateCreated = x.DateCreated
+                    DateCreated = x.DateCreated,
+                    Slug = x.Slug
                 }).ToList();
             return View(model);
         }
@@ -47,7 +48,8 @@ namespace Application.Web.Controllers
             {
                 Id = pageDb.Id,
                 Title = pageDb.Title,
-                Content = pageDb.Content
+                Content = pageDb.Content,
+                Slug = pageDb.Slug
             };
 
             return this.View(model);

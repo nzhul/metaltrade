@@ -301,3 +301,11 @@ table tbody tr:hover td
 .onlyprint {
     display:none;
 }
+
+/*Administration fixs*/
+
+#event-container h3 {
+    color:white;
+}
+
+/*Administration fixs END*/

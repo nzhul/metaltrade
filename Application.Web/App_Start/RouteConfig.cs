@@ -36,6 +36,13 @@ namespace Application.Web
                 namespaces: new[] { "Application.Web.Controllers" }
                 );
 
+                routes.MapRoute(
+                name: "Articles",
+                url: "articles/{Slug}-{Id}",
+                defaults: new { controller = "Articles", action = "Details" },
+                namespaces: new[] { "Application.Web.Controllers" }
+                );
+
                 //routes.MapRoute(
                 //name: "SubCategoriesWithPages",
                 //url: "category/{CategoryId}/{CategorySlug}/{SubCategoryId}/{SubCategorySlug}/page/{page}",

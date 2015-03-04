@@ -35,7 +35,8 @@ namespace Application.Web.Controllers
                     Id = x.Id,
                     Title = x.Title,
                     ShortDescription = x.ShortDescription,
-                    DateCreated = x.DateCreated
+                    DateCreated = x.DateCreated,
+                    Slug = x.Slug
                 }).ToList();
         }
 

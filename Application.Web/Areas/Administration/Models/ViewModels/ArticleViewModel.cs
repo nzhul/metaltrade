@@ -10,6 +10,7 @@ namespace Application.Web.Areas.Administration.Models.ViewModels
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        public string Slug { get; set; }
         public string ShortDescription { get; set; }
         public int LoopCounter { get; set; }
 

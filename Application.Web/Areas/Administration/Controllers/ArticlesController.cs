@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity;
 using Application.Models.Articles;
 using System.Net;
 using Application.Web.Areas.Administration.Models.ViewModels;
+using Utilities;
 
 namespace Application.Web.Areas.Administration.Controllers
 {
@@ -50,6 +51,7 @@ namespace Application.Web.Areas.Administration.Controllers
             if (ModelState.IsValid)
             {
                 var currentUserId = this.User.Identity.GetUserId();
+                string slug = SlugGenerator.Generate(article.Title);
                 var newArticle = new Article
                 {
                     ApplicationUserId = currentUserId,
@@ -57,7 +59,8 @@ namespace Application.Web.Areas.Administration.Controllers
                     Content = article.Content,
                     DateCreated = DateTime.Now,
                     DateModified = DateTime.Now,
-                    Title = article.Title
+                    Title = article.Title,
+                    Slug = slug
                 };
 
 
@@ -92,7 +95,8 @@ namespace Application.Web.Areas.Administration.Controllers
                 Id = articleDb.Id,
                 Title = articleDb.Title,
                 ShortDescription = articleDb.ShortDescription,
-                Content = articleDb.Content
+                Content = articleDb.Content,
+                Slug = articleDb.Slug
             };
 
             return this.View(model);
@@ -114,6 +118,7 @@ namespace Application.Web.Areas.Administration.Controllers
                 dbArticle.Content = article.Content;
                 dbArticle.ShortDescription = article.ShortDescription;
                 dbArticle.DateModified = DateTime.Now;
+                dbArticle.Slug = article.Slug;
 
                 this.Data.SaveChanges();
                 TempData["message"] = "Статията беше <strong>редактирана</strong> успешно <strong><a href='#'>ПРЕГЛЕДАЙ Я!</a></strong>";
