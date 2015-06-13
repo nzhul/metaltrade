@@ -168,9 +168,24 @@ namespace Application.Web.Controllers
             return View(productViewData);
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult SendProductRequest(ProductDetailsViewModel requestData)
         {
+            // This is anti-spam-bot simple protection
+            // If ProductRequestModel.SpecialValue has any value - that means the request is send from bot.
+            // because the field is hidden and human cannot see it.
+            if (requestData.ProductRequestModel.SpecialValue != null)
+            {
+                return Content(@"<div class='modal-body'>
+                                    <div class='alert alert-dismissable alert-success'>
+                                        <button type='button' class='close' data-dismiss='alert'>×</button>
+                                        <strong>Запитването беше изпратено успешно!</strong><br />
+                                        <p>Ще се свържем с вас, възможно най-скоро!!</p>
+                                        <button type='button' class='btn btn-warning' data-dismiss='modal'>Затвори прозореца!</button>
+                                    </div>
+                                </div>");
+            }
+
             string sender = ConfigurationManager.AppSettings["emailSender"];
             string receiver = ConfigurationManager.AppSettings["emailReceiver"];
 

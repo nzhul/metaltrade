@@ -48,5 +48,7 @@ namespace Application.Web.Models
 
         [Display(Name = "Брой:")]
         public string Count { get; set; }
+
+        public string SpecialValue { get; set; } // Anti-Spam-Bot Field
     }
 }
