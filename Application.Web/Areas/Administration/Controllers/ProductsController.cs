@@ -302,9 +302,16 @@ namespace Application.Web.Areas.Administration.Controllers
         [HttpPost]
         public ActionResult DeleteProduct(int id)
         {
-			var theImage = this.Data.Images.All().Where(i => i.Product.Id == id).FirstOrDefault();
-			this.Data.Images.Delete(theImage);
+			IList<Image> allProductImages = this.Data.Images.All().Where(i => i.Product.Id == id).ToList();
+
+			foreach (var image in allProductImages)
+			{
+				DeleteImageFiles(image);
+				this.Data.Images.Delete(image);
+			}
+
 			this.Data.SaveChanges();
+			
             this.Data.Products.Delete(id);
             this.Data.SaveChanges();
             return Content("<tr><td class='text-center' style='padding:15px;'><span class='label label-success'>Изтрито успешно!</span></td></tr>");
@@ -405,15 +412,8 @@ namespace Application.Web.Areas.Administration.Controllers
         public ActionResult DeleteImage(int imageId)
         {
             var theImage = this.Data.Images.Find(imageId);
-            string file1 = System.Web.HttpContext.Current.Server.MapPath("~/" + theImage.ImagePath + "_detailsBigThumb.jpg");
-            string file2 = System.Web.HttpContext.Current.Server.MapPath("~/" + theImage.ImagePath + "_detailsSmallThumb.jpg");
-            string file3 = System.Web.HttpContext.Current.Server.MapPath("~/" + theImage.ImagePath + "_indexThumb.jpg");
-            string file4 = System.Web.HttpContext.Current.Server.MapPath("~/" + theImage.ImagePath + "_large.jpg");
 
-            TryToDelete(file1);
-            TryToDelete(file2);
-            TryToDelete(file3);
-            TryToDelete(file4);
+			DeleteImageFiles(theImage);
 
             this.Data.Images.Delete(imageId);
             this.Data.SaveChanges();
@@ -421,6 +421,24 @@ namespace Application.Web.Areas.Administration.Controllers
             return Content(@"<span class='label label-success'>Изтрито успешно!</span>");
 
         }
+
+		private void DeleteImageFiles(Image theImage)
+		{
+			if (theImage.ImagePath.Contains("no-image"))
+			{
+				return;
+			}
+
+			string file1 = System.Web.HttpContext.Current.Server.MapPath("~/" + theImage.ImagePath + "_detailsBigThumb.jpg");
+			string file2 = System.Web.HttpContext.Current.Server.MapPath("~/" + theImage.ImagePath + "_detailsSmallThumb.jpg");
+			string file3 = System.Web.HttpContext.Current.Server.MapPath("~/" + theImage.ImagePath + "_indexThumb.jpg");
+			string file4 = System.Web.HttpContext.Current.Server.MapPath("~/" + theImage.ImagePath + "_large.jpg");
+
+			TryToDelete(file1);
+			TryToDelete(file2);
+			TryToDelete(file3);
+			TryToDelete(file4);
+		}
 
         private bool TryToDelete(string filePath)
         {

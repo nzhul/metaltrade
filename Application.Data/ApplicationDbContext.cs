@@ -32,6 +32,5 @@ namespace Application.Data
         public IDbSet<Image> Images { get; set; }
         public IDbSet<Article> Articles { get; set; }
         public IDbSet<Page> Pages { get; set; }
-
-    }
+	}
 }
