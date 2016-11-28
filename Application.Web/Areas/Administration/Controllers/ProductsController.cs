@@ -302,6 +302,9 @@ namespace Application.Web.Areas.Administration.Controllers
         [HttpPost]
         public ActionResult DeleteProduct(int id)
         {
+			var theImage = this.Data.Images.All().Where(i => i.Product.Id == id).FirstOrDefault();
+			this.Data.Images.Delete(theImage);
+			this.Data.SaveChanges();
             this.Data.Products.Delete(id);
             this.Data.SaveChanges();
             return Content("<tr><td class='text-center' style='padding:15px;'><span class='label label-success'>Изтрито успешно!</span></td></tr>");
