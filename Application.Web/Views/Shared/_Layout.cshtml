@@ -56,41 +56,41 @@
                             <li><a href="@Url.Action("Contact", "Home", new { area = "" })" class="fa fa-phone"> |  0896 893 295</a></li>
                         </ul>
                         @*@using Microsoft.AspNet.Identity
-                        @if (Request.IsAuthenticated)
-                        {
-                            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                            @if (Request.IsAuthenticated)
                             {
-                                @Html.AntiForgeryToken()
+                                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                                {
+                                    @Html.AntiForgeryToken()
 
-                                <ul class="nav navbar-nav navbar-right">
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <li><a href="#" class="fa fa-facebook-square"> Facebook</a></li>
+                                        <li><a href="#" class="fa fa-twitter-square"> Twitter</a></li>
+                                        <li><a href="#" class="fa fa-google-plus-square"> Goolge+</a></li>
+                                        <li>
+                                            @Html.ActionLink(" Администрация", "Index", "Products", new { area = "Administration" }, new { @class = "fa fa-cog" })
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Здравей " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                                        </li>
+                                        <li><a href="javascript:document.getElementById('logoutForm').submit()">Излез</a></li>
+                                    </ul>
+                                }
+                            }
+                            else
+                            {
+                                <ul class="nav navbar-nav pull-right">
                                     <li><a href="#" class="fa fa-facebook-square"> Facebook</a></li>
                                     <li><a href="#" class="fa fa-twitter-square"> Twitter</a></li>
                                     <li><a href="#" class="fa fa-google-plus-square"> Goolge+</a></li>
                                     <li>
-                                        @Html.ActionLink(" Администрация", "Index", "Products", new { area = "Administration" }, new { @class = "fa fa-cog" })
+                                        @Html.ActionLink(" Регистрация", "Register", "Account", new { area = "" }, new { @class = "fa fa-unlock" })
                                     </li>
                                     <li>
-                                        @Html.ActionLink("Здравей " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-                                    </li>
-                                    <li><a href="javascript:document.getElementById('logoutForm').submit()">Излез</a></li>
-                                </ul>
-                            }
-                        }
-                        else
-                        {
-                            <ul class="nav navbar-nav pull-right">
-                                <li><a href="#" class="fa fa-facebook-square"> Facebook</a></li>
-                                <li><a href="#" class="fa fa-twitter-square"> Twitter</a></li>
-                                <li><a href="#" class="fa fa-google-plus-square"> Goolge+</a></li>
-                                <li>
-                                    @Html.ActionLink(" Регистрация", "Register", "Account", new { area = "" }, new { @class = "fa fa-unlock" })
-                                </li>
-                                <li>
-                                    @Html.ActionLink(" Влез", "Login", "Account", new { area = "" }, new { @class = "fa fa-lock" })
+                                        @Html.ActionLink(" Влез", "Login", "Account", new { area = "" }, new { @class = "fa fa-lock" })
 
-                                </li>
-                            </ul>
-                        }*@
+                                    </li>
+                                </ul>
+                            }*@
 
                     </div>
                 </div>
@@ -144,25 +144,25 @@
                             @Html.ActionLink("Начало", "Index", "Home", new { area = string.Empty }, null)
                         </li>
                         @*<li class="dropdown">
-                            <a href="/" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="10">Продукти</a>
-                            <div class="dropdown-menu">
-                                <div class="dropdown-inner">
-                                    @if (ViewBag.LayoutModel != null)
-                                    {
-                                        foreach (var category in ViewBag.LayoutModel.Categories)
+                                <a href="/" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="10">Продукти</a>
+                                <div class="dropdown-menu">
+                                    <div class="dropdown-inner">
+                                        @if (ViewBag.LayoutModel != null)
                                         {
-                                            <ul class="list-unstyled">
-                                                <li class="dropdown-header">@category.Name</li>
-                                                @foreach (var subCategory in category.SubCategories)
-                                                {
-                                                    <li><a tabindex="-1" href="@Url.Action("Index", "Products", new { Category = category.Id, SubCategory = subCategory.Id })">@subCategory.Name</a></li>
-                                                }
-                                            </ul>
+                                            foreach (var category in ViewBag.LayoutModel.Categories)
+                                            {
+                                                <ul class="list-unstyled">
+                                                    <li class="dropdown-header">@category.Name</li>
+                                                    @foreach (var subCategory in category.SubCategories)
+                                                    {
+                                                        <li><a tabindex="-1" href="@Url.Action("Index", "Products", new { Category = category.Id, SubCategory = subCategory.Id })">@subCategory.Name</a></li>
+                                                    }
+                                                </ul>
+                                            }
                                         }
-                                    }
+                                    </div>
                                 </div>
-                            </div>
-                        </li>*@
+                            </li>*@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Продукти <b class="caret"></b></a>
                             <ul class="dropdown-menu">
@@ -173,7 +173,7 @@
                                         if (category.SubCategories != null)
                                         {
                                             <li class="menu-item dropdown dropdown-submenu">
-                                                <a href="@Url.Action("Index", "Products", new { categoryId = category.Id, categorySlug = category.Slug })" class="dropdown-toggle" >@category.Name</a>
+                                                <a href="@Url.Action("Index", "Products", new { categoryId = category.Id, categorySlug = category.Slug })" class="dropdown-toggle">@category.Name</a>
                                                 <ul class="dropdown-menu">
                                                     @foreach (var subcategory in category.SubCategories)
                                                     {
@@ -211,82 +211,82 @@
             @RenderBody()
         </div>
     </div>
-            <!-- Footer Section Starts -->
-            <footer id="footer-area">
-                <!-- Footer Links Starts -->
-                <div class="footer-links">
-                    <!-- Container Starts -->
-                    <div class="container" style="position:relative;left:100px;">
-                        <!-- Information Links Starts -->
-                        <div class="col-md-2 col-sm-6">
-                            <h5>Информация</h5>
-                            <ul>
-                                <li><a href="http://onlinesapani.com/Pages/2">За Нас</a></li>
-                                <li><a href="http://onlinesapani.com/Home/Contact">Контакти</a></li>
-                                <li><a href="http://onlinesapani.com/products">Продукти</a></li>
-                                <li><a href="http://onlinesapani.com/Articles">Новини</a></li>
-                            </ul>
-                        </div>
-                        <!-- Information Links Ends -->
-                        <!-- Customer Service Links Starts -->
-                        <div class="col-md-4 col-sm-6">
-                            <h5>Услуги</h5>
-                            <ul>
-                                <li><a href="http://onlinesapani.com/Pages/1">Доставка</a></li>
-                                <li><a href="http://onlinesapani.com/Articles/Details/6">Ремонт на сапани</a></li>
-                                <li><a href="http://onlinesapani.com/Articles/Details/12">Монтаж на оградни мрежи и оградни пана</a></li>
-                                <li><a href="http://onlinesapani.com/Articles/Details/11">Проектиране и изграждане на индустриални метални халета</a></li>
-                            </ul>
-                        </div>
-                        <!-- Customer Service Links Ends -->
-                        <!-- Follow Us Links Starts -->
-                        <div class="col-md-2 col-sm-6" style="width:180px;">
-                            <h5>Следвайте ни</h5>
-                            <ul>
-                                <li><a href="https://www.facebook.com/onlinesapani" target="_blank">Facebook</a></li>
-                                <li><a href="https://www.youtube.com/playlist?list=PL1pkNn9yFs3U-721D7owJZ5B7V3ugcg1B" target="_blank">YouTube</a></li>
-                                <li><a href="https://plus.google.com/113882071097614763950" rel="publisher">Google+</a></li>
-                            </ul>
-                        </div>
-                        <!-- Follow Us Links Ends -->
-                        <!-- Contact Us Starts -->
-                        <div class="col-md-4 col-sm-12 last">
-                            <h5>Свържете се с нас</h5>
-                            <ul>
-                                <li>Online Сапани</li>
-                                <li>
-                                    Email: <a href="#" style="color: #b2b2b2;">manager@onlinesapani.com</a>
-                                </li>
-                            </ul>
-                            <h4 class="lead">
-                                Тел: <span> (+359 ) / 896 893 295</span>
-                            </h4>
-                        </div>
-                        <!-- Contact Us Ends -->
-                    </div>
-                    <!-- Container Ends -->
+    <!-- Footer Section Starts -->
+    <footer id="footer-area">
+        <!-- Footer Links Starts -->
+        <div class="footer-links">
+            <!-- Container Starts -->
+            <div class="container" style="position:relative;left:100px;">
+                <!-- Information Links Starts -->
+                <div class="col-md-2 col-sm-6">
+                    <h5>Информация</h5>
+                    <ul>
+                        <li><a href="http://onlinesapani.com/Pages/2">За Нас</a></li>
+                        <li><a href="http://onlinesapani.com/Home/Contact">Контакти</a></li>
+                        <li><a href="http://onlinesapani.com/products">Продукти</a></li>
+                        <li><a href="http://onlinesapani.com/Articles">Новини</a></li>
+                    </ul>
                 </div>
-                <!-- Footer Links Ends -->
-                <!-- Copyright Area Starts -->
-                <div class="copyright">
-                    <!-- Container Starts -->
-                    <div class="container">
-                        <!-- Starts -->
-                        <p class="pull-left">
-                            &nbsp; @DateTime.Now.Year Online Сапани. Всички права запазени. Разработено от <a href="https://www.facebook.com/nzhul">nzhul</a>
-                        </p>
-                        <!-- Ends -->
-                    </div>
-                    <!-- Container Ends -->
+                <!-- Information Links Ends -->
+                <!-- Customer Service Links Starts -->
+                <div class="col-md-4 col-sm-6">
+                    <h5>Услуги</h5>
+                    <ul>
+                        <li><a href="http://onlinesapani.com/Pages/1">Доставка</a></li>
+                        <li><a href="http://onlinesapani.com/Articles/Details/6">Ремонт на сапани</a></li>
+                        <li><a href="http://onlinesapani.com/Articles/Details/12">Монтаж на оградни мрежи и оградни пана</a></li>
+                        <li><a href="http://onlinesapani.com/Articles/Details/11">Проектиране и изграждане на индустриални метални халета</a></li>
+                    </ul>
                 </div>
-                <!-- Copyright Area Ends -->
-            </footer>
-            <!-- Footer Section Ends -->
-            <!-- JavaScript Files -->
+                <!-- Customer Service Links Ends -->
+                <!-- Follow Us Links Starts -->
+                <div class="col-md-2 col-sm-6" style="width:180px;">
+                    <h5>Следвайте ни</h5>
+                    <ul>
+                        <li><a href="https://www.facebook.com/onlinesapani" target="_blank">Facebook</a></li>
+                        <li><a href="https://www.youtube.com/playlist?list=PL1pkNn9yFs3U-721D7owJZ5B7V3ugcg1B" target="_blank">YouTube</a></li>
+                        <li><a href="https://plus.google.com/113882071097614763950" rel="publisher">Google+</a></li>
+                    </ul>
+                </div>
+                <!-- Follow Us Links Ends -->
+                <!-- Contact Us Starts -->
+                <div class="col-md-4 col-sm-12 last">
+                    <h5>Свържете се с нас</h5>
+                    <ul>
+                        <li>Online Сапани</li>
+                        <li>
+                            Email: <a href="#" style="color: #b2b2b2;">manager@onlinesapani.com</a>
+                        </li>
+                    </ul>
+                    <h4 class="lead">
+                        Тел: <span> (+359 ) / 896 893 295</span>
+                    </h4>
+                </div>
+                <!-- Contact Us Ends -->
+            </div>
+            <!-- Container Ends -->
+        </div>
+        <!-- Footer Links Ends -->
+        <!-- Copyright Area Starts -->
+        <div class="copyright">
+            <!-- Container Starts -->
+            <div class="container">
+                <!-- Starts -->
+                <p class="pull-left">
+                    &nbsp; @DateTime.Now.Year Online Сапани. Всички права запазени. Разработено от <a href="https://www.facebook.com/nzhul">nzhul</a>
+                </p>
+                <!-- Ends -->
+            </div>
+            <!-- Container Ends -->
+        </div>
+        <!-- Copyright Area Ends -->
+    </footer>
+    <!-- Footer Section Ends -->
+    <!-- JavaScript Files -->
 
 
-            @Scripts.Render("~/bundles/spice-shopee")
-            @RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/spice-shopee")
+    @RenderSection("scripts", required: false)
     <script>
         $(function () { $("[data-toggle='tooltip']").tooltip(); });
     </script>
@@ -305,16 +305,40 @@
     });
     </script>
     <script>
-    (function (i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date(); a = s.createElement(o),
-        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-    ga('create', 'UA-59506982-1', 'auto');
-    ga('send', 'pageview');
+        ga('create', 'UA-59506982-1', 'auto');
+        ga('send', 'pageview');
 
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+    <script>
+        window.addEventListener("load", function () {
+            window.cookieconsent.initialise({
+                "palette": {
+                    "popup": {
+                        "background": "#191b1d"
+                    },
+                    "button": {
+                        "background": "#ffb400"
+                    }
+                },
+                "position": "bottom-right",
+                "content": {
+                    "message": "Този сайт използва бисквитки за да Ви предостави пълноценно използване на функционалността си.",
+                    "dismiss": "Съгласен!",
+                    "link": "Научете повече",
+                    "href": "http://onlinesapani.com/Pages/3"
+                }
+            })
+        });
     </script>
 </body>
 </html>
